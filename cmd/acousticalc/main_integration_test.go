@@ -18,9 +18,13 @@ func getExecutablePath() (string, error) {
 	}
 
 	// Build the path to the executable
-	// Assuming the executable is in the project root
-	dir := filepath.Dir(filepath.Dir(filename)) // Go up two levels from cmd/acousticalc/
-	return filepath.Join(dir, "acousticalc"), nil
+	// The executable is in the same directory as the test file
+	dir := filepath.Dir(filename)
+	executableName := "acousticalc"
+	if runtime.GOOS == "windows" {
+		executableName += ".exe"
+	}
+	return filepath.Join(dir, executableName), nil
 }
 
 // TestCLIValidExpressions tests the CLI with valid mathematical expressions
