@@ -25,5 +25,8 @@ jobs:
     - name: Build
       run: go build ./...
 
+    - name: Build CLI binary
+      run: go build -o cmd/acousticalc/acousticalc cmd/acousticalc/main.go
+
     - name: Test
       run: go test ./...
