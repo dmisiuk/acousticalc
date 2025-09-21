@@ -1,3 +1,3 @@
-module github.com/dzmitrymisiuk/acousticalc
+module github.com/dmisiuk/acousticalc
 
 go 1.25.1
