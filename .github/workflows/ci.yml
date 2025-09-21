@@ -26,7 +26,13 @@ jobs:
       run: go build ./...
 
     - name: Build CLI binary
-      run: go build -o cmd/acousticalc/acousticalc cmd/acousticalc/main.go
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          go build -o cmd/acousticalc/acousticalc.exe cmd/acousticalc/main.go
+        else
+          go build -o cmd/acousticalc/acousticalc cmd/acousticalc/main.go
+        fi
+      shell: bash
 
     - name: Test
       run: go test ./...
