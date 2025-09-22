@@ -4,10 +4,10 @@ This guide explains how to create releases with custom release notes using tag a
 
 ## Overview
 
-The solution uses GoReleaser's built-in template system to extract tag annotation messages:
+The solution uses GoReleaser's built-in template system with GitHub Actions automation:
 
 1. **GoReleaser Configuration**: The `.goreleaser.yml` file uses `release.header: "{{ .TagBody }}"` to extract tag annotation content and `changelog.disable: true` to prevent automatic changelog generation.
-2. **Release Script**: The `release-with-tag-annotation.sh` script simplifies the release process with auto-download capability.
+2. **GitHub Actions Workflow**: The `.github/workflows/release.yml` automatically runs GoReleaser when tags are pushed to the repository.
 
 ## Quick Start
 
@@ -28,12 +28,12 @@ The solution uses GoReleaser's built-in template system to extract tag annotatio
    - Changed API endpoint structure"
    ```
 
-2. **Run the release script**:
+2. **Push the tag to GitHub**:
    ```bash
-   ./release-with-tag-annotation.sh
+   git push origin v1.0.0
    ```
 
-That's it! GoReleaser will automatically use the tag annotation as the GitHub release notes.
+That's it! GitHub Actions will automatically run GoReleaser and create a release using the tag annotation as the release notes.
 
 ## How It Works
 
@@ -55,23 +55,23 @@ changelog:
 
 The `{{ .TagBody }}` template variable extracts the full content of the tag annotation message.
 
-### Release Script Features
+### GitHub Actions Workflow
 
-The `release-with-tag-annotation.sh` script:
+The `.github/workflows/release.yml` workflow:
 
-- **Auto-detects current tag**: Finds the tag pointing to the current commit
-- **Validates tag annotation**: Warns if no annotation message exists
-- **Auto-downloads GoReleaser**: Downloads GoReleaser if not installed
-- **Displays preview**: Shows the tag annotation content before release
-- **Error handling**: Provides clear error messages and validation
+- **Triggers on tag push**: Automatically runs when tags matching `v*` are pushed
+- **Sets up Go environment**: Configures Go 1.21 for building
+- **Runs GoReleaser**: Uses the official GoReleaser action with our configuration
+- **Creates GitHub release**: Automatically publishes release with tag annotation content
+- **Uploads artifacts**: Builds and uploads binaries for all platforms
 
 ## Benefits
 
 - **Rich Release Notes**: Use Markdown formatting, emojis, and detailed descriptions
-- **Consistent Process**: Same workflow for all releases
+- **Automated Process**: No manual intervention needed - just push tags
 - **Version Control**: Release notes are stored in Git history with the tag
 - **No Duplication**: Avoid maintaining separate changelog files
-- **Simplified Script**: No temporary file handling needed
+- **CI/CD Integration**: Fully automated via GitHub Actions
 - **Built-in Support**: Uses GoReleaser's native template system
 
 ## Examples
@@ -81,7 +81,7 @@ The `release-with-tag-annotation.sh` script:
 git tag -a v1.0.1 -m "Bug fix release
 
 Fixed critical issue with calculation accuracy."
-./release-with-tag-annotation.sh
+git push origin v1.0.1
 ```
 
 ### Feature Release
@@ -102,7 +102,7 @@ git tag -a v1.1.0 -m "🎉 New Feature Release
 📚 Added tutorial videos
 
 Thanks to all contributors! 🙏"
-./release-with-tag-annotation.sh
+git push origin v1.1.0
 ```
 
 ### Breaking Changes Release
@@ -127,19 +127,16 @@ See MIGRATION.md for upgrade instructions.
 - Resolved performance bottlenecks
 
 This release represents a major milestone! 🎯"
-./release-with-tag-annotation.sh
+git push origin v2.0.0
 ```
 
 ## Troubleshooting
 
-### No Tag Found Error
-```
-Error: No tag found on current commit
-```
-**Solution**: Create an annotated tag first:
-```bash
-git tag -a v1.0.0 -m 'Your release notes here'
-```
+### GitHub Actions Workflow Not Triggering
+If the release workflow doesn't run when you push a tag:
+1. Ensure your tag follows the `v*` pattern (e.g., `v1.0.0`, `v2.1.3`)
+2. Check that the tag was pushed to the repository: `git push origin v1.0.0`
+3. Verify the workflow file exists at `.github/workflows/release.yml`
 
 ### Empty Release Notes
 If your GitHub release has empty notes, ensure you're using an annotated tag (not a lightweight tag):
@@ -151,18 +148,12 @@ git tag v1.0.0
 git tag -a v1.0.0 -m 'Release notes here'
 ```
 
-### GoReleaser Not Found
-The script automatically downloads GoReleaser if not installed. If you prefer to install it manually:
-```bash
-# Using Go
-go install github.com/goreleaser/goreleaser@latest
-
-# Using Homebrew (macOS)
-brew install goreleaser
-
-# Using curl
-curl -sfL https://goreleaser.com/static/run | bash
-```
+### Workflow Fails to Build
+Check the GitHub Actions logs for build errors:
+1. Go to your repository on GitHub
+2. Click the "Actions" tab
+3. Find the failed workflow run
+4. Check the logs for specific error messages
 
 ## Advanced Usage
 
@@ -201,8 +192,8 @@ This implementation resolves GoReleaser issue #7 by:
 1. ✅ **Using tag annotation messages** instead of auto-generated changelogs
 2. ✅ **Disabling automatic changelog generation** via `changelog.disable: true`
 3. ✅ **Leveraging GoReleaser's template system** with `{{ .TagBody }}`
-4. ✅ **Providing a simple release script** with auto-download capability
+4. ✅ **Automating releases via GitHub Actions** - no manual intervention needed
 5. ✅ **Supporting rich Markdown formatting** in release notes
 6. ✅ **Maintaining version-controlled release notes** in Git history
 
-The solution is production-ready and provides a streamlined workflow for creating releases with custom, meaningful release notes.
+The solution is production-ready and provides a fully automated CI/CD workflow for creating releases with custom, meaningful release notes. Simply push an annotated tag and GitHub Actions handles the rest!
