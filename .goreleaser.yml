@@ -48,6 +48,8 @@ release:
     Tag: {{.Tag}}
     Version: {{.Version}}
     TagContents: {{.TagContents}}
+    TagBody: {{.TagBody}}
+    TagSubject: {{.TagSubject}}
 
 changelog:
   # Disable automatic changelog generation to use tag annotation messages instead
