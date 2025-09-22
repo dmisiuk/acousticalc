@@ -14,8 +14,12 @@ fi
 
 echo "Creating release for tag: $TAG"
 
-# Extract tag annotation message
-git tag -l --format='%(contents)' "$TAG" > /tmp/release-notes.md
+# Extract tag annotation message and add header
+echo "🎉 **AcoustiCalc ${TAG#v} Release!**" > /tmp/release-notes.md
+echo "" >> /tmp/release-notes.md
+echo "This release was created automatically from the tag annotation message." >> /tmp/release-notes.md
+echo "" >> /tmp/release-notes.md
+git tag -l --format='%(contents)' "$TAG" >> /tmp/release-notes.md
 
 echo "Tag annotation content:"
 echo "======================"

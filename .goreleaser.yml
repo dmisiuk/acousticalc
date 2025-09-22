@@ -45,10 +45,6 @@ archives:
 release:
   name_template: "AcoustiCalc {{.Version}}"
   draft: true
-  header: |
-    🎉 **AcoustiCalc {{.Version}} Release!**
-    
-    This release was created automatically from the tag annotation message.
 
 changelog:
   disable: true
