@@ -48,7 +48,7 @@ release:
   draft: true
   # Use tag annotation as release notes
   header: |
-    {{ .TagMessage }}
+    {{ .TagBody }}
 
 changelog:
   # Disable automatic changelog generation to use tag annotation messages instead
