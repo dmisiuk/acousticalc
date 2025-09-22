@@ -40,7 +40,14 @@ echo "======================"
 
 # Run GoReleaser with the tag annotation as release notes
 echo "Running GoReleaser..."
-goreleaser release --clean --release-notes "$RELEASE_NOTES_FILE"
+
+# Check if goreleaser is available, if not download it
+if ! command -v goreleaser &> /dev/null; then
+    echo "GoReleaser not found, downloading..."
+    curl -sfL https://goreleaser.com/static/run | bash -s -- release --clean --release-notes "$RELEASE_NOTES_FILE"
+else
+    goreleaser release --clean --release-notes "$RELEASE_NOTES_FILE"
+fi
 
 # Clean up
 rm -f "$RELEASE_NOTES_FILE"
