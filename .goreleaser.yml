@@ -44,7 +44,9 @@ archives:
 
 release:
   name_template: "AcoustiCalc {{.Version}}"
-  draft: true
+  # Remove draft mode for production use
+  # draft: true
 
 changelog:
+  # Disable automatic changelog generation to use tag annotation messages instead
   disable: true
