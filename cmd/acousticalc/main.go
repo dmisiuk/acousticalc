@@ -31,6 +31,24 @@ func runCLI() {
 		os.Exit(1)
 	}
 
+	// Check for help flags
+	arg := os.Args[1]
+	if arg == "--help" || arg == "-h" || arg == "help" {
+		fmt.Println("AcoustiCalc - A terminal-based calculator")
+		fmt.Println()
+		fmt.Println("Usage:")
+		fmt.Println("  acousticalc <expression>    Evaluate expression in CLI mode")
+		fmt.Println("  acousticalc                 Start interactive TUI mode")
+		fmt.Println()
+		fmt.Println("Examples:")
+		fmt.Println("  acousticalc \"2 + 3 * 4\"")
+		fmt.Println("  acousticalc \"(10 + 5) / 3\"")
+		fmt.Println()
+		fmt.Println("Supported operations: +, -, *, /, (, )")
+		fmt.Println("TUI mode supports mouse clicks and keyboard navigation")
+		return
+	}
+
 	// Join all arguments to handle expressions with spaces
 	expression := strings.Join(os.Args[1:], " ")
 
