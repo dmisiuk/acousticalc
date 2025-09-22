@@ -50,6 +50,8 @@ release:
     This release was created automatically from the tag annotation message.
   footer: |
     🤖 Generated with [Claude Code](https://claude.ai/code)
+  release_notes:
+    mode: keep-existing
     
 
 changelog:
@@ -59,3 +61,4 @@ changelog:
     exclude:
       - "^docs:"
       - "^test:"
+  disable: true
