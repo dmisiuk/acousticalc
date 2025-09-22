@@ -1,0 +1,33 @@
+test_design:
+  scenarios_total: 28
+  by_level:
+    unit: 15
+    integration: 10
+    e2e: 3
+  by_priority:
+    p0: 9
+    p1: 12
+    p2: 5
+    p3: 2
+  coverage_gaps: []
+  risk_mitigation:
+    critical_risks_covered: 1
+    high_risks_covered: 3
+    medium_risks_covered: 5
+    low_risks_covered: 3
+  acceptance_criteria_coverage:
+    AC1: 6
+    AC2: 5
+    AC3: 6
+    AC4: 6
+    AC5: 5
+  performance_requirements:
+    button_click_response_ms: 100
+    keyboard_navigation_response_ms: 50
+    calculation_display_ms: 200
+    layout_redraw_ms: 300
+  quality_gates:
+    p0_pass_rate_required: 100
+    integration_coverage_target: 80
+    overall_coverage_target: 85
+    p1_pass_rate_target: 95
