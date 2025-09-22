@@ -51,8 +51,4 @@ release:
     This release was created automatically from the tag annotation message.
 
 changelog:
-  sort: asc
-  filters:
-    exclude:
-      - "^docs:"
-      - "^test:"
+  disable: true
