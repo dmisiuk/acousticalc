@@ -46,7 +46,34 @@ release:
   name_template: "AcoustiCalc {{.Version}}"
   header: |
     {{.TagContents}}
+  footer: |
+    ## 📊 Release Statistics
+    - **Release Date**: {{.Date}}
+    - **Commit**: {{.ShortCommit}}
+    - **Tag**: {{.Tag}}
+    
+    ## 🔗 Links
+    - [Full Changelog](https://github.com/dmisiuk/acousticalc/compare/{{.PreviousTag}}...{{.Tag}})
+    - [All Releases](https://github.com/dmisiuk/acousticalc/releases)
 
 changelog:
-  # Disable automatic changelog generation to use tag annotation messages instead
-  disable: true
+  # Generate changelog from commits since last tag
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^ci:'
+      - '^chore:'
+      - Merge pull request
+      - Merge branch
+  groups:
+    - title: Features
+      regexp: "^.*feat[(\\w)]*:+.*$"
+      order: 0
+    - title: 'Bug fixes'
+      regexp: "^.*fix[(\\w)]*:+.*$"
+      order: 1
+    - title: Others
+      order: 999
