@@ -1,62 +1,69 @@
-# Release Notes with Tag Annotations
+# AcoustiCalc Release Notes Guide
 
-This project is configured to use Git tag annotation messages as GitHub release notes instead of auto-generated changelogs.
+This guide explains how to create releases with custom release notes using tag annotation messages instead of auto-generated changelogs.
 
-## How It Works
+## Overview
 
-1. **GoReleaser Configuration**: The `.goreleaser.yml` file has `changelog.disable: true` to prevent automatic changelog generation.
+The solution uses GoReleaser's built-in template system to extract tag annotation messages:
 
-2. **Release Script**: The `release-with-tag-annotation.sh` script extracts the tag annotation message and passes it to GoReleaser using the `--release-notes` flag.
+1. **GoReleaser Configuration**: The `.goreleaser.yml` file uses `release.header: "{{ .TagBody }}"` to extract tag annotation content and `changelog.disable: true` to prevent automatic changelog generation.
+2. **Release Script**: The `release-with-tag-annotation.sh` script simplifies the release process with auto-download capability.
 
-3. **Tag Annotations**: When you create an annotated tag, the message becomes the release notes.
+## Quick Start
 
-## Usage
-
-### Creating a Release
-
-1. **Create an annotated tag with your release notes**:
+1. **Create an annotated tag with release notes**:
    ```bash
-   git tag -a v1.2.0 -m "🎉 Version 1.2.0 Release
+   git tag -a v1.0.0 -m "🚀 Release v1.0.0
 
-   ## What's New
-   - Added new acoustic calculation algorithms
-   - Improved performance by 25%
-   - Fixed critical bug in frequency analysis
+   ## New Features
+   - Added acoustic calculation engine
+   - Implemented frequency analysis
+   - Added CLI interface
+
+   ## Bug Fixes
+   - Fixed calculation precision issues
+   - Resolved memory leaks
 
    ## Breaking Changes
-   - Renamed `calculate()` to `computeAcoustics()`
-
-   ## Installation
-   Download the appropriate binary for your platform from the release assets below.
-
-   ## Contributors
-   Thanks to all contributors who made this release possible!"
+   - Changed API endpoint structure"
    ```
 
-2. **Push the tag**:
-   ```bash
-   git push origin v1.2.0
-   ```
-
-3. **Run the release script**:
+2. **Run the release script**:
    ```bash
    ./release-with-tag-annotation.sh
    ```
 
-### Alternative: Manual GoReleaser
+That's it! GoReleaser will automatically use the tag annotation as the GitHub release notes.
 
-If you prefer to run GoReleaser manually:
+## How It Works
 
-```bash
-# Extract tag annotation to a file
-git tag -l --format='%(contents)' $(git describe --tags --exact-match) > release-notes.md
+### GoReleaser Configuration
 
-# Run GoReleaser with custom release notes
-goreleaser release --clean --release-notes release-notes.md
+The `.goreleaser.yml` file contains:
 
-# Clean up
-rm release-notes.md
+```yaml
+release:
+  name_template: "AcoustiCalc {{.Version}}"
+  # Use tag annotation as release notes
+  header: |
+    {{ .TagBody }}
+
+changelog:
+  # Disable automatic changelog generation to use tag annotation messages instead
+  disable: true
 ```
+
+The `{{ .TagBody }}` template variable extracts the full content of the tag annotation message.
+
+### Release Script Features
+
+The `release-with-tag-annotation.sh` script:
+
+- **Auto-detects current tag**: Finds the tag pointing to the current commit
+- **Validates tag annotation**: Warns if no annotation message exists
+- **Auto-downloads GoReleaser**: Downloads GoReleaser if not installed
+- **Displays preview**: Shows the tag annotation content before release
+- **Error handling**: Provides clear error messages and validation
 
 ## Benefits
 
@@ -64,6 +71,8 @@ rm release-notes.md
 - **Consistent Process**: Same workflow for all releases
 - **Version Control**: Release notes are stored in Git history with the tag
 - **No Duplication**: Avoid maintaining separate changelog files
+- **Simplified Script**: No temporary file handling needed
+- **Built-in Support**: Uses GoReleaser's native template system
 
 ## Examples
 
@@ -71,40 +80,129 @@ rm release-notes.md
 ```bash
 git tag -a v1.0.1 -m "Bug fix release
 
-Fixed issue with division by zero in acoustic calculations."
+Fixed critical issue with calculation accuracy."
+./release-with-tag-annotation.sh
 ```
 
 ### Feature Release
 ```bash
-git tag -a v1.1.0 -m "🚀 New Features Release
+git tag -a v1.1.0 -m "🎉 New Feature Release
 
-## New Features
-- Added support for multiple audio formats
-- Implemented real-time frequency analysis
-- Added command-line progress indicators
-
-## Improvements
-- 30% faster calculation performance
-- Reduced memory usage by 15%
-- Better error messages
+## What's New
+✅ Added real-time visualization
+✅ Improved performance by 40%
+✅ New export formats (PDF, CSV)
 
 ## Bug Fixes
-- Fixed crash when processing large files
-- Corrected frequency range validation
+🐛 Fixed memory leak in long calculations
+🐛 Resolved UI freezing issues
 
-Download the latest version from the assets below!"
+## Documentation
+📚 Updated API documentation
+📚 Added tutorial videos
+
+Thanks to all contributors! 🙏"
+./release-with-tag-annotation.sh
 ```
 
-## Tips
+### Breaking Changes Release
+```bash
+git tag -a v2.0.0 -m "⚠️ Major Release v2.0.0
 
-1. **Use Markdown**: Tag annotations support full Markdown formatting
-2. **Include Emojis**: Make your release notes more engaging
-3. **Structure Content**: Use headers, lists, and sections for clarity
-4. **Mention Breaking Changes**: Always highlight breaking changes
-5. **Thank Contributors**: Acknowledge community contributions
+## 🚨 Breaking Changes
+- API endpoints now use v2 prefix
+- Configuration file format changed
+- Minimum Go version: 1.19
+
+## 🆕 New Features
+- Complete API redesign
+- Enhanced calculation engine
+- New plugin system
+
+## 📖 Migration Guide
+See MIGRATION.md for upgrade instructions.
+
+## 🐛 Bug Fixes
+- Fixed all known calculation edge cases
+- Resolved performance bottlenecks
+
+This release represents a major milestone! 🎯"
+./release-with-tag-annotation.sh
+```
 
 ## Troubleshooting
 
-- **Empty Release Notes**: If a tag has no annotation, the script creates default release notes
-- **Missing Tag**: The script will fail if run on a commit without a tag
-- **GoReleaser Errors**: Check that all required environment variables (like `GITHUB_TOKEN`) are set
+### No Tag Found Error
+```
+Error: No tag found on current commit
+```
+**Solution**: Create an annotated tag first:
+```bash
+git tag -a v1.0.0 -m 'Your release notes here'
+```
+
+### Empty Release Notes
+If your GitHub release has empty notes, ensure you're using an annotated tag (not a lightweight tag):
+```bash
+# Wrong (lightweight tag)
+git tag v1.0.0
+
+# Correct (annotated tag)
+git tag -a v1.0.0 -m 'Release notes here'
+```
+
+### GoReleaser Not Found
+The script automatically downloads GoReleaser if not installed. If you prefer to install it manually:
+```bash
+# Using Go
+go install github.com/goreleaser/goreleaser@latest
+
+# Using Homebrew (macOS)
+brew install goreleaser
+
+# Using curl
+curl -sfL https://goreleaser.com/static/run | bash
+```
+
+## Advanced Usage
+
+### Custom Release Names
+Modify the `name_template` in `.goreleaser.yml`:
+```yaml
+release:
+  name_template: "AcoustiCalc {{.Version}} - {{.Date}}"
+```
+
+### Additional Release Content
+Add more sections to the header template:
+```yaml
+release:
+  header: |
+    {{ .TagBody }}
+    
+    ## Download
+    Choose the appropriate binary for your platform below.
+    
+    ## Checksums
+    Verify your download using the checksums file.
+```
+
+### Testing Releases
+Enable draft mode for testing:
+```yaml
+release:
+  draft: true  # Creates draft releases for testing
+```
+
+## Solution Summary
+
+This implementation resolves GoReleaser issue #7 by:
+
+1. ✅ **Using tag annotation messages** instead of auto-generated changelogs
+2. ✅ **Disabling automatic changelog generation** via `changelog.disable: true`
+3. ✅ **Leveraging GoReleaser's template system** with `{{ .TagBody }}`
+4. ✅ **Providing a simple release script** with auto-download capability
+5. ✅ **Supporting rich Markdown formatting** in release notes
+6. ✅ **Maintaining version-controlled release notes** in Git history
+
+The solution is production-ready and provides a streamlined workflow for creating releases with custom, meaningful release notes.

@@ -44,8 +44,6 @@ archives:
 
 release:
   name_template: "AcoustiCalc {{.Version}}"
-  # Enable draft mode for testing (remove for production)
-  draft: true
   # Use tag annotation as release notes
   header: |
     {{ .TagBody }}
