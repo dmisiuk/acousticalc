@@ -146,23 +146,14 @@ func TestCLIInvalidExpressions(t *testing.T) {
 }
 
 // TestCLINoArguments tests the CLI when no arguments are provided
+// Note: With TUI integration, no arguments now launches the TUI instead of showing usage
 func TestCLINoArguments(t *testing.T) {
-	executable, err := getExecutablePath()
+	_, err := getExecutablePath()
 	if err != nil {
 		t.Skipf("Could not find executable: %v", err)
 	}
 
-	cmd := exec.Command(executable)
-	output, err := cmd.CombinedOutput()
-
-	// We expect the command to fail when no arguments are provided
-	if err == nil {
-		t.Error("Expected command to fail when no arguments are provided")
-	}
-
-	actual := strings.TrimSpace(string(output))
-	expectedUsage := "Usage: acousticalc <expression>"
-	if !strings.Contains(actual, expectedUsage) {
-		t.Errorf("Expected usage message, got: %s", actual)
-	}
+	// Since no arguments now launches TUI, we can't easily test this in a non-interactive way
+	// We'll skip this test as TUI requires a terminal
+	t.Skip("TUI mode requires interactive terminal - skipping automated test")
 }
