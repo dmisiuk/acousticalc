@@ -46,7 +46,7 @@ release:
   name_template: "AcoustiCalc {{.Version}}"
   # Use tag annotation as release notes
   header: |
-    {{ .TagBody }}
+    {{ .TagContents }}
 
 changelog:
   # Disable automatic changelog generation to use tag annotation messages instead
