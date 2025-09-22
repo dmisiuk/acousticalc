@@ -44,17 +44,17 @@ archives:
 
 release:
   github:
-    name_template: "AcoustiCalc {{.Version}}"
+    name: "AcoustiCalc {{.Version}}"
   header: |
     🎉 **AcoustiCalc {{.Version}} Release!**
     
     This release was created automatically from the tag annotation message.
+  footer: |
+    🤖 Generated with [Claude Code](https://claude.ai/code)
     
-    ---
-    
-    *Release notes below are from the tag annotation message*
 
 changelog:
+  use: git
   sort: asc
   filters:
     exclude:
