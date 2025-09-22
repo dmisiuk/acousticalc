@@ -18,38 +18,29 @@ fi
 
 echo "Creating release for tag: $TAG"
 
-# Create temporary file for release notes
-RELEASE_NOTES_FILE=$(mktemp)
-
-# Extract tag annotation message
-git tag -l --format='%(contents)' "$TAG" > "$RELEASE_NOTES_FILE"
+# Extract tag annotation message for display
+TAG_MESSAGE=$(git tag -l --format='%(contents)' "$TAG")
 
 # Check if tag has annotation content
-if [ ! -s "$RELEASE_NOTES_FILE" ]; then
+if [ -z "$TAG_MESSAGE" ]; then
     echo "Warning: Tag $TAG has no annotation message"
-    echo "Creating default release notes..."
-    echo "Release $TAG" > "$RELEASE_NOTES_FILE"
-    echo "" >> "$RELEASE_NOTES_FILE"
-    echo "This release was created automatically." >> "$RELEASE_NOTES_FILE"
+    echo "GoReleaser will create a default release."
+else
+    echo "Tag annotation content:"
+    echo "======================"
+    echo "$TAG_MESSAGE"
+    echo "======================"
 fi
 
-echo "Release notes content:"
-echo "======================"
-cat "$RELEASE_NOTES_FILE"
-echo "======================"
-
-# Run GoReleaser with the tag annotation as release notes
+# Run GoReleaser (it will use the tag annotation via the .goreleaser.yml header configuration)
 echo "Running GoReleaser..."
 
 # Check if goreleaser is available, if not download it
 if ! command -v goreleaser &> /dev/null; then
     echo "GoReleaser not found, downloading..."
-    curl -sfL https://goreleaser.com/static/run | bash -s -- release --clean --release-notes "$RELEASE_NOTES_FILE"
+    curl -sfL https://goreleaser.com/static/run | bash -s -- release --clean
 else
-    goreleaser release --clean --release-notes "$RELEASE_NOTES_FILE"
+    goreleaser release --clean
 fi
-
-# Clean up
-rm -f "$RELEASE_NOTES_FILE"
 
 echo "Release completed successfully!"
