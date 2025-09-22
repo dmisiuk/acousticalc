@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AcoustiCalc - Revolutionary Terminal Calculator</title>
+    <meta name="description" content="A revolutionary terminal calculator that bridges the gap between traditional command-line tools and modern graphical interfaces.">
+    <meta name="keywords" content="calculator, terminal, cli, go, mouse support, audio feedback, cross-platform">
+    <meta name="author" content="Dzmitry Misiuk">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="AcoustiCalc - Revolutionary Terminal Calculator">
+    <meta property="og:description" content="A revolutionary terminal calculator that bridges the gap between traditional command-line tools and modern graphical interfaces.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dmisiuk.github.io/acousticalc/">
+    <meta property="og:image" content="https://dmisiuk.github.io/acousticalc/assets/logo.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AcoustiCalc - Revolutionary Terminal Calculator">
+    <meta name="twitter:description" content="A revolutionary terminal calculator that bridges the gap between traditional command-line tools and modern graphical interfaces.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #64b5f6;
+            --primary-dark: #42a5f5;
+            --aqua-cyan: #80cbc4;
+            --dark-navy: #0d1117;
+            --light-bg: #161b22;
+            --text-dark: #e1e4e8;
+            --text-light: #8b949e;
+            --border-color: #30363d;
+            --success: #81c995;
+            --terminal-bg: #0d1117;
+            --terminal-border: #30363d;
+            --terminal-blue: #64b5f6;
+            --terminal-teal: #80cbc4;
+            --terminal-purple: #ba68c8;
+            --terminal-amber: #ffb74d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--terminal-bg);
+            font-weight: 400;
+        }
+
+        /* Header Section */
+        .header {
+            background: var(--terminal-bg);
+            color: var(--terminal-blue);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--terminal-border);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header .subtitle {
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.95;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .btn-header {
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary-header {
+            background: var(--aqua-cyan);
+            color: var(--dark-navy);
+        }
+
+        .btn-primary-header:hover {
+            background: #00B8BB;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-outline-header {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-outline-header:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .tech-badges {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .brand-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.15));
+            transition: transform 0.3s ease;
+        }
+
+        .brand-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: var(--light-bg);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--light-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--terminal-blue), var(--terminal-teal));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            color: var(--dark-navy);
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .coming-soon-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--terminal-purple), var(--terminal-blue));
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.4rem 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(186, 104, 200, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 2px 8px rgba(186, 104, 200, 0.3);
+            }
+            50% {
+                box-shadow: 0 2px 12px rgba(186, 104, 200, 0.5);
+            }
+            100% {
+                box-shadow: 0 2px 8px rgba(186, 104, 200, 0.3);
+            }
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--terminal-bg);
+            color: var(--text-dark);
+            padding: 60px 0;
+            border-top: 1px solid var(--terminal-border);
+            border-bottom: 1px solid var(--terminal-border);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--terminal-blue);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--light-bg);
+            color: var(--text-light);
+            padding: 40px 0 20px;
+            text-align: center;
+            border-top: 1px solid var(--terminal-border);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .footer-text {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.875rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 60px 0;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header .subtitle {
+                font-size: 1.125rem;
+                padding: 0 1rem;
+            }
+            
+            .btn-header {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+            
+            .brand-logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .features {
+                padding: 60px 0;
+            }
+            
+            .features h2 {
+                font-size: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .social-links {
+                gap: 1rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 40px 0;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header .subtitle {
+                font-size: 1rem;
+            }
+            
+            .brand-logo {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 1.5rem;
+            }
+            
+            .tech-badges {
+                gap: 0.5rem;
+            }
+            
+            .tech-badge {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content animate-fade-in">
+                <div class="brand-logo">
+                    <img src="assets/logo.png" alt="AcoustiCalc Logo">
+                </div>
+                
+                <h1>AcoustiCalc</h1>
+                <p class="subtitle">A revolutionary terminal calculator that bridges the gap between traditional command-line tools and modern graphical interfaces.</p>
+                
+                <div class="header-buttons">
+                    <a href="https://github.com/dmisiuk/acousticalc/releases" class="btn-header btn-primary-header" target="_blank">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </a>
+                    <a href="https://github.com/dmisiuk/acousticalc" class="btn-header btn-outline-header">
+                        <i class="fab fa-github"></i>
+                        View on GitHub
+                    </a>
+                </div>
+                
+                <div class="tech-badges">
+                    <span class="tech-badge">
+                        <i class="fab fa-golang me-1"></i>
+                        GO 1.21+
+                    </span>
+                    <span class="tech-badge">
+                        <i class="fas fa-balance-scale me-1"></i>
+                        MIT License
+                    </span>
+                    <span class="tech-badge">
+                        <i class="fas fa-tag me-1"></i>
+                        v0.1.1
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container features-container">
+            <h2>Core Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Basic Arithmetic</h3>
+                    <p>Addition, subtraction, multiplication, division with proper operator precedence</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-square-root-alt"></i>
+                    </div>
+                    <h3>Advanced Operations</h3>
+                    <p>Exponents, roots, percentages, and parentheses support for complex expressions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>High Performance</h3>
+                    <p>&lt;100ms response time and &lt;50MB memory footprint</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Cross-Platform</h3>
+                    <p>Single binary works on Windows, macOS, and Linux with no dependencies</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3>CLI Interface</h3>
+                    <p>Simple command-line usage for quick calculations in terminal environments</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3>TUI Interface</h3>
+                    <p>Terminal-based user interface with mouse support</p>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                    <h3>Audio Feedback</h3>
+                    <p>Sound effects for operations and events</p>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3>History Functions</h3>
+                    <p>Calculation history and memory functions</p>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container stats-container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">GitHub Stars</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Platforms</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">&lt;100ms</div>
+                    <div class="stat-label">Response Time</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Dependencies</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="social-links">
+                <a href="https://github.com/dmisiuk/acousticalc" target="_blank" title="GitHub Repository">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://github.com/dmisiuk/acousticalc/issues" target="_blank" title="Report Issues">
+                    <i class="fas fa-bug"></i>
+                </a>
+                <a href="https://github.com/dmisiuk/acousticalc/discussions" target="_blank" title="Join Discussions">
+                    <i class="fas fa-comments"></i>
+                </a>
+            </div>
+            
+            <p class="footer-text mb-0">
+                &copy; 2025 AcoustiCalc. Built with <i class="fas fa-heart text-danger"></i> using Go.
+            </p>
+            
+            <div class="footer-links">
+                <a href="https://github.com/dmisiuk/acousticalc/blob/main/LICENSE" target="_blank">MIT License</a>
+                <span>•</span>
+                <a href="https://github.com/dmisiuk/acousticalc" target="_blank">GitHub Repository</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Animate stats on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const finalValue = target.getAttribute('data-target');
+                    
+                    if (finalValue && !target.classList.contains('animated')) {
+                        target.classList.add('animated');
+                        animateValue(target, 0, parseInt(finalValue), 2000);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+            observer.observe(el);
+        });
+
+        function animateValue(element, start, end, duration) {
+            const range = end - start;
+            const increment = range / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= end) {
+                    current = end;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current);
+            }, 16);
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation to elements
+        const fadeElements = document.querySelectorAll('.features-grid, .stats-grid');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => {
+            fadeObserver.observe(el);
+        });
+    </script>
+</body>
+</html>
