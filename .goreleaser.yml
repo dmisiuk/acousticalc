@@ -44,6 +44,10 @@ archives:
 
 release:
   name_template: "AcoustiCalc {{.Version}}"
+  header: |
+    Tag: {{.Tag}}
+    Version: {{.Version}}
+    TagContents: {{.TagContents}}
 
 changelog:
   # Disable automatic changelog generation to use tag annotation messages instead
