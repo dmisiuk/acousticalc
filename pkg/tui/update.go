@@ -151,27 +151,42 @@ func (m Model) getButtonFromMousePos(x, y int) *Button {
 		return nil
 	}
 	
-	// Calculate button row (each button row is 3 lines: top border, content, bottom border + margin)
-	buttonRow := (y - startY) / 3
-	if buttonRow < 0 || buttonRow > 4 {
-		return nil
+	// Calculate button row based on exact y positions
+	// Buttons are at specific y positions: 8-10, 11-13, 14-16, 17-19, 20-22
+	// Each button is 3 rows tall (including borders)
+	var buttonRow int = -1
+	
+	if y >= 8 && y <= 10 {
+		buttonRow = 0
+	} else if y >= 11 && y <= 13 {
+		buttonRow = 1
+	} else if y >= 14 && y <= 16 {
+		buttonRow = 2
+	} else if y >= 17 && y <= 19 {
+		buttonRow = 3
+	} else if y >= 20 && y <= 22 {
+		buttonRow = 4
+	}
+	
+	if buttonRow == -1 {
+		return nil // Click was not on a button row
 	}
 	
 	// Calculate button column based on exact positions
 	// Container has left padding of 2, then buttons start
-	// Button positions: 2, 11, 20, 29 (each button is 8 chars wide + 1 space)
-	buttonStartX := x - 2 // Account for container left padding
+	// Button positions: 2-9, 11-18, 20-27, 29-36 (each button is 8 chars wide)
+	// There's a 1-character gap between buttons at positions 10, 19, 28
 	
 	var buttonCol int = -1
 	
-	// Check which button column was clicked
-	if buttonStartX >= 0 && buttonStartX < 8 {
+	// Check which button column was clicked (using absolute coordinates)
+	if x >= 2 && x <= 9 {
 		buttonCol = 0
-	} else if buttonStartX >= 9 && buttonStartX < 17 {
+	} else if x >= 11 && x <= 18 {
 		buttonCol = 1
-	} else if buttonStartX >= 18 && buttonStartX < 26 {
+	} else if x >= 20 && x <= 27 {
 		buttonCol = 2
-	} else if buttonStartX >= 27 && buttonStartX < 35 {
+	} else if x >= 29 && x <= 36 {
 		buttonCol = 3
 	}
 	

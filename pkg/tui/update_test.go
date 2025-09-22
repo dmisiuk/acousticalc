@@ -306,11 +306,69 @@ func TestGetButtonFromMousePos(t *testing.T) {
 		t.Error("Expected no button at coordinates (100,100)")
 	}
 
-	// Test coordinates that might be in button area
-	// Note: This is approximate since exact positioning depends on rendering
-	button = model.getButtonFromMousePos(10, 10)
-	// We can't assert much here without knowing exact layout, but it shouldn't crash
-	_ = button
+	// Test specific button coordinates based on the corrected layout
+	testCases := []struct {
+		x, y          int
+		expectedLabel string
+		description   string
+	}{
+		// Row 0: C, ±, %, ÷
+		{5, 8, "C", "Button C (row 0, col 0)"},
+		{14, 8, "±", "Button ± (row 0, col 1)"},
+		{23, 8, "%", "Button % (row 0, col 2)"},
+		{32, 8, "÷", "Button ÷ (row 0, col 3)"},
+		
+		// Row 1: 7, 8, 9, ×
+		{5, 11, "7", "Button 7 (row 1, col 0)"},
+		{14, 11, "8", "Button 8 (row 1, col 1)"},
+		{23, 11, "9", "Button 9 (row 1, col 2)"},
+		{32, 11, "×", "Button × (row 1, col 3)"},
+		
+		// Row 2: 4, 5, 6, -
+		{5, 14, "4", "Button 4 (row 2, col 0)"},
+		{14, 14, "5", "Button 5 (row 2, col 1)"},
+		{23, 14, "6", "Button 6 (row 2, col 2)"},
+		{32, 14, "-", "Button - (row 2, col 3)"},
+		
+		// Row 3: 1, 2, 3, +
+		{5, 17, "1", "Button 1 (row 3, col 0)"},
+		{14, 17, "2", "Button 2 (row 3, col 1)"},
+		{23, 17, "3", "Button 3 (row 3, col 2)"},
+		{32, 17, "+", "Button + (row 3, col 3)"},
+		
+		// Row 4: 0 (wide), ., =
+		{5, 20, "0", "Button 0 (row 4, col 0) - left side"},
+		{14, 20, "0", "Button 0 (row 4, col 0) - right side"},
+		{23, 20, ".", "Button . (row 4, col 2)"},
+		{32, 20, "=", "Button = (row 4, col 3)"},
+	}
+
+	for _, tc := range testCases {
+		button := model.getButtonFromMousePos(tc.x, tc.y)
+		if button == nil {
+			t.Errorf("%s: Expected button at (%d, %d), got nil", tc.description, tc.x, tc.y)
+			continue
+		}
+		if button.Label != tc.expectedLabel {
+			t.Errorf("%s: Expected button label '%s', got '%s'", tc.description, tc.expectedLabel, button.Label)
+		}
+	}
+
+	// Test coordinates between buttons (should return nil)
+	button = model.getButtonFromMousePos(10, 8) // Between columns 0 and 1 (gap at x=10)
+	if button != nil {
+		t.Errorf("Expected no button between columns at (10,8), got button '%s'", button.Label)
+	}
+	
+	button = model.getButtonFromMousePos(5, 7) // Above button area (y=7, buttons start at y=8)
+	if button != nil {
+		t.Errorf("Expected no button above button area at (5,7), got button '%s'", button.Label)
+	}
+	
+	button = model.getButtonFromMousePos(1, 8) // Left of button area (x=1, buttons start at x=2)
+	if button != nil {
+		t.Errorf("Expected no button left of button area at (1,8), got button '%s'", button.Label)
+	}
 }
 
 func TestBackspace(t *testing.T) {
