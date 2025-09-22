@@ -1,7 +1,7 @@
 # AcoustiCalc
 
 <div align="center">
-  <img src="https://img.icons8.com/fluency/96/calculator.png" alt="AcoustiCalc Logo" width="96">
+  <img src="assets/logo.png" alt="AcoustiCalc Logo" width="96">
   
   [![Go Report Card](https://goreportcard.com/badge/github.com/dmisiuk/acousticalc)](https://goreportcard.com/report/github.com/dmisiuk/acousticalc)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
