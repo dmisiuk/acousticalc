@@ -43,8 +43,7 @@ archives:
         format: zip
 
 release:
-  github:
-    name: "AcoustiCalc {{.Version}}"
+  name_template: "AcoustiCalc {{.Version}}"
   header: |
     🎉 **AcoustiCalc {{.Version}} Release!**
     
