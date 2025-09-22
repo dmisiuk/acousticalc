@@ -137,41 +137,57 @@ func (m Model) handleTick() (tea.Model, tea.Cmd) {
 
 // getButtonFromMousePos determines which button was clicked based on mouse coordinates
 func (m Model) getButtonFromMousePos(x, y int) *Button {
-	// This is a simplified implementation
-	// In a real implementation, you'd need to calculate exact positions
-	// based on the rendered layout and terminal coordinates
+	// Calculate exact button positions based on the rendered layout
+	// Layout structure:
+	// - Container border: 1 line at top
+	// - Title: 2 lines (title + blank line)  
+	// - Display: 3 lines (blank + display + blank)
+	// - Button grid starts at row 8 (1 + 2 + 3 + 2 for spacing)
 	
-	// Calculate approximate button positions
-	// The layout starts after title (2 lines) + display (3 lines) + padding
-	startY := 6 // Approximate start of button grid
+	startY := 8 // First button row starts at line 8
 	
-	if y < startY || y >= startY+15 { // 5 rows * 3 height each
+	// Check if click is within button grid area (5 rows * 3 lines each = 15 lines)
+	if y < startY || y >= startY+15 {
 		return nil
 	}
 	
-	// Calculate row (each button is 3 lines tall including margin)
-	row := (y - startY) / 3
-	if row < 0 || row > 4 {
+	// Calculate button row (each button row is 3 lines: top border, content, bottom border + margin)
+	buttonRow := (y - startY) / 3
+	if buttonRow < 0 || buttonRow > 4 {
 		return nil
 	}
 	
-	// Calculate column (each button is about 7 characters wide including margin)
-	// Account for container padding (2 characters from left)
-	adjustedX := x - 2
-	col := adjustedX / 7
-	if col < 0 || col > 3 {
-		return nil
+	// Calculate button column based on exact positions
+	// Container has left padding of 2, then buttons start
+	// Button positions: 2, 11, 20, 29 (each button is 8 chars wide + 1 space)
+	buttonStartX := x - 2 // Account for container left padding
+	
+	var buttonCol int = -1
+	
+	// Check which button column was clicked
+	if buttonStartX >= 0 && buttonStartX < 8 {
+		buttonCol = 0
+	} else if buttonStartX >= 9 && buttonStartX < 17 {
+		buttonCol = 1
+	} else if buttonStartX >= 18 && buttonStartX < 26 {
+		buttonCol = 2
+	} else if buttonStartX >= 27 && buttonStartX < 35 {
+		buttonCol = 3
 	}
 	
-	// Handle special case for wide "0" button
-	if row == 4 && col >= 0 && col <= 1 {
-		// Check if clicking on the "0" button area
+	if buttonCol == -1 {
+		return nil // Click was not on a button
+	}
+	
+	// Handle special case for wide "0" button in row 4
+	if buttonRow == 4 && buttonCol <= 1 {
+		// The "0" button spans columns 0-1, so return it for both
 		if button := m.getButtonAt(4, 0); button != nil && button.Label == "0" {
 			return button
 		}
 	}
 	
-	return m.getButtonAt(row, col)
+	return m.getButtonAt(buttonRow, buttonCol)
 }
 
 // backspace removes the last character from the expression
