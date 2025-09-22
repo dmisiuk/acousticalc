@@ -40,7 +40,14 @@ archives:
       - none*
     format_overrides:
       - goos: windows
-        format: zip
+        formats: [zip]
+
+release:
+  name_template: "AcoustiCalc {{.Version}}"
+  header: |
+    🎉 **AcoustiCalc {{.Version}} Release!**
+    
+    This release was created automatically from the tag annotation message.
 
 changelog:
   sort: asc
