@@ -1,9 +1,13 @@
 # AcoustiCalc
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/dmisiuk/acousticalc)](https://goreportcard.com/report/github.com/dmisiuk/acousticalc)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Release](https://img.shields.io/github/v/release/dmisiuk/acousticalc)](https://github.com/dmisiuk/acousticalc/releases)
-[![Build Status](https://github.com/dmisiuk/acousticalc/workflows/CI/badge.svg)](https://github.com/dmisiuk/acousticalc/actions)
+<div align="center">
+  <img src="https://img.icons8.com/fluency/96/calculator.png" alt="AcoustiCalc Logo" width="96">
+  
+  [![Go Report Card](https://goreportcard.com/badge/github.com/dmisiuk/acousticalc)](https://goreportcard.com/report/github.com/dmisiuk/acousticalc)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  [![Release](https://img.shields.io/github/v/release/dmisiuk/acousticalc)](https://github.com/dmisiuk/acousticalc/releases)
+  [![Build Status](https://github.com/dmisiuk/acousticalc/workflows/Go%20CI/badge.svg)](https://github.com/dmisiuk/acousticalc/actions)
+</div>
 
 A revolutionary terminal calculator that bridges the gap between traditional command-line tools and modern graphical interfaces. Built with Go's performance and designed for users who work in terminal environments.
 
