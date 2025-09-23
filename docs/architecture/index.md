@@ -30,3 +30,8 @@
   - [10. Error Handling](./10-error-handling.md)
   - [11. Monitoring and Observability](./11-monitoring-and-observability.md)
   - [12. Future Extensibility](./12-future-extensibility.md)
+
+## Developer Reference
+  - [Technology Stack](./tech-stack.md) - Core technologies and dependencies
+  - [Coding Standards](./coding-standards.md) - Development guidelines and best practices
+  - [Source Tree Structure](./source-tree.md) - Project organization and file layout

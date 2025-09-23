@@ -36,21 +36,27 @@
 - Screenshots & Demos: Visual guides for all features
 - Troubleshooting: Common issues and solutions
 
-## Feature Prioritization:
+## Feature Prioritization by Epic:
 
-### Phase 1 (MVP - Must Have)
+### Epic 1: Foundation & Core Engine (Must Have)
 - Basic arithmetic operations
 - Visual TUI with mouse support
 - Single binary distribution
 - Basic documentation
 
-### Phase 2 (v1.0 - Should Have)
+### Epic 2: Enhanced User Experience (Should Have)
 - Audio feedback system
 - History and memory functions
 - Advanced mathematical operations
 - Professional landing page
 
-### Phase 3 (Future - Nice to Have)
+### Epic 3: Distribution & Community (Should Have)
+- Multi-platform package management
+- Community engagement tools
+- Contribution guidelines
+- Documentation wiki
+
+### Future Epic Backlog (Nice to Have)
 - Plugin architecture
 - Custom themes/skins
 - Unit conversions
