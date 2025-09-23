@@ -2,11 +2,12 @@ markdownExploder: true
 qa:
   qaLocation: docs/qa
 prd:
-  prdFile: docs/prd.md
+  prdFile: docs/acousticalc-prd.md
   prdVersion: v4
   prdSharded: true
   prdShardedLocation: docs/prd
   epicFilePattern: epic-{n}*.md
+  useEpicStoryStructure: true
 architecture:
   architectureFile: docs/architecture.md
   architectureVersion: v4
