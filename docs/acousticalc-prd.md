@@ -244,6 +244,43 @@ Terminal users are forced to choose between power and usability when it comes to
    - GitHub Pages deployment
    - Screenshot/demo updates
 
+4. **Demo Infrastructure Pipeline (Epic 0)**
+   - Automated video recording of application functionality
+   - Visual input display (keystrokes, mouse clicks) in demos
+   - Before/after comparison generation for bug fixes
+   - Automatic PR demo embedding with visual proof
+   - Cross-platform demo generation and validation
+
+### Demo-First Development Requirements:
+
+**Core Demo Infrastructure (Epic 0 - Foundation):**
+- **Automated Testing with Visual Output**: Unit, integration, e2e, and UI tests generate screenshots and recordings automatically
+- **Video Recording System**: Terminal session recording with visual input overlays showing keystrokes and mouse interactions
+- **PR Demo Automation**: Every pull request automatically includes embedded demo videos and screenshots
+- **GitHub Workflow Integration**: Automated issue creation, branch management, and demo generation triggers
+- **Professional Demo Quality**: Visual input overlays, progress indicators, AC validation markers (✅/❌)
+
+**Development Process Requirements:**
+- **No Feature Development Without Demos**: Epic 0 must be completed before any new feature work (Stories 1.3+)
+- **Every Story Must Be Demoable**: All stories include automated demo generation showing functionality
+- **Bug Fixes Include Before/After**: All bug fixes must demonstrate the issue and resolution visually
+- **Cross-Platform Demo Validation**: Demos must work consistently on Windows, macOS, and Linux
+- **Zero Manual Demo Steps**: Complete automation from code change to embedded PR demos
+
+**Demo Content Standards:**
+- **Visual Input Display**: Floating overlays showing pressed keys ("j", "k", "space", "enter")
+- **Mouse Interaction Visualization**: Circle animations and click indicators
+- **Progress Tracking**: Step indicators ("Step 3/7") and AC validation markers
+- **Multiple Formats**: MP4 for GitHub embedding, GIF for README, screenshots for quick reference
+- **Performance Requirements**: <2 minutes additional CI time for demo generation
+
+**Epic 0 Success Criteria:**
+- 100% of PRs automatically include demo videos without manual intervention
+- Professional video quality with keystroke/mouse visualization
+- Complete testing pipeline: unit → integration → e2e → UI tests → demo video
+- Automated GitHub issue and branch creation for new stories
+- Documentation and templates updated for demo-first development
+
 #### Platform Matrix:
 - windows-latest (amd64)
 - macos-latest (amd64, arm64) 

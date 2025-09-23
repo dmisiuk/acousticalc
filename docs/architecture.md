@@ -14,6 +14,7 @@ AcoustiCalc follows a modular architecture with clear separation of concerns:
 - **Audio System**: Sound feedback for operations and events
 - **Configuration**: Settings management and persistence
 - **History/Storage**: Calculation history persistence
+- **Demo Infrastructure**: Automated testing, recording, and demo generation (Epic 0)
 
 The application is built as a single binary with no external dependencies, ensuring easy distribution across Windows, macOS, and Linux platforms.
 
@@ -24,6 +25,7 @@ AcoustiCalc uses a layered architecture with the following components:
 - Application Logic Layer (Calculator Engine)
 - Audio Layer (Sound Feedback)
 - Data Layer (History/Configuration)
+- Infrastructure Layer (Demo/Testing/Recording)
 
 ### 2.3 Technology Stack
 
@@ -33,6 +35,12 @@ AcoustiCalc uses a layered architecture with the following components:
 | TUI Framework | Bubble Tea | Latest | Terminal UI framework | Modern, feature-rich, active community |
 | Audio Library | Oto | Latest | Cross-platform audio | Good cross-platform support |
 | Testing | Go testing package | Bundled with Go | Unit and integration testing | Standard library, comprehensive coverage |
+| **Demo Infrastructure** | | | | |
+| Terminal Recording | asciinema/ttyrec | Latest | Terminal session recording | Cross-platform terminal recording |
+| Video Processing | ffmpeg | Latest | Video conversion and optimization | Industry standard for video processing |
+| Input Visualization | Custom Go solution | - | Keystroke/mouse overlay system | Custom implementation for demo needs |
+| GitHub Automation | GitHub Actions | Latest | CI/CD and demo automation | Native GitHub integration |
+| Visual Testing | Custom TUI testing | - | Screenshot and UI validation | Specialized for TUI applications |
 
 ## 3. Component Design
 
@@ -66,6 +74,20 @@ AcoustiCalc uses a layered architecture with the following components:
 - Provides persistence across sessions
 - Implements efficient data storage
 
+### 3.6 Demo Infrastructure (Epic 0)
+- **Testing Framework**: Enhanced unit, integration, e2e, and UI testing with visual artifacts
+- **Recording System**: Terminal session recording with visual input display (keystrokes, mouse)
+- **PR Automation**: Automatic demo generation and embedding in pull requests
+- **GitHub Integration**: Automated issue creation, branch management, and workflow triggers
+- **Visual Validation**: Screenshot comparison and UI regression testing
+
+**Key Components:**
+- `pkg/testing/visual/`: Visual testing utilities and screenshot capture
+- `pkg/recording/`: Terminal recording and video generation
+- `pkg/demo/`: Demo scenario management and execution
+- `.github/workflows/`: GitHub Actions for demo automation
+- `demos/`: Generated demo artifacts and organization
+
 ## 4. Data Models
 
 ### 4.1 Calculation
@@ -78,6 +100,12 @@ AcoustiCalc uses a layered architecture with the following components:
 - VolumeLevel: integer for volume control
 - Theme: string for UI theme selection
 - HistoryEnabled: boolean for history tracking
+
+### 4.3 Demo Infrastructure Models
+- **TestArtifact**: Metadata for generated screenshots, videos, and test evidence
+- **DemoScenario**: Structured definition of user interaction sequences for recording
+- **RecordingSession**: Session metadata including input visualization and timing data
+- **PRDemoContent**: Structured data for automatic PR demo embedding
 
 ## 5. API Design
 
@@ -92,10 +120,18 @@ AcoustiCalc is a single binary application with no external API. All functionali
 
 ## 7. Performance Requirements
 
+### 7.1 Core Application Performance
 - Startup time: < 1 second on all platforms
 - Response time: < 100ms for all operations
 - Memory footprint: < 50MB typical usage
 - CPU usage: minimal during calculations
+
+### 7.2 Demo Infrastructure Performance
+- Demo generation: < 2 minutes additional CI time
+- Video recording: Minimal impact on application performance
+- Screenshot capture: < 500ms per capture
+- GitHub workflow execution: < 5 minutes total including demos
+- Cross-platform demo consistency: 100% reproducible results
 
 ## 8. Deployment Architecture
 
