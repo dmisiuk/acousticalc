@@ -1,7 +1,8 @@
-package calculator
+package unit
 
 import (
 	"testing"
+	"github.com/dmisiuk/acousticalc/pkg/calculator"
 )
 
 // TestCoverageVerification verifies that test coverage meets the 80% requirement
@@ -44,7 +45,7 @@ func TestCoverageVerification(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			result, err := Evaluate(tc.expression)
+			result, err := calculator.Evaluate(tc.expression)
 
 			if tc.expectErr {
 				if err == nil {

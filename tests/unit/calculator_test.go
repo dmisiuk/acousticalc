@@ -1,7 +1,8 @@
-package calculator
+package unit
 
 import (
 	"testing"
+	"github.com/dmisiuk/acousticalc/pkg/calculator"
 )
 
 // Test basic arithmetic operations (AC1)
@@ -19,7 +20,7 @@ func TestBasicArithmeticOperations(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result, err := Evaluate(tt.expression)
+			result, err := calculator.Evaluate(tt.expression)
 			if err != nil {
 				t.Errorf("Expected no error, got %v", err)
 				return
@@ -46,7 +47,7 @@ func TestExpressionParsing(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result, err := Evaluate(tt.expression)
+			result, err := calculator.Evaluate(tt.expression)
 			if err != nil {
 				t.Errorf("Expected no error, got %v", err)
 				return
@@ -60,7 +61,7 @@ func TestExpressionParsing(t *testing.T) {
 
 // Test error handling (AC4)
 func TestDivisionByZero(t *testing.T) {
-	_, err := Evaluate("10 / 0")
+	_, err := calculator.Evaluate("10 / 0")
 	if err == nil {
 		t.Error("Expected division by zero error")
 		return
@@ -71,7 +72,7 @@ func TestDivisionByZero(t *testing.T) {
 }
 
 func TestInvalidSyntax(t *testing.T) {
-	_, err := Evaluate("2 +")
+	_, err := calculator.Evaluate("2 +")
 	if err == nil {
 		t.Error("Expected syntax error")
 		return
@@ -79,7 +80,7 @@ func TestInvalidSyntax(t *testing.T) {
 }
 
 func TestInvalidCharacter(t *testing.T) {
-	_, err := Evaluate("2 + a")
+	_, err := calculator.Evaluate("2 + a")
 	if err == nil {
 		t.Error("Expected invalid character error")
 		return
@@ -87,7 +88,7 @@ func TestInvalidCharacter(t *testing.T) {
 }
 
 func TestEmptyExpression(t *testing.T) {
-	_, err := Evaluate("")
+	_, err := calculator.Evaluate("")
 	if err == nil {
 		t.Error("Expected empty expression error")
 		return
@@ -98,7 +99,7 @@ func TestEmptyExpression(t *testing.T) {
 }
 
 func TestMismatchedParentheses(t *testing.T) {
-	_, err := Evaluate("(2 + 3")
+	_, err := calculator.Evaluate("(2 + 3")
 	if err == nil {
 		t.Error("Expected mismatched parentheses error")
 		return
@@ -106,7 +107,7 @@ func TestMismatchedParentheses(t *testing.T) {
 }
 
 func TestMismatchedParenthesesClosing(t *testing.T) {
-	_, err := Evaluate("2 + 3)")
+	_, err := calculator.Evaluate("2 + 3)")
 	if err == nil {
 		t.Error("Expected mismatched parentheses error")
 		return
@@ -115,7 +116,7 @@ func TestMismatchedParenthesesClosing(t *testing.T) {
 
 // Test decimal numbers
 func TestDecimalNumbers(t *testing.T) {
-	result, err := Evaluate("3.5 + 2.1")
+	result, err := calculator.Evaluate("3.5 + 2.1")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -125,7 +126,7 @@ func TestDecimalNumbers(t *testing.T) {
 }
 
 func TestDecimalDivision(t *testing.T) {
-	result, err := Evaluate("7.5 / 2.5")
+	result, err := calculator.Evaluate("7.5 / 2.5")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -136,7 +137,7 @@ func TestDecimalDivision(t *testing.T) {
 
 // Test complex expressions
 func TestComplexExpression(t *testing.T) {
-	result, err := Evaluate("2 * (3 + 4) - 5 / 2")
+	result, err := calculator.Evaluate("2 * (3 + 4) - 5 / 2")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -146,7 +147,7 @@ func TestComplexExpression(t *testing.T) {
 }
 
 func TestNegativeNumbers(t *testing.T) {
-	result, err := Evaluate("-5 + 3")
+	result, err := calculator.Evaluate("-5 + 3")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -156,7 +157,7 @@ func TestNegativeNumbers(t *testing.T) {
 }
 
 func TestMultipleOperators(t *testing.T) {
-	result, err := Evaluate("10 + 5 - 3 * 2 / 4")
+	result, err := calculator.Evaluate("10 + 5 - 3 * 2 / 4")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -168,7 +169,7 @@ func TestMultipleOperators(t *testing.T) {
 
 // Test edge cases
 func TestSingleNumber(t *testing.T) {
-	result, err := Evaluate("42")
+	result, err := calculator.Evaluate("42")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -178,7 +179,7 @@ func TestSingleNumber(t *testing.T) {
 }
 
 func TestZeroOperations(t *testing.T) {
-	result, err := Evaluate("0 + 0")
+	result, err := calculator.Evaluate("0 + 0")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -188,7 +189,7 @@ func TestZeroOperations(t *testing.T) {
 }
 
 func TestLargeNumbers(t *testing.T) {
-	result, err := Evaluate("1000000 * 2")
+	result, err := calculator.Evaluate("1000000 * 2")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -199,7 +200,7 @@ func TestLargeNumbers(t *testing.T) {
 
 // Additional tests for negative numbers and complex expressions
 func TestNegativeNumberAtStart(t *testing.T) {
-	result, err := Evaluate("-10 + 5")
+	result, err := calculator.Evaluate("-10 + 5")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -209,7 +210,7 @@ func TestNegativeNumberAtStart(t *testing.T) {
 }
 
 func TestNegativeNumberAfterOperator(t *testing.T) {
-	result, err := Evaluate("10 - -5")
+	result, err := calculator.Evaluate("10 - -5")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -219,7 +220,7 @@ func TestNegativeNumberAfterOperator(t *testing.T) {
 }
 
 func TestComplexExpressionWithNegatives(t *testing.T) {
-	result, err := Evaluate("-3 * (2 + -4) - -5")
+	result, err := calculator.Evaluate("-3 * (2 + -4) - -5")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -229,7 +230,7 @@ func TestComplexExpressionWithNegatives(t *testing.T) {
 }
 
 func TestExpressionStartingWithParenthesesAndNegative(t *testing.T) {
-	result, err := Evaluate("(-5 + 3) * 2")
+	result, err := calculator.Evaluate("(-5 + 3) * 2")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -240,7 +241,7 @@ func TestExpressionStartingWithParenthesesAndNegative(t *testing.T) {
 
 // Tests for floating point precision issues (TECH-002)
 func TestFloatingPointPrecision(t *testing.T) {
-	result, err := Evaluate("0.1 + 0.2")
+	result, err := calculator.Evaluate("0.1 + 0.2")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -251,7 +252,7 @@ func TestFloatingPointPrecision(t *testing.T) {
 }
 
 func TestFloatingPointPrecisionSubtraction(t *testing.T) {
-	result, err := Evaluate("0.3 - 0.2")
+	result, err := calculator.Evaluate("0.3 - 0.2")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -262,7 +263,7 @@ func TestFloatingPointPrecisionSubtraction(t *testing.T) {
 }
 
 func TestFloatingPointPrecisionComplex(t *testing.T) {
-	result, err := Evaluate("0.1 + 0.2 - 0.3")
+	result, err := calculator.Evaluate("0.1 + 0.2 - 0.3")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}

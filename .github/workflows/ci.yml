@@ -1,38 +1,295 @@
-name: Go CI
+name: Go CI with Enhanced Testing Framework
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feature/* ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+
+env:
+  GO_VERSION: '1.21'
+  TEST_PARALLEL_JOBS: 4
+  COVERAGE_THRESHOLD: 80
 
 jobs:
-  build:
+  test:
+    name: Test (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+      fail-fast: false
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Set up Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
-        go-version: '1.21'
+        go-version: ${{ env.GO_VERSION }}
         cache: true
+        cache-dependency-path: go.sum
 
-    - name: Build
+    - name: Cache Go modules
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/go-build
+          ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ env.GO_VERSION }}-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-${{ env.GO_VERSION }}-
+
+    - name: Build project
       run: go build ./...
 
     - name: Build CLI binary
+      shell: bash
       run: |
         if [ "$RUNNER_OS" == "Windows" ]; then
           go build -o cmd/acousticalc/acousticalc.exe cmd/acousticalc/main.go
         else
           go build -o cmd/acousticalc/acousticalc cmd/acousticalc/main.go
         fi
-      shell: bash
 
-    - name: Test
-      run: go test ./...
+    - name: Run unit tests
+      shell: bash
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          go test -v -timeout=30s ./tests/unit/...
+        else
+          go test -v -timeout=30s -parallel=${{ env.TEST_PARALLEL_JOBS }} ./tests/unit/...
+        fi
+
+    - name: Run integration tests
+      shell: bash
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          go test -v -timeout=60s ./tests/integration/...
+        else
+          go test -v -timeout=60s -parallel=${{ env.TEST_PARALLEL_JOBS }} ./tests/integration/...
+        fi
+
+    - name: Generate coverage (Unix only)
+      if: matrix.os != 'windows-latest'
+      shell: bash
+      run: |
+        mkdir -p tests/artifacts/coverage
+        go test -coverprofile=tests/artifacts/coverage/coverage.out -covermode=atomic ./tests/unit/...
+        go test -coverprofile=tests/artifacts/coverage/integration_coverage.out -covermode=atomic ./tests/integration/...
+
+    - name: Combine coverage reports (Unix only)
+      if: matrix.os != 'windows-latest'
+      shell: bash
+      run: |
+        echo "mode: atomic" > tests/artifacts/coverage/combined_coverage.out
+        tail -n +2 tests/artifacts/coverage/coverage.out >> tests/artifacts/coverage/combined_coverage.out 2>/dev/null || true
+        tail -n +2 tests/artifacts/coverage/integration_coverage.out >> tests/artifacts/coverage/combined_coverage.out 2>/dev/null || true
+
+    - name: Generate coverage report (Unix only)
+      if: matrix.os != 'windows-latest'
+      shell: bash
+      run: |
+        go tool cover -html=tests/artifacts/coverage/combined_coverage.out -o tests/artifacts/coverage/coverage.html
+        go tool cover -func=tests/artifacts/coverage/combined_coverage.out > tests/artifacts/coverage/coverage_summary.txt
+
+    - name: Check coverage threshold (Unix only)
+      if: matrix.os != 'windows-latest'
+      shell: bash
+      run: |
+        coverage=$(go tool cover -func=tests/artifacts/coverage/combined_coverage.out | grep "total:" | awk '{print $3}' | sed 's/%//')
+        if (( $(echo "$coverage < ${{ env.COVERAGE_THRESHOLD }}" | bc -l) )); then
+          echo "Coverage $coverage% is below threshold ${{ env.COVERAGE_THRESHOLD }}%"
+          exit 1
+        fi
+        echo "Coverage $coverage% meets threshold ${{ env.COVERAGE_THRESHOLD }}%"
+
+    - name: Run benchmarks (Ubuntu only)
+      if: matrix.os == 'ubuntu-latest'
+      shell: bash
+      run: |
+        mkdir -p tests/artifacts/reports
+        go test -bench=. -benchmem -timeout=120s ./tests/unit/... > tests/artifacts/reports/benchmark_results.txt 2>&1
+
+    - name: Upload test artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results-${{ matrix.os }}
+        path: |
+          tests/artifacts/
+        retention-days: 30
+
+  test-matrix:
+    name: Comprehensive Testing Matrix
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ env.GO_VERSION }}
+        cache: true
+
+    - name: Run race condition tests
+      run: go test -race -timeout=120s ./tests/unit/ ./tests/integration/...
+
+    - name: Validate Unix test tools
+      run: |
+        chmod +x tests/scripts/unix_test_tools.sh
+        chmod +x tests/scripts/unix_env_validate.sh
+        tests/scripts/unix_env_validate.sh
+
+    - name: Test Unix Makefile
+      run: |
+        cd tests/scripts
+        make check-deps
+        make show-config
+        make test-unit
+
+    - name: Test performance monitoring
+      run: |
+        cd tests/scripts
+        make monitor-performance
+
+  coverage-report:
+    name: Coverage Report
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ env.GO_VERSION }}
+        cache: true
+
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+
+    - name: Generate coverage report
+      run: |
+        # Find and combine all coverage files
+        mkdir -p coverage-report
+        echo "mode: atomic" > coverage-report/combined_coverage.out
+
+        for file in test-results-*/coverage/*.out; do
+          if [ -f "$file" ] && [[ "$file" != *"combined_coverage.out"* ]]; then
+            tail -n +2 "$file" >> coverage-report/combined_coverage.out
+          fi
+        done
+
+        # Generate HTML report
+        go tool cover -html=coverage-report/combined_coverage.out -o coverage-report/coverage.html
+        go tool cover -func=coverage-report/combined_coverage.out > coverage-report/coverage_summary.txt
+
+    - name: Upload coverage to codecov
+      uses: codecov/codecov-action@v4
+      with:
+        file: ./coverage-report/combined_coverage.out
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: coverage-report/
+        retention-days: 90
+
+  performance-benchmark:
+    name: Performance Benchmark
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ env.GO_VERSION }}
+        cache: true
+
+    - name: Run detailed benchmarks
+      run: |
+        mkdir -p benchmark-results
+        go test -bench=. -benchmem -benchtime=5s -count=3 ./tests/unit/... > benchmark-results/detailed_benchmarks.txt 2>&1
+
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v4
+      with:
+        name: benchmark-results
+        path: benchmark-results/
+        retention-days: 90
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ env.GO_VERSION }}
+        cache: true
+
+    - name: Run go vet
+      run: go vet ./...
+
+    - name: Run go fmt check
+      run: |
+        files=$(go fmt ./...)
+        if [ -n "$files" ]; then
+          echo "Files are not formatted:"
+          echo "$files"
+          exit 1
+        fi
+
+    - name: Check for vulnerabilities
+      run: |
+        go install golang.org/x/vuln/cmd/govulncheck@latest
+        govulncheck ./...
+
+  notify:
+    name: Notify
+    runs-on: ubuntu-latest
+    needs: [test-matrix, coverage-report, performance-benchmark, security-scan]
+    if: always() && (github.event_name == 'push' || github.event_name == 'pull_request')
+
+    steps:
+    - name: Notify on test failure
+      if: needs.test.result == 'failure' || needs.test-matrix.result == 'failure'
+      run: |
+        echo "::warning ::Some tests failed. Please check the logs above."
+
+    - name: Notify on coverage issues
+      if: needs.coverage-report.result == 'failure'
+      run: |
+        echo "::warning ::Coverage generation failed or threshold not met."
+
+    - name: Success notification
+      if: needs.test.result == 'success' && needs.test-matrix.result == 'success'
+      run: |
+        echo "::notice ::All tests passed successfully!"
