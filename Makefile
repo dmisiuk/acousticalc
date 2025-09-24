@@ -14,6 +14,13 @@ PROJECT_ROOT := $(shell pwd)
 TESTS_DIR := $(PROJECT_ROOT)/tests
 SCRIPTS_DIR := $(TESTS_DIR)/scripts
 
+# Windows compatibility - check if directory exists
+ifeq ($(OS),Windows_NT)
+    SCRIPTS_EXISTS := $(shell if exist "$(SCRIPTS_DIR)" echo 1)
+else
+    SCRIPTS_EXISTS := $(shell test -d "$(SCRIPTS_DIR)" && echo 1)
+endif
+
 # Build targets
 build: ## Build the project
 	@echo "🔨 Building project..."
@@ -25,28 +32,59 @@ install: ## Install the CLI tool
 
 test: ## Run all tests
 	@echo "🧪 Running all tests..."
+ifeq ($(SCRIPTS_EXISTS),1)
 	@$(MAKE) -C $(SCRIPTS_DIR) test-all
+else
+	@echo "⚠️  Scripts directory not found, running go test directly..."
+	@go test -v ./tests/unit/... ./tests/integration/...
+endif
 
 # Linting and formatting targets
 lint: ## Run all linters
 	@echo "🔍 Running linters..."
+ifeq ($(SCRIPTS_EXISTS),1)
 	@$(MAKE) -C $(SCRIPTS_DIR) lint
+else
+	@echo "⚠️  Scripts directory not found, running linters directly..."
+	@go fmt ./...
+	@go vet ./...
+endif
 
 lint-fix: ## Fix linting issues automatically
 	@echo "🔧 Fixing linting issues..."
+ifeq ($(SCRIPTS_EXISTS),1)
 	@$(MAKE) -C $(SCRIPTS_DIR) lint-fix
+else
+	@echo "⚠️  Scripts directory not found, running go fmt directly..."
+	@go fmt ./...
+endif
 
 format: ## Format code
 	@echo "📝 Formatting code..."
+ifeq ($(SCRIPTS_EXISTS),1)
 	@$(MAKE) -C $(SCRIPTS_DIR) format
+else
+	@echo "⚠️  Scripts directory not found, running go fmt directly..."
+	@go fmt ./...
+endif
 
 format-check: ## Check if code is formatted
 	@echo "🔍 Checking code formatting..."
+ifeq ($(SCRIPTS_EXISTS),1)
 	@$(MAKE) -C $(SCRIPTS_DIR) format-check
+else
+	@echo "⚠️  Scripts directory not found, running go fmt directly..."
+	@go fmt ./...
+endif
 
 vet: ## Run go vet
 	@echo "🔍 Running go vet..."
+ifeq ($(SCRIPTS_EXISTS),1)
 	@$(MAKE) -C $(SCRIPTS_DIR) vet
+else
+	@echo "⚠️  Scripts directory not found, running go vet directly..."
+	@go vet ./...
+endif
 
 staticcheck: ## Run staticcheck
 	@echo "🔍 Running staticcheck..."
