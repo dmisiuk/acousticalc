@@ -50,6 +50,11 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y libx11-dev libxext-dev libxrandr-dev libxtst-dev libxinerama-dev libxi-dev
 
+    - name: Run linting checks
+      run: |
+        make format-check
+        make vet
+
     - name: Build project
       run: go build ./...
 

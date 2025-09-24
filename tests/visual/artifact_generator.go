@@ -536,8 +536,8 @@ func (ag *ArtifactGenerator) addReport(report ReportInfo) {
 	ag.Reports = append(ag.Reports, report)
 }
 
-// addScreenshot safely adds a screenshot to the collection
-func (ag *ArtifactGenerator) addScreenshot(screenshot ScreenshotInfo) {
+// AddScreenshot safely adds a screenshot to the collection
+func (ag *ArtifactGenerator) AddScreenshot(screenshot ScreenshotInfo) {
 	ag.mu.Lock()
 	defer ag.mu.Unlock()
 	ag.Screenshots = append(ag.Screenshots, screenshot)
