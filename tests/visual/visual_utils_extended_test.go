@@ -66,6 +66,11 @@ func TestVisualUtilsExtended(t *testing.T) {
 
 	// Test: CaptureTestEvent method
 	t.Run("CaptureTestEvent", func(t *testing.T) {
+		// Set up virtual display for CI environments
+		if err := setupVirtualDisplayForTesting(); err != nil {
+			t.Logf("Warning: Could not setup virtual display: %v", err)
+		}
+
 		outputDir := t.TempDir()
 		capture := NewScreenshotCapture("event_test", outputDir)
 
@@ -405,4 +410,30 @@ func TestVisualUtilsErrorPaths(t *testing.T) {
 		// Restore permissions for cleanup
 		os.Chmod(outputDir, 0755)
 	})
+}
+
+// setupVirtualDisplayForTesting is a helper function for tests that need display
+func setupVirtualDisplayForTesting() error {
+	// Only set up virtual display if we don't already have one
+	if os.Getenv("DISPLAY") != "" {
+		return nil // Already have a display
+	}
+
+	// Only set up on Linux (Ubuntu CI runners)
+	if runtime.GOOS != "linux" {
+		return nil // Skip setup on other platforms
+	}
+
+	// Check if Xvfb is available
+	if _, err := os.Stat("/usr/bin/Xvfb"); os.IsNotExist(err) {
+		return err
+	}
+
+	// Set up virtual display
+	displayNum := ":99"
+
+	// Set DISPLAY environment variable
+	os.Setenv("DISPLAY", displayNum)
+
+	return nil
 }

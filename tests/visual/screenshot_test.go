@@ -1,13 +1,22 @@
 package visual
 
 import (
+	"fmt"
 	"os"
+	"os/exec"
+	"runtime"
 	"testing"
 	"time"
 )
 
 // TestScreenshotCapture tests the screenshot capture functionality
 func TestScreenshotCapture(t *testing.T) {
+	// Set up virtual display for CI environments
+	if err := setupVirtualDisplay(); err != nil {
+		t.Logf("Warning: Could not setup virtual display: %v", err)
+		// Continue with test - robotgo might still work in some environments
+	}
+
 	outputDir := "../artifacts/screenshots/unit"
 
 	capture := NewScreenshotCapture("screenshot_test", outputDir)
@@ -51,6 +60,11 @@ func TestScreenshotCapture(t *testing.T) {
 
 // TestCrossPlatformScreenshot tests screenshot capture across platforms
 func TestCrossPlatformScreenshot(t *testing.T) {
+	// Set up virtual display for CI environments
+	if err := setupVirtualDisplay(); err != nil {
+		t.Logf("Warning: Could not setup virtual display: %v", err)
+	}
+
 	outputDir := "../artifacts/screenshots/unit"
 	capture := NewScreenshotCapture("cross_platform_test", outputDir)
 
@@ -71,6 +85,11 @@ func TestCrossPlatformScreenshot(t *testing.T) {
 
 // BenchmarkScreenshotCapture benchmarks screenshot performance
 func BenchmarkScreenshotCapture(b *testing.B) {
+	// Set up virtual display for CI environments
+	if err := setupVirtualDisplay(); err != nil {
+		b.Logf("Warning: Could not setup virtual display: %v", err)
+	}
+
 	outputDir := "../artifacts/screenshots/unit"
 	capture := NewScreenshotCapture("benchmark_test", outputDir)
 
@@ -81,4 +100,41 @@ func BenchmarkScreenshotCapture(b *testing.B) {
 			b.Skipf("Screenshot capture not available: %v", err)
 		}
 	}
+}
+
+// setupVirtualDisplay configures a virtual display for headless CI environments
+// Note: In GitHub Actions, xvfb-action handles the Xvfb setup automatically
+func setupVirtualDisplay() error {
+	// Check if we already have a display (either real or virtual)
+	if os.Getenv("DISPLAY") != "" {
+		return nil // Display is available (real or virtual)
+	}
+
+	// Only set up on Linux (Ubuntu CI runners)
+	if runtime.GOOS != "linux" {
+		return fmt.Errorf("virtual display only supported on Linux, current OS: %s", runtime.GOOS)
+	}
+
+	// In GitHub Actions with xvfb-action, DISPLAY will be set automatically
+	// For local testing, try to detect and use existing Xvfb or start one
+	if os.Getenv("CI") != "" {
+		// Running in CI - assume xvfb-action will provide display
+		return fmt.Errorf("no display available in CI environment")
+	}
+
+	// Local development - try to start Xvfb
+	if _, err := exec.LookPath("Xvfb"); err != nil {
+		return fmt.Errorf("Xvfb not available for local testing: %w", err)
+	}
+
+	displayNum := ":99"
+	cmd := exec.Command("Xvfb", displayNum, "-screen", "0", "1920x1080x24", "-ac")
+	if err := cmd.Start(); err != nil {
+		return fmt.Errorf("failed to start local Xvfb: %w", err)
+	}
+
+	os.Setenv("DISPLAY", displayNum)
+	time.Sleep(2 * time.Second)
+
+	return nil
 }
