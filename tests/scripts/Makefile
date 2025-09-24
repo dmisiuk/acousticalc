@@ -148,14 +148,14 @@ unix-optimize: ## Apply Unix-specific optimizations
 	@echo "✅ Unix optimizations applied"
 
 # Development workflow targets
-dev-test: test-unit coverage-html ## Quick development test cycle
+dev-test: lint test-unit coverage-html ## Quick development test cycle with linting
 	@echo "🚀 Development test cycle complete"
 
-dev-full: test-all unix-report ## Full development test cycle with reports
+dev-full: lint test-all unix-report ## Full development test cycle with linting and reports
 	@echo "🚀 Full development test cycle complete"
 
 # CI-specific targets
-ci-test: test-unit test-integration test-coverage ## CI-optimized test run
+ci-test: lint test-unit test-integration test-coverage ## CI-optimized test run with linting
 	@echo "🤖 CI test run complete"
 
 ci-benchmark: test-benchmark benchmark-detailed ## CI-optimized benchmark run
@@ -309,16 +309,6 @@ install-hooks: ## Install git hooks
 	@chmod +x $(PROJECT_ROOT)/.git/hooks/pre-commit
 	@echo "✅ Git hooks installed"
 
-# Development workflow targets with linting
-dev-test: lint test-unit coverage-html ## Quick development test cycle with linting
-	@echo "🚀 Development test cycle complete"
-
-dev-full: lint test-all unix-report ## Full development test cycle with linting and reports
-	@echo "🚀 Full development test cycle complete"
-
-# CI-specific targets with linting
-ci-test: lint test-unit test-integration test-coverage ## CI-optimized test run with linting
-	@echo "🤖 CI test run complete"
 
 # Quick validation targets
 validate: lint test-unit ## Quick validation (lint + unit tests)

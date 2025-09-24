@@ -289,9 +289,10 @@ func TestVisualUtilsExtended(t *testing.T) {
 		logger := NewVisualTestLogger("platform_logger", outputDir)
 
 		// Test basic functionality on current platform
-		if currentOS == "darwin" || currentOS == "linux" {
+		switch currentOS {
+		case "darwin", "linux":
 			t.Log("Testing on Unix-like platform")
-		} else if currentOS == "windows" {
+		case "windows":
 			t.Log("Testing on Windows platform")
 		}
 

@@ -361,7 +361,7 @@ func TestLeakDetection(t *testing.T) {
 				t.Fatalf("Failed to create file %d: %v", i, err)
 			}
 
-			if _, err := file.WriteString(fmt.Sprintf("test content %d", i)); err != nil {
+			if _, err := fmt.Fprintf(file, "test content %d", i); err != nil {
 				file.Close()
 				t.Fatalf("Failed to write to file %d: %v", i, err)
 			}
