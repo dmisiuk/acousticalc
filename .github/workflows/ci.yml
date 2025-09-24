@@ -161,7 +161,7 @@ jobs:
     name: Coverage Report
     runs-on: ubuntu-latest
     needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Run on both PRs and main branch for comprehensive coverage tracking
 
     steps:
     - name: Checkout code
@@ -211,6 +211,7 @@ jobs:
     name: Performance Benchmark
     runs-on: ubuntu-latest
     needs: test
+    # Keep main-branch only: expensive benchmarks for trend analysis, not PR blocking
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
@@ -239,7 +240,7 @@ jobs:
     name: Security Scan
     runs-on: ubuntu-latest
     needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Run on both PRs and main branch to prevent security issues from entering main
 
     steps:
     - name: Checkout code
