@@ -63,7 +63,7 @@ func TestCIPerformanceMonitor(t *testing.T) {
 		if err == nil {
 			t.Error("Should have failed threshold validation")
 		}
-		if monitor.getStatus() != "FAIL" {
+		if monitor.GetStatus() != "FAIL" {
 			t.Error("Status should be FAIL")
 		}
 	})

@@ -77,8 +77,8 @@ func TestPerformanceDashboard(t *testing.T) {
 		// Save test reports
 		for i, report := range testReports {
 			// Replace slashes in platform name to avoid directory issues
-		safePlatform := strings.ReplaceAll(report.Platform, "/", "_")
-		filename := filepath.Join(tempDir, fmt.Sprintf("ci_performance_%s_%d.json", safePlatform, i))
+			safePlatform := strings.ReplaceAll(report.Platform, "/", "_")
+			filename := filepath.Join(tempDir, fmt.Sprintf("ci_performance_%s_%d.json", safePlatform, i))
 			data, _ := json.MarshalIndent(report, "", "  ")
 			os.WriteFile(filename, data, 0644)
 		}

@@ -184,8 +184,8 @@ func TestVisualUtilsComprehensive(t *testing.T) {
 		}
 
 		// Test recording artifacts
-		monitor.RecordArtifact("html", 50 * time.Millisecond)
-		monitor.RecordArtifact("json", 25 * time.Millisecond)
+		monitor.RecordArtifact("html", 50*time.Millisecond)
+		monitor.RecordArtifact("json", 25*time.Millisecond)
 
 		if monitor.ArtifactCount != 2 {
 			t.Errorf("Expected ArtifactCount to be 2, got %d", monitor.ArtifactCount)
