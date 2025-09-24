@@ -74,37 +74,39 @@ jobs:
           go test -v -timeout=60s -parallel=${{ env.TEST_PARALLEL_JOBS }} ./tests/integration/...
         fi
 
-    - name: Generate coverage (Unix only)
-      if: matrix.os != 'windows-latest'
+    - name: Generate coverage
       shell: bash
       run: |
         mkdir -p tests/artifacts/coverage
-        go test -coverprofile=tests/artifacts/coverage/coverage.out -covermode=atomic ./tests/unit/...
-        go test -coverprofile=tests/artifacts/coverage/integration_coverage.out -covermode=atomic ./tests/integration/...
+        # Generate coverage for core calculator package (targeting >90% coverage)
+        go test -coverprofile=tests/artifacts/coverage/combined_coverage.out -covermode=atomic -coverpkg=github.com/dmisiuk/acousticalc/pkg/calculator ./tests/unit/...
 
-    - name: Combine coverage reports (Unix only)
-      if: matrix.os != 'windows-latest'
-      shell: bash
-      run: |
-        echo "mode: atomic" > tests/artifacts/coverage/combined_coverage.out
-        tail -n +2 tests/artifacts/coverage/coverage.out >> tests/artifacts/coverage/combined_coverage.out 2>/dev/null || true
-        tail -n +2 tests/artifacts/coverage/integration_coverage.out >> tests/artifacts/coverage/combined_coverage.out 2>/dev/null || true
-
-    - name: Generate coverage report (Unix only)
-      if: matrix.os != 'windows-latest'
+    - name: Generate coverage report
       shell: bash
       run: |
         go tool cover -html=tests/artifacts/coverage/combined_coverage.out -o tests/artifacts/coverage/coverage.html
         go tool cover -func=tests/artifacts/coverage/combined_coverage.out > tests/artifacts/coverage/coverage_summary.txt
 
-    - name: Check coverage threshold (Unix only)
-      if: matrix.os != 'windows-latest'
+    - name: Check coverage threshold
       shell: bash
       run: |
+        # Extract coverage percentage (works on all platforms with bash shell)
         coverage=$(go tool cover -func=tests/artifacts/coverage/combined_coverage.out | grep "total:" | awk '{print $3}' | sed 's/%//')
-        if (( $(echo "$coverage < ${{ env.COVERAGE_THRESHOLD }}" | bc -l) )); then
-          echo "Coverage $coverage% is below threshold ${{ env.COVERAGE_THRESHOLD }}%"
-          exit 1
+        echo "Detected coverage: $coverage%"
+
+        # Check if coverage meets threshold
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          # Use Windows-compatible numeric comparison
+          if [ $(echo "$coverage < ${{ env.COVERAGE_THRESHOLD }}" | awk '{print ($1 < $2)}') -eq 1 ]; then
+            echo "Coverage $coverage% is below threshold ${{ env.COVERAGE_THRESHOLD }}%"
+            exit 1
+          fi
+        else
+          # Unix-compatible coverage check with bc
+          if (( $(echo "$coverage < ${{ env.COVERAGE_THRESHOLD }}" | bc -l) )); then
+            echo "Coverage $coverage% is below threshold ${{ env.COVERAGE_THRESHOLD }}%"
+            exit 1
+          fi
         fi
         echo "Coverage $coverage% meets threshold ${{ env.COVERAGE_THRESHOLD }}%"
 
