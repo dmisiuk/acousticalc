@@ -1,14 +1,23 @@
 package visual
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"path/filepath"
+	"sync"
 	"time"
 
 	"github.com/disintegration/imaging"
 	"github.com/go-vgo/robotgo"
 )
+
+// ScreenshotCapturer defines the interface for screenshot capture implementations
+type ScreenshotCapturer interface {
+	CaptureScreen(eventType string) (string, error)
+	SetOutputDir(dir string)
+	SetTestName(name string)
+}
 
 // ScreenshotCapture handles cross-platform screenshot capture
 type ScreenshotCapture struct {
@@ -17,6 +26,33 @@ type ScreenshotCapture struct {
 	Timestamp time.Time
 	Format    string // "png" (default)
 	Quality   int    // 100 (lossless for PNG)
+	capturer  ScreenshotEngine
+}
+
+// ScreenshotEngine abstracts the underlying screenshot mechanism
+type ScreenshotEngine interface {
+	Capture() ([]byte, error)
+	GetImageData() (interface{}, error)
+}
+
+// RobotGoEngine implements ScreenshotEngine using robotgo
+type RobotGoEngine struct{}
+
+func (rg *RobotGoEngine) Capture() ([]byte, error) {
+	bitmap := robotgo.CaptureScreen()
+	if bitmap == nil {
+		return nil, fmt.Errorf("failed to capture screen with robotgo")
+	}
+	// Return bitmap data - simplified for interface
+	return []byte{}, nil
+}
+
+func (rg *RobotGoEngine) GetImageData() (interface{}, error) {
+	bitmap := robotgo.CaptureScreen()
+	if bitmap == nil {
+		return nil, fmt.Errorf("failed to capture screen")
+	}
+	return robotgo.ToImage(bitmap), nil
 }
 
 // NewScreenshotCapture creates a new screenshot capture instance
@@ -27,10 +63,21 @@ func NewScreenshotCapture(testName, outputDir string) *ScreenshotCapture {
 		Timestamp: time.Now(),
 		Format:    "png",
 		Quality:   100,
+		capturer:  &RobotGoEngine{},
 	}
 }
 
-// CaptureScreen captures a screenshot using cross-platform robotgo
+// SetOutputDir implements ScreenshotCapturer interface
+func (sc *ScreenshotCapture) SetOutputDir(dir string) {
+	sc.OutputDir = dir
+}
+
+// SetTestName implements ScreenshotCapturer interface
+func (sc *ScreenshotCapture) SetTestName(name string) {
+	sc.TestName = name
+}
+
+// CaptureScreen captures a screenshot using the configured engine
 func (sc *ScreenshotCapture) CaptureScreen(eventType string) (string, error) {
 	// Ensure output directory exists
 	if err := os.MkdirAll(sc.OutputDir, 0755); err != nil {
@@ -43,9 +90,10 @@ func (sc *ScreenshotCapture) CaptureScreen(eventType string) (string, error) {
 		eventType,
 		sc.Timestamp.Format("20060102_150405"))
 
-	filepath := filepath.Join(sc.OutputDir, filename)
+	filePath := filepath.Join(sc.OutputDir, filename)
 
-	// Capture screenshot using robotgo
+	// Capture screenshot using robotgo (maintaining proven functionality)
+	// Future: This can be abstracted through the capturer interface when needed
 	bitmap := robotgo.CaptureScreen()
 	if bitmap == nil {
 		return "", fmt.Errorf("failed to capture screen")
@@ -58,12 +106,11 @@ func (sc *ScreenshotCapture) CaptureScreen(eventType string) (string, error) {
 	}
 
 	// Save with PNG format for lossless compression
-	err := imaging.Save(img, filepath)
-	if err != nil {
+	if err := imaging.Save(img, filePath); err != nil {
 		return "", fmt.Errorf("failed to save screenshot: %w", err)
 	}
 
-	return filepath, nil
+	return filePath, nil
 }
 
 // CaptureTestEvent captures screenshot for specific test events
@@ -274,6 +321,137 @@ func (vtl *VisualTestLogger) generateDemoStoryboard() string {
 </html>`
 
 	return html
+}
+
+// PerformanceMonitor provides thread-safe performance tracking for visual tests
+type PerformanceMonitor struct {
+	mu           sync.RWMutex
+	startTime    time.Time
+	metrics      map[string]*OperationMetric
+	thresholds   *PerformanceThresholds
+	ctx          context.Context
+	cancel       context.CancelFunc
+}
+
+// OperationMetric tracks performance data for specific operations
+type OperationMetric struct {
+	Name         string        `json:"name"`
+	Count        int           `json:"count"`
+	TotalTime    time.Duration `json:"total_time"`
+	AverageTime  time.Duration `json:"average_time"`
+	MinTime      time.Duration `json:"min_time"`
+	MaxTime      time.Duration `json:"max_time"`
+	LastExecuted time.Time     `json:"last_executed"`
+}
+
+// PerformanceThresholds defines acceptable performance limits
+type PerformanceThresholds struct {
+	ScreenshotCapture time.Duration // Default: 5s
+	ReportGeneration  time.Duration // Default: 10s
+	TotalCIOverhead   time.Duration // Default: 30s
+}
+
+// NewPerformanceMonitor creates a new thread-safe performance monitor
+func NewPerformanceMonitor(ctx context.Context) *PerformanceMonitor {
+	monitorCtx, cancel := context.WithCancel(ctx)
+	return &PerformanceMonitor{
+		startTime: time.Now(),
+		metrics:   make(map[string]*OperationMetric),
+		thresholds: &PerformanceThresholds{
+			ScreenshotCapture: 5 * time.Second,
+			ReportGeneration:  10 * time.Second,
+			TotalCIOverhead:   30 * time.Second,
+		},
+		ctx:    monitorCtx,
+		cancel: cancel,
+	}
+}
+
+// TrackOperation measures and records the performance of an operation
+func (pm *PerformanceMonitor) TrackOperation(name string, operation func() error) error {
+	start := time.Now()
+	err := operation()
+	duration := time.Since(start)
+
+	pm.recordMetric(name, duration)
+	return err
+}
+
+// recordMetric safely records a performance metric
+func (pm *PerformanceMonitor) recordMetric(name string, duration time.Duration) {
+	pm.mu.Lock()
+	defer pm.mu.Unlock()
+
+	metric, exists := pm.metrics[name]
+	if !exists {
+		metric = &OperationMetric{
+			Name:    name,
+			MinTime: duration,
+			MaxTime: duration,
+		}
+		pm.metrics[name] = metric
+	}
+
+	metric.Count++
+	metric.TotalTime += duration
+	metric.AverageTime = metric.TotalTime / time.Duration(metric.Count)
+	metric.LastExecuted = time.Now()
+
+	if duration < metric.MinTime {
+		metric.MinTime = duration
+	}
+	if duration > metric.MaxTime {
+		metric.MaxTime = duration
+	}
+}
+
+// GetMetrics returns a thread-safe copy of all metrics
+func (pm *PerformanceMonitor) GetMetrics() map[string]OperationMetric {
+	pm.mu.RLock()
+	defer pm.mu.RUnlock()
+
+	result := make(map[string]OperationMetric)
+	for name, metric := range pm.metrics {
+		result[name] = *metric // Copy the metric
+	}
+	return result
+}
+
+// CheckThresholds validates current performance against defined thresholds
+func (pm *PerformanceMonitor) CheckThresholds() []string {
+	pm.mu.RLock()
+	defer pm.mu.RUnlock()
+
+	var violations []string
+
+	for name, metric := range pm.metrics {
+		var threshold time.Duration
+		switch name {
+		case "screenshot_capture":
+			threshold = pm.thresholds.ScreenshotCapture
+		case "report_generation":
+			threshold = pm.thresholds.ReportGeneration
+		case "total_ci":
+			threshold = pm.thresholds.TotalCIOverhead
+		default:
+			continue // Skip unknown metrics
+		}
+
+		if metric.AverageTime > threshold {
+			violations = append(violations, fmt.Sprintf(
+				"%s: %v average exceeds threshold %v",
+				name, metric.AverageTime, threshold))
+		}
+	}
+
+	return violations
+}
+
+// Stop gracefully shuts down the performance monitor
+func (pm *PerformanceMonitor) Stop() {
+	if pm.cancel != nil {
+		pm.cancel()
+	}
 }
 
 // OptimizeScreenshots optimizes screenshots for demo use

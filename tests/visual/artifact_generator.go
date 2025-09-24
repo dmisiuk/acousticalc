@@ -1,12 +1,22 @@
 package visual
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
+	"sync"
 	"time"
 )
+
+// ArtifactGeneratorInterface defines the contract for artifact generation
+type ArtifactGeneratorInterface interface {
+	GenerateComprehensiveArtifacts(logger *VisualTestLogger) error
+	CreateDirectoryStructure() error
+	GenerateMetadataFiles() error
+	GetArtifactSummary() ArtifactSummary
+}
 
 // ArtifactGenerator handles creation and management of visual test artifacts
 type ArtifactGenerator struct {
@@ -15,6 +25,19 @@ type ArtifactGenerator struct {
 	Metadata      ArtifactMetadata
 	Screenshots   []ScreenshotInfo
 	Reports       []ReportInfo
+	mu            sync.RWMutex // Thread safety
+	ctx           context.Context
+	cancel        context.CancelFunc
+	performanceMonitor *PerformanceMonitor
+}
+
+// ArtifactSummary provides a summary of generated artifacts
+type ArtifactSummary struct {
+	TotalArtifacts    int           `json:"total_artifacts"`
+	TotalSizeBytes    int64         `json:"total_size_bytes"`
+	GenerationTime    time.Duration `json:"generation_time"`
+	ArtifactTypes     []string      `json:"artifact_types"`
+	PerformanceMetrics map[string]OperationMetric `json:"performance_metrics"`
 }
 
 // ArtifactMetadata contains metadata about generated artifacts
@@ -49,8 +72,9 @@ type ReportInfo struct {
 	Description string    `json:"description"`
 }
 
-// NewArtifactGenerator creates a new artifact generator
+// NewArtifactGenerator creates a new artifact generator with context
 func NewArtifactGenerator(testName, outputBaseDir string) *ArtifactGenerator {
+	ctx, cancel := context.WithCancel(context.Background())
 	return &ArtifactGenerator{
 		TestName:      testName,
 		OutputBaseDir: outputBaseDir,
@@ -63,6 +87,30 @@ func NewArtifactGenerator(testName, outputBaseDir string) *ArtifactGenerator {
 		},
 		Screenshots: make([]ScreenshotInfo, 0),
 		Reports:     make([]ReportInfo, 0),
+		ctx:         ctx,
+		cancel:      cancel,
+		performanceMonitor: NewPerformanceMonitor(ctx),
+	}
+}
+
+// NewArtifactGeneratorWithContext creates a new artifact generator with specific context
+func NewArtifactGeneratorWithContext(ctx context.Context, testName, outputBaseDir string) *ArtifactGenerator {
+	childCtx, cancel := context.WithCancel(ctx)
+	return &ArtifactGenerator{
+		TestName:      testName,
+		OutputBaseDir: outputBaseDir,
+		Metadata: ArtifactMetadata{
+			TestName:     testName,
+			Platform:     "cross-platform",
+			Architecture: "universal",
+			Timestamp:    time.Now(),
+			Version:      "0.2.2",
+		},
+		Screenshots: make([]ScreenshotInfo, 0),
+		Reports:     make([]ReportInfo, 0),
+		ctx:         childCtx,
+		cancel:      cancel,
+		performanceMonitor: NewPerformanceMonitor(childCtx),
 	}
 }
 
@@ -132,7 +180,7 @@ func (ag *ArtifactGenerator) generateEnhancedVisualReport(logger *VisualTestLogg
 
 	// Track report info
 	if info, err := os.Stat(reportPath); err == nil {
-		ag.Reports = append(ag.Reports, ReportInfo{
+		ag.addReport(ReportInfo{
 			Filename:    filepath.Base(reportPath),
 			Type:        "visual_report",
 			Timestamp:   time.Now(),
@@ -272,7 +320,7 @@ func (ag *ArtifactGenerator) generateProfessionalStoryboard(logger *VisualTestLo
 
 	// Track report info
 	if info, err := os.Stat(storyboardPath); err == nil {
-		ag.Reports = append(ag.Reports, ReportInfo{
+		ag.addReport(ReportInfo{
 			Filename:    filepath.Base(storyboardPath),
 			Type:        "demo_storyboard",
 			Timestamp:   time.Now(),
@@ -421,4 +469,76 @@ func (ag *ArtifactGenerator) generateMetadataFiles() error {
 	}
 
 	return os.WriteFile(metadataPath, metadataJSON, 0644)
+}
+
+// GetArtifactSummary returns a thread-safe summary of generated artifacts
+func (ag *ArtifactGenerator) GetArtifactSummary() ArtifactSummary {
+	ag.mu.RLock()
+	defer ag.mu.RUnlock()
+
+	var totalSize int64
+	artifactTypes := make(map[string]bool)
+
+	for _, report := range ag.Reports {
+		totalSize += report.Size
+		artifactTypes[report.Type] = true
+	}
+
+	for _, screenshot := range ag.Screenshots {
+		totalSize += screenshot.Size
+		artifactTypes["screenshot"] = true
+	}
+
+	typeList := make([]string, 0, len(artifactTypes))
+	for artType := range artifactTypes {
+		typeList = append(typeList, artType)
+	}
+
+	var performanceMetrics map[string]OperationMetric
+	if ag.performanceMonitor != nil {
+		performanceMetrics = ag.performanceMonitor.GetMetrics()
+	}
+
+	return ArtifactSummary{
+		TotalArtifacts:     len(ag.Reports) + len(ag.Screenshots),
+		TotalSizeBytes:     totalSize,
+		GenerationTime:     time.Since(ag.Metadata.Timestamp),
+		ArtifactTypes:      typeList,
+		PerformanceMetrics: performanceMetrics,
+	}
+}
+
+// CreateDirectoryStructure ensures all required directories exist (public method)
+func (ag *ArtifactGenerator) CreateDirectoryStructure() error {
+	return ag.createDirectoryStructure()
+}
+
+// GenerateMetadataFiles creates JSON metadata for all artifacts (public method)
+func (ag *ArtifactGenerator) GenerateMetadataFiles() error {
+	return ag.generateMetadataFiles()
+}
+
+// Close gracefully shuts down the artifact generator
+func (ag *ArtifactGenerator) Close() error {
+	if ag.cancel != nil {
+		ag.cancel()
+	}
+	if ag.performanceMonitor != nil {
+		ag.performanceMonitor.Stop()
+	}
+	return nil
+}
+
+// addReport safely adds a report to the collection
+func (ag *ArtifactGenerator) addReport(report ReportInfo) {
+	ag.mu.Lock()
+	defer ag.mu.Unlock()
+	ag.Reports = append(ag.Reports, report)
+}
+
+// addScreenshot safely adds a screenshot to the collection
+func (ag *ArtifactGenerator) addScreenshot(screenshot ScreenshotInfo) {
+	ag.mu.Lock()
+	defer ag.mu.Unlock()
+	ag.Screenshots = append(ag.Screenshots, screenshot)
 }

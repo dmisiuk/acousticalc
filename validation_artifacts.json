@@ -1,0 +1,2839 @@
+{
+  "artifacts": [
+    {
+      "path": "coverage/coverage.html",
+      "type": "report",
+      "test_name": "",
+      "event_type": "",
+      "category": "unknown",
+      "timestamp": "2025-09-24T20:03:52.281135068+02:00",
+      "size_bytes": 27725,
+      "metadata": {
+        "format": "HTML"
+      }
+    },
+    {
+      "path": "coverage/coverage_dashboard.html",
+      "type": "report",
+      "test_name": "",
+      "event_type": "",
+      "category": "unknown",
+      "timestamp": "2025-09-24T20:03:52.882513799+02:00",
+      "size_bytes": 5304,
+      "metadata": {
+        "format": "HTML"
+      }
+    },
+    {
+      "path": "screenshots/demo_content/storyboards/artifact_compat_test_storyboard.html",
+      "type": "storyboard",
+      "test_name": "artifact_compat_test",
+      "event_type": "",
+      "category": "unknown",
+      "timestamp": "2025-09-24T19:58:52.280344201+02:00",
+      "size_bytes": 2604,
+      "metadata": {
+        "format": "HTML"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_160101.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:01:02.636280374+02:00",
+      "size_bytes": 1647811,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_160948.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:49.401261199+02:00",
+      "size_bytes": 934934,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_161940.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:19:41.234031168+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_162015.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:20:15.794807052+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_165028.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:50:34.949723931+02:00",
+      "size_bytes": 907378,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_171445.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:14:47.847352753+02:00",
+      "size_bytes": 9612914,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_171541.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:41.888621599+02:00",
+      "size_bytes": 474736,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_173455.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:34:56.059142828+02:00",
+      "size_bytes": 941070,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_173551.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:51.816754068+02:00",
+      "size_bytes": 778938,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_190916.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:17.296918411+02:00",
+      "size_bytes": 1869403,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_191104.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:05.224593921+02:00",
+      "size_bytes": 1919184,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_194336.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:37.683695462+02:00",
+      "size_bytes": 1760035,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_195624.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:25.91578431+02:00",
+      "size_bytes": 2132813,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_complete_20250924_195851.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_complete",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:58:52.277897447+02:00",
+      "size_bytes": 2960839,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_160101.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:01:01.90364324+02:00",
+      "size_bytes": 1647811,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_160948.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:48.81732439+02:00",
+      "size_bytes": 919966,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_161940.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:19:40.823236806+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_162014.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:20:15.379154933+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_165022.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:50:28.736707435+02:00",
+      "size_bytes": 907406,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_171443.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:14:45.659422693+02:00",
+      "size_bytes": 9314980,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_171541.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:41.563989755+02:00",
+      "size_bytes": 474718,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_173455.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:34:55.680061317+02:00",
+      "size_bytes": 941070,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_173550.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:51.399516931+02:00",
+      "size_bytes": 845954,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_190915.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:16.504174759+02:00",
+      "size_bytes": 1868591,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_191103.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:04.524842743+02:00",
+      "size_bytes": 1958115,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_194336.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:36.948859984+02:00",
+      "size_bytes": 1758904,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_195623.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:24.569274772+02:00",
+      "size_bytes": 2132075,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_process_20250924_195850.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:58:51.282135712+02:00",
+      "size_bytes": 2961843,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_160100.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:01:01.132230674+02:00",
+      "size_bytes": 1647872,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_160947.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:48.245973431+02:00",
+      "size_bytes": 936575,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_161939.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:19:40.420160147+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_162014.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:20:14.921037757+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_164151.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:42:03.448630102+02:00",
+      "size_bytes": 4425333,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_165016.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:50:22.737000905+02:00",
+      "size_bytes": 909242,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_171441.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:14:43.510749982+02:00",
+      "size_bytes": 8519176,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_171540.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:41.223023616+02:00",
+      "size_bytes": 474736,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_173454.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:34:55.310761526+02:00",
+      "size_bytes": 941070,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_173550.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:50.998406071+02:00",
+      "size_bytes": 845924,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_190914.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:15.717652532+02:00",
+      "size_bytes": 1869129,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_191103.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:03.803943711+02:00",
+      "size_bytes": 1957206,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_194335.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:36.200746317+02:00",
+      "size_bytes": 1756371,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_195621.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:23.166882097+02:00",
+      "size_bytes": 2132884,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_start_20250924_195849.png",
+      "type": "screenshot",
+      "test_name": "artifact_compat_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:58:50.34305755+02:00",
+      "size_bytes": 2961841,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/artifact_compat_test_visual_report.html",
+      "type": "report",
+      "test_name": "artifact_compat_test",
+      "event_type": "",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:58:52.280182995+02:00",
+      "size_bytes": 2088,
+      "metadata": {
+        "format": "HTML"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_160108.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:01:08.662252872+02:00",
+      "size_bytes": 1647811,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_160954.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:55.199918087+02:00",
+      "size_bytes": 1177413,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_162019.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:20:20.062456903+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_171506.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:07.914491837+02:00",
+      "size_bytes": 7647650,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_171545.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:45.340800203+02:00",
+      "size_bytes": 639369,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_171558.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:59.000549728+02:00",
+      "size_bytes": 639469,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_173137.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:31:37.461827296+02:00",
+      "size_bytes": 911856,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_173459.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:00.23553442+02:00",
+      "size_bytes": 940958,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_173557.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:58.155274731+02:00",
+      "size_bytes": 667062,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_190924.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:25.371285081+02:00",
+      "size_bytes": 1967358,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_191111.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:12.490252909+02:00",
+      "size_bytes": 1938566,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_194344.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:45.036613153+02:00",
+      "size_bytes": 1757083,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_195640.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:42.398821786+02:00",
+      "size_bytes": 4357303,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_195901.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:59:02.623544566+02:00",
+      "size_bytes": 2913843,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/cross_platform_test_cross_platform_20250924_200037.png",
+      "type": "screenshot",
+      "test_name": "cross_platform_test_cross_platform",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T20:00:38.745136628+02:00",
+      "size_bytes": 2904200,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_160103.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:01:04.421494961+02:00",
+      "size_bytes": 1647811,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_160104.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:01:05.028645955+02:00",
+      "size_bytes": 1647811,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_160105.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:01:06.167180643+02:00",
+      "size_bytes": 1647811,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_160949.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:50.590548398+02:00",
+      "size_bytes": 775537,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_160950.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:51.165264488+02:00",
+      "size_bytes": 779646,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_160951.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:52.321894541+02:00",
+      "size_bytes": 765719,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_160952.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:52.942197657+02:00",
+      "size_bytes": 638397,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_162016.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:20:17.016872853+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_162017.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:20:18.31169488+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_165040.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:50:46.347047471+02:00",
+      "size_bytes": 706313,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_165046.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:50:54.058418767+02:00",
+      "size_bytes": 1129148,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_165054.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:50:56.59432251+02:00",
+      "size_bytes": 295053,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_171450.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:14:52.461442219+02:00",
+      "size_bytes": 9603380,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_171452.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:14:54.472560318+02:00",
+      "size_bytes": 8599173,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_171454.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:14:56.652739197+02:00",
+      "size_bytes": 9610357,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_171456.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:14:58.970552144+02:00",
+      "size_bytes": 9602626,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_171458.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:01.202106796+02:00",
+      "size_bytes": 9589613,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_171542.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:43.247060573+02:00",
+      "size_bytes": 475248,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_171543.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:43.902003922+02:00",
+      "size_bytes": 475471,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_171555.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:56.280625833+02:00",
+      "size_bytes": 639675,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_171556.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:57.29578982+02:00",
+      "size_bytes": 639469,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_171557.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:57.634706355+02:00",
+      "size_bytes": 639622,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_173134.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:31:35.27617818+02:00",
+      "size_bytes": 963785,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_173135.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:31:35.996543856+02:00",
+      "size_bytes": 906935,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_173456.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:34:57.381387578+02:00",
+      "size_bytes": 941106,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_173457.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:34:58.296876469+02:00",
+      "size_bytes": 1033754,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_173458.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:34:58.675757946+02:00",
+      "size_bytes": 939906,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_173552.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:53.345417655+02:00",
+      "size_bytes": 1372806,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_173553.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:54.528147666+02:00",
+      "size_bytes": 1969329,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_173554.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:55.352300781+02:00",
+      "size_bytes": 2880292,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_190918.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:19.67707787+02:00",
+      "size_bytes": 1869216,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_190919.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:20.477033928+02:00",
+      "size_bytes": 1868626,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_190920.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:21.279976554+02:00",
+      "size_bytes": 1869237,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_190921.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:22.082307566+02:00",
+      "size_bytes": 1868911,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_191105.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:06.657524716+02:00",
+      "size_bytes": 1920689,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_191106.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:07.372448388+02:00",
+      "size_bytes": 1922157,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_191107.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:08.146349543+02:00",
+      "size_bytes": 1922908,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_191108.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:09.568003979+02:00",
+      "size_bytes": 1922908,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_194338.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:39.136255641+02:00",
+      "size_bytes": 1753984,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_194339.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:40.595283563+02:00",
+      "size_bytes": 1752341,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_194340.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:41.323382095+02:00",
+      "size_bytes": 1752565,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_194341.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:42.06903727+02:00",
+      "size_bytes": 1752518,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_195627.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:29.10434023+02:00",
+      "size_bytes": 2417374,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_195629.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:30.493974952+02:00",
+      "size_bytes": 2245726,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_195630.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:32.006206424+02:00",
+      "size_bytes": 2245618,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_195632.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:33.303690614+02:00",
+      "size_bytes": 2257796,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_195633.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:34.593347922+02:00",
+      "size_bytes": 2221287,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_195853.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:58:54.39302886+02:00",
+      "size_bytes": 2899323,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_195854.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:58:55.386527631+02:00",
+      "size_bytes": 2900629,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_195855.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:58:56.328095962+02:00",
+      "size_bytes": 2900609,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_195856.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:58:57.335041271+02:00",
+      "size_bytes": 2900629,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_195857.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:58:58.409275614+02:00",
+      "size_bytes": 2901102,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_200242.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T20:02:43.613877026+02:00",
+      "size_bytes": 2830651,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_200243.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T20:02:44.466819867+02:00",
+      "size_bytes": 2831841,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_200244.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T20:02:45.295712375+02:00",
+      "size_bytes": 2831654,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_200245.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T20:02:46.123515483+02:00",
+      "size_bytes": 2831069,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_process_20250924_200246.png",
+      "type": "screenshot",
+      "test_name": "performance_report_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T20:02:46.970676749+02:00",
+      "size_bytes": 2832169,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_report_test_visual_report.html",
+      "type": "report",
+      "test_name": "performance_report_test",
+      "event_type": "",
+      "category": "unit",
+      "timestamp": "2025-09-24T20:02:46.971909354+02:00",
+      "size_bytes": 2383,
+      "metadata": {
+        "format": "HTML"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_160102.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:01:03.21472875+02:00",
+      "size_bytes": 1647811,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_160949.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:49.979909609+02:00",
+      "size_bytes": 776701,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_161941.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:19:41.622990625+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_162015.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:20:16.188528269+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_165034.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:50:40.57447119+02:00",
+      "size_bytes": 709327,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_171447.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:14:50.289712125+02:00",
+      "size_bytes": 9040206,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_171541.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:42.239012911+02:00",
+      "size_bytes": 475248,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_171555.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:55.939502573+02:00",
+      "size_bytes": 639469,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_173133.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:31:34.179573179+02:00",
+      "size_bytes": 979611,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_173456.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:34:56.4772411+02:00",
+      "size_bytes": 1086099,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_173551.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:52.323984405+02:00",
+      "size_bytes": 875905,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_190917.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:18.086278708+02:00",
+      "size_bytes": 1868329,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_191105.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:05.94014174+02:00",
+      "size_bytes": 1920494,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_194337.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:38.417277508+02:00",
+      "size_bytes": 1759247,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_195625.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:27.472691023+02:00",
+      "size_bytes": 2132323,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_195852.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:58:53.410471628+02:00",
+      "size_bytes": 2962490,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/performance_test_performance_20250924_200241.png",
+      "type": "screenshot",
+      "test_name": "performance_test_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T20:02:42.7849681+02:00",
+      "size_bytes": 2830458,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_160050.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:00:51.913397466+02:00",
+      "size_bytes": 1527035,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_160059.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:00:59.914831169+02:00",
+      "size_bytes": 1647976,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_160946.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:46.951913241+02:00",
+      "size_bytes": 639596,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_161938.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:19:39.580848258+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_162013.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:20:14.127134911+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_164135.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:41:42.718092962+02:00",
+      "size_bytes": 1028299,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_165004.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:50:10.502743694+02:00",
+      "size_bytes": 900456,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_171437.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:14:39.51684138+02:00",
+      "size_bytes": 7960849,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_171540.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:40.570530567+02:00",
+      "size_bytes": 461500,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_173454.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:34:54.5475274+02:00",
+      "size_bytes": 941106,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_173549.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:50.252743251+02:00",
+      "size_bytes": 958438,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_190913.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:14.141542803+02:00",
+      "size_bytes": 1868963,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_191101.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:02.361024592+02:00",
+      "size_bytes": 1956002,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_194333.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:34.693789616+02:00",
+      "size_bytes": 1756216,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_195619.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:20.484726274+02:00",
+      "size_bytes": 2132934,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_195847.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:58:48.300463212+02:00",
+      "size_bytes": 2961841,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_png_test_20250924_200036.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_png_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T20:00:37.076936399+02:00",
+      "size_bytes": 2904086,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_160050.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:00:52.558444423+02:00",
+      "size_bytes": 1527035,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_160059.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:01:00.53269508+02:00",
+      "size_bytes": 1647872,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_160946.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:47.615269305+02:00",
+      "size_bytes": 1011412,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_161938.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:19:39.99385538+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_162013.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:20:14.520078696+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_164135.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:41:51.383033928+02:00",
+      "size_bytes": 1038228,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_165004.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:50:16.572302518+02:00",
+      "size_bytes": 915188,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_171437.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:14:41.687746041+02:00",
+      "size_bytes": 9612513,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_171540.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:40.900908153+02:00",
+      "size_bytes": 474888,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_173454.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:34:54.937658501+02:00",
+      "size_bytes": 941253,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_173549.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:50.602938834+02:00",
+      "size_bytes": 610229,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_190913.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:14.926632848+02:00",
+      "size_bytes": 1869149,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_191101.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:03.092291869+02:00",
+      "size_bytes": 1956397,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_194333.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:35.442759975+02:00",
+      "size_bytes": 1755597,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_195619.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:21.705247002+02:00",
+      "size_bytes": 2132939,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_195847.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:58:49.343274962+02:00",
+      "size_bytes": 2961843,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/platform_compat_srgb_test_20250924_200036.png",
+      "type": "screenshot",
+      "test_name": "platform_compat_srgb_test",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T20:00:37.90370794+02:00",
+      "size_bytes": 2904213,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_performance_performance_20250924_160551.png",
+      "type": "screenshot",
+      "test_name": "screenshot_performance_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:05:52.944902947+02:00",
+      "size_bytes": 1639669,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_performance_performance_20250924_195956.png",
+      "type": "screenshot",
+      "test_name": "screenshot_performance_performance",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:59:56.898734611+02:00",
+      "size_bytes": 2788977,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_160106.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:01:08.092136412+02:00",
+      "size_bytes": 1647811,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_160952.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:54.75666676+02:00",
+      "size_bytes": 1177372,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_162018.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:20:19.54267922+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_171501.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:06.045003267+02:00",
+      "size_bytes": 9572055,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_171543.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:45.002313655+02:00",
+      "size_bytes": 639369,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_171557.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:58.666869284+02:00",
+      "size_bytes": 639622,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_173135.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:31:37.104759592+02:00",
+      "size_bytes": 935789,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_173458.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:34:59.852749338+02:00",
+      "size_bytes": 940958,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_173555.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:57.710699317+02:00",
+      "size_bytes": 1316727,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_190922.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:24.528361789+02:00",
+      "size_bytes": 1868904,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_191109.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:11.777204529+02:00",
+      "size_bytes": 1943103,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_194342.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:44.309052027+02:00",
+      "size_bytes": 1747817,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_195634.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:40.369703198+02:00",
+      "size_bytes": 4271484,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_end_20250924_195858.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_end",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:59:01.595229798+02:00",
+      "size_bytes": 2905440,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_160106.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:01:07.338773463+02:00",
+      "size_bytes": 1647811,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_160952.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:54.221682026+02:00",
+      "size_bytes": 1173255,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_162018.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:20:19.101343157+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_171501.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:03.810928567+02:00",
+      "size_bytes": 3562127,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_171543.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:44.648717191+02:00",
+      "size_bytes": 639513,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_171557.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:58.326078348+02:00",
+      "size_bytes": 639469,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_173135.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:31:36.731448283+02:00",
+      "size_bytes": 945000,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_173458.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:34:59.462116505+02:00",
+      "size_bytes": 940958,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_173555.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:57.236389508+02:00",
+      "size_bytes": 1336310,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_190922.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:23.698462127+02:00",
+      "size_bytes": 1868927,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_191109.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:11.03723215+02:00",
+      "size_bytes": 1773044,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_194342.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:43.563872717+02:00",
+      "size_bytes": 1752307,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_195634.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:37.656902935+02:00",
+      "size_bytes": 2246060,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_process_20250924_195858.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_process",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:59:00.503008404+02:00",
+      "size_bytes": 2855824,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_160106.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:01:06.742563836+02:00",
+      "size_bytes": 1647811,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_160952.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:09:53.618246152+02:00",
+      "size_bytes": 636713,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_162018.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T16:20:18.708968188+02:00",
+      "size_bytes": 820633,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_171501.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:02.746896273+02:00",
+      "size_bytes": 5599571,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_171543.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:44.241066494+02:00",
+      "size_bytes": 475828,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_171557.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:15:57.982642741+02:00",
+      "size_bytes": 639469,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_173135.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:31:36.363942384+02:00",
+      "size_bytes": 938072,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_173458.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:34:59.07430761+02:00",
+      "size_bytes": 939902,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_173555.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T17:35:56.732448298+02:00",
+      "size_bytes": 6404697,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_190922.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:09:22.885909681+02:00",
+      "size_bytes": 1869129,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_191109.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:11:10.292535932+02:00",
+      "size_bytes": 1920166,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_194342.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:43:42.813336182+02:00",
+      "size_bytes": 1751593,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_195634.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:56:35.990237055+02:00",
+      "size_bytes": 2221649,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/screenshot_test_start_20250924_195858.png",
+      "type": "screenshot",
+      "test_name": "screenshot_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:58:59.451779453+02:00",
+      "size_bytes": 2883546,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "path": "screenshots/unit/validation_test_start_20250924_195948.png",
+      "type": "screenshot",
+      "test_name": "validation_test_start",
+      "event_type": "20250924",
+      "category": "unit",
+      "timestamp": "2025-09-24T19:59:49.384524257+02:00",
+      "size_bytes": 3094073,
+      "metadata": {
+        "color_space": "sRGB",
+        "format": "PNG"
+      }
+    }
+  ],
+  "base_dir": "tests/artifacts",
+  "generated_at": "2025-09-24T20:05:22.961491+02:00",
+  "summary": {
+    "by_category": {
+      "unit": 213,
+      "unknown": 3
+    },
+    "by_test": {
+      "artifact_compat_test": 2,
+      "artifact_compat_test_complete": 14,
+      "artifact_compat_test_process": 14,
+      "artifact_compat_test_start": 15,
+      "cross_platform_test_cross_platform": 15,
+      "performance_report_test": 1,
+      "performance_report_test_process": 57,
+      "performance_test_performance": 17,
+      "platform_compat_png_test": 17,
+      "platform_compat_srgb_test": 17,
+      "screenshot_performance_performance": 2,
+      "screenshot_test_end": 14,
+      "screenshot_test_process": 14,
+      "screenshot_test_start": 14,
+      "validation_test_start": 1
+    },
+    "by_type": {
+      "report": 4,
+      "screenshot": 211,
+      "storyboard": 1
+    },
+    "total_artifacts": 216,
+    "total_size": 436255308
+  }
+}
