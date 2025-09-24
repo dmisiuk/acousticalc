@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"sync"
 	"time"
 
@@ -33,10 +34,20 @@ type ScreenshotCapture struct {
 type ScreenshotEngine interface {
 	Capture() ([]byte, error)
 	GetImageData() (interface{}, error)
+	GetPlatform() string
+	IsAvailable() bool
 }
 
 // RobotGoEngine implements ScreenshotEngine using robotgo
-type RobotGoEngine struct{}
+type RobotGoEngine struct {
+	platform string
+}
+
+func NewRobotGoEngine() *RobotGoEngine {
+	return &RobotGoEngine{
+		platform: runtime.GOOS,
+	}
+}
 
 func (rg *RobotGoEngine) Capture() ([]byte, error) {
 	bitmap := robotgo.CaptureScreen()
@@ -55,15 +66,57 @@ func (rg *RobotGoEngine) GetImageData() (interface{}, error) {
 	return robotgo.ToImage(bitmap), nil
 }
 
+func (rg *RobotGoEngine) GetPlatform() string {
+	return rg.platform
+}
+
+func (rg *RobotGoEngine) IsAvailable() bool {
+	// Check if robotgo is available on this platform
+	return rg.platform == "darwin" || rg.platform == "linux"
+}
+
+// ScreenshotEngineFactory implements Strategy pattern for engine selection
+type ScreenshotEngineFactory struct{}
+
+func (sef *ScreenshotEngineFactory) CreateEngine() ScreenshotEngine {
+	engine := NewRobotGoEngine()
+	if engine.IsAvailable() {
+		return engine
+	}
+
+	// Fallback to a mock engine for unsupported platforms
+	return &MockScreenshotEngine{}
+}
+
+// MockScreenshotEngine provides fallback for unsupported platforms
+type MockScreenshotEngine struct{}
+
+func (m *MockScreenshotEngine) Capture() ([]byte, error) {
+	return []byte("mock-screenshot-data"), nil
+}
+
+func (m *MockScreenshotEngine) GetImageData() (interface{}, error) {
+	return "mock-image-data", nil
+}
+
+func (m *MockScreenshotEngine) GetPlatform() string {
+	return "mock"
+}
+
+func (m *MockScreenshotEngine) IsAvailable() bool {
+	return true
+}
+
 // NewScreenshotCapture creates a new screenshot capture instance
 func NewScreenshotCapture(testName, outputDir string) *ScreenshotCapture {
+	factory := &ScreenshotEngineFactory{}
 	return &ScreenshotCapture{
 		OutputDir: outputDir,
 		TestName:  testName,
 		Timestamp: time.Now(),
 		Format:    "png",
 		Quality:   100,
-		capturer:  &RobotGoEngine{},
+		capturer:  factory.CreateEngine(),
 	}
 }
 
@@ -146,6 +199,38 @@ type VisualTestLogger struct {
 	Screenshots []string
 	Events      []VisualEvent
 	StartTime   time.Time
+	observers   []VisualTestObserver
+	mu          sync.RWMutex
+}
+
+// VisualTestObserver interface for event notifications
+type VisualTestObserver interface {
+	OnEvent(event VisualEvent)
+	OnScreenshot(capturedPath string, eventType string)
+	OnTestComplete(logger *VisualTestLogger)
+}
+
+// ScreenshotCaptureObserver implements observer for screenshot events
+type ScreenshotCaptureObserver struct {
+	callback func(event VisualEvent)
+}
+
+func (sco *ScreenshotCaptureObserver) OnEvent(event VisualEvent) {
+	if sco.callback != nil {
+		sco.callback(event)
+	}
+}
+
+func (sco *ScreenshotCaptureObserver) OnScreenshot(capturedPath string, eventType string) {
+	// Default implementation - can be overridden
+	fmt.Printf("Screenshot captured: %s for event: %s\n", capturedPath, eventType)
+}
+
+func (sco *ScreenshotCaptureObserver) OnTestComplete(logger *VisualTestLogger) {
+	// Default implementation
+	duration := time.Since(logger.StartTime)
+	fmt.Printf("Test completed: %s, Duration: %v, Screenshots: %d\n",
+		logger.TestName, duration, len(logger.Screenshots))
 }
 
 // VisualEvent represents a test event with visual context
@@ -165,6 +250,56 @@ func NewVisualTestLogger(testName, outputDir string) *VisualTestLogger {
 		Screenshots: make([]string, 0),
 		Events:      make([]VisualEvent, 0),
 		StartTime:   time.Now(),
+		observers:   make([]VisualTestObserver, 0),
+	}
+}
+
+// AddObserver adds an observer to the visual test logger
+func (vtl *VisualTestLogger) AddObserver(observer VisualTestObserver) {
+	vtl.mu.Lock()
+	defer vtl.mu.Unlock()
+	vtl.observers = append(vtl.observers, observer)
+}
+
+// RemoveObserver removes an observer from the visual test logger
+func (vtl *VisualTestLogger) RemoveObserver(observer VisualTestObserver) {
+	vtl.mu.Lock()
+	defer vtl.mu.Unlock()
+	for i, obs := range vtl.observers {
+		if obs == observer {
+			vtl.observers = append(vtl.observers[:i], vtl.observers[i+1:]...)
+			break
+		}
+	}
+}
+
+// notifyObservers notifies all observers of an event
+func (vtl *VisualTestLogger) notifyObservers(event VisualEvent) {
+	vtl.mu.RLock()
+	defer vtl.mu.RUnlock()
+
+	for _, observer := range vtl.observers {
+		observer.OnEvent(event)
+	}
+}
+
+// notifyScreenshotObservers notifies all observers of a screenshot capture
+func (vtl *VisualTestLogger) notifyScreenshotObservers(capturedPath string, eventType string) {
+	vtl.mu.RLock()
+	defer vtl.mu.RUnlock()
+
+	for _, observer := range vtl.observers {
+		observer.OnScreenshot(capturedPath, eventType)
+	}
+}
+
+// notifyCompletionObservers notifies all observers of test completion
+func (vtl *VisualTestLogger) notifyCompletionObservers() {
+	vtl.mu.RLock()
+	defer vtl.mu.RUnlock()
+
+	for _, observer := range vtl.observers {
+		observer.OnTestComplete(vtl)
 	}
 }
 
@@ -182,9 +317,11 @@ func (vtl *VisualTestLogger) LogEvent(eventType VisualTestEvent, description str
 	if screenshot, err := capture.CaptureScreen(string(eventType)); err == nil {
 		event.Screenshot = screenshot
 		vtl.Screenshots = append(vtl.Screenshots, screenshot)
+		vtl.notifyScreenshotObservers(screenshot, string(eventType))
 	}
 
 	vtl.Events = append(vtl.Events, event)
+	vtl.notifyObservers(event)
 }
 
 // GenerateVisualReport generates a visual test execution report
@@ -321,6 +458,11 @@ func (vtl *VisualTestLogger) generateDemoStoryboard() string {
 </html>`
 
 	return html
+}
+
+// Complete marks the test as complete and notifies observers
+func (vtl *VisualTestLogger) Complete() {
+	vtl.notifyCompletionObservers()
 }
 
 // PerformanceMonitor provides thread-safe performance tracking for visual tests
