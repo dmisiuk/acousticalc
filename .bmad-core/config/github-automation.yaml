@@ -1,0 +1,126 @@
+# BMad GitHub Automation Configuration
+# This configuration file controls the GitHub workflow automation for BMad agents
+
+# Automation settings
+automation:
+  enabled: true
+  story_dir: "docs/stories"
+  log_file: ".ai/bmad-automation.log"
+  log_level: "info"
+
+# GitHub repository settings
+github:
+  repository:
+    # These will be automatically detected from git remote
+    owner: "${GITHUB_REPOSITORY_OWNER:-auto-detect}"
+    name: "${GITHUB_REPOSITORY_NAME:-auto-detect}"
+    default_branch: "main"
+
+  # Issue settings
+  issue:
+    labels:
+      default: ["story", "automated"]
+      epic_prefix: "epic-"
+      status_prefix: "status-"
+    template_path: ".bmad-core/templates/issue-template.md"
+    auto_assign: true
+    auto_assignees: ["@me"]
+
+  # Branch settings
+  branch:
+    prefix: "feature/story-"
+    test_prefix: "test/story-"
+    separator: "-"
+    max_length: 50
+    create_remote: true
+    setup_upstream: true
+
+  # CLI settings
+  cli:
+    timeout: "30s"
+    retry_count: 3
+    retry_delay: "5s"
+    verbose: false
+
+# Story validation settings
+validation:
+  required_fields:
+    - epic
+    - story
+    - title
+    - status
+  file_patterns:
+    - "{epic}.{story}.story.md"
+  max_content_length: 100000
+  require_acceptance_criteria: true
+
+# Test settings
+test:
+  enabled: true
+  cleanup_on_exit: true
+  test_story_id: "0.1"
+  test_labels:
+    - "test-automation"
+    - "test-cleanup"
+  auto_cleanup_delay: "5m"
+
+# Logging configuration
+logging:
+  level: "info"
+  file: ".ai/bmad-automation.log"
+  format: "json"
+  max_size: "10MB"
+  max_files: 5
+
+# Error handling
+error_handling:
+  continue_on_error: false
+  rollback_on_failure: true
+  notification_level: "error"
+
+# Integration settings
+integration:
+  # Agent integration
+  agents:
+    dev:
+      auto_execute: true
+      confirm_before_execution: false
+    bmad-master:
+      auto_execute: false
+      confirm_before_execution: true
+
+  # Script paths
+  scripts:
+    setup_script: ".bmad-core/scripts/bmad-github-setup.sh"
+    test_script: ".bmad-core/scripts/test-github-automation.sh"
+    cleanup_script: ".bmad-core/scripts/cleanup-test-resources.sh"
+
+# Environment variables
+environment:
+  # GitHub CLI settings
+  GH_TOKEN: "${GH_TOKEN:-}"
+  GITHUB_REPOSITORY: "${GITHUB_REPOSITORY:-}"
+  GITHUB_REPOSITORY_OWNER: "${GITHUB_REPOSITORY_OWNER:-}"
+  GITHUB_REPOSITORY_NAME: "${GITHUB_REPOSITORY_NAME:-}"
+
+  # BMad settings
+  BMAD_STORY_DIR: "${BMAD_STORY_DIR:-docs/stories}"
+  BMAD_CONFIG_FILE: "${BMAD_CONFIG_FILE:-.bmad-core/config/github-automation.yaml}"
+  BMAD_LOG_LEVEL: "${BMAD_LOG_LEVEL:-info}"
+
+# Security settings
+security:
+  # Token validation
+  validate_tokens: true
+  token_expiry_warning: "24h"
+
+  # Repository permissions
+  required_permissions:
+    - "issues:write"
+    - "contents:write"
+
+  # Rate limiting
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 60
+    burst_size: 10

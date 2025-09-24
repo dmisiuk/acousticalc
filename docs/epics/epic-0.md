@@ -22,11 +22,11 @@ Establish comprehensive demo infrastructure to ensure every future story and PR 
 
 ## Stories (Logical Progression Order)
 
-- **Story 0.1**: GitHub Workflow & Issue Automation - *Planning*
-- **Story 0.2**: Testing Infrastructure Foundation - *Planning*
-- **Story 0.3**: Video Recording & Demo System - *Planning*
-- **Story 0.4**: PR Demo Automation & Integration - *Planning*
-- **Story 0.5**: Documentation & Template Updates - *Planning*
+- **Story 0.1**: BMad Agent Development Workflow Automation - *Draft* (BMad agent uses gh commands to create GitHub issues and branches)
+- **Story 0.2**: Testing Infrastructure Foundation - *Planning* (Expanded scope: Unit, integration, e2e testing + video recording setup)
+- **Story 0.3**: Video Recording & Demo System - *Planning* (Visual input overlays, keystroke/mouse visualization, demo video generation)
+- **Story 0.4**: PR Demo Automation & Integration - *Planning* (Automated PR embedding, demo video integration, screenshot comparison)
+- **Story 0.5**: Documentation & Template Updates - *Planning* (Template integration, developer workflow documentation)
 
 ## Epic Definition of Done
 

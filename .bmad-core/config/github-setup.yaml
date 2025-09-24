@@ -1,0 +1,99 @@
+# GitHub Setup Configuration
+# Configuration-based GitHub story initialization with safety controls
+
+# Default Safety Settings
+safety:
+  require_confirmation: true
+  dry_run: false
+  prevent_force_push: true
+  auto_cleanup: false
+  auto_switch_branch: false
+
+# Branch Configuration
+branch:
+  naming_convention: "feature/story-{{epic}}.{{story}}-{{title_slug}}"
+  create_remote: true
+  set_upstream: true
+  base_branch: "main"
+
+# Issue Configuration
+issue:
+  default_labels: ["story", "automated"]
+  default_assignee: "@me"
+  include_body_sections:
+    - "story_narrative"
+    - "acceptance_criteria"
+    - "dev_notes"
+    - "technical_implementation"
+    - "testing_requirements"
+    - "change_log"
+
+# Validation Rules
+validation:
+  required_fields:
+    - "epic"
+    - "story"
+    - "title"
+    - "status"
+  valid_statuses:
+    - "Planning"
+    - "In Progress"
+    - "Ready for Review"
+    - "Completed"
+  forbidden_branch_prefixes:
+    - "main"
+    - "master"
+    - "develop"
+    - "release/"
+    - "hotfix/"
+
+# Command Templates
+commands:
+  issue_create:
+    template: "gh issue create --title \"{title}\" --body \"{body}\" --label \"{labels}\" --assignee \"{assignee}\""
+
+  branch_create:
+    template: "git checkout -b {branch_name}"
+
+  branch_push:
+    template: "git push -u origin {branch_name}"
+
+# Error Handling
+error_handling:
+  max_retries: 3
+  retry_delay: 2
+  partial_cleanup: true
+  preserve_progress: true
+
+# Logging
+logging:
+  enabled: true
+  file: ".ai/github-setup.log"
+  level: "INFO"
+  format: "{timestamp} [{level}] {message}"
+
+# Repository Settings
+repository:
+  auto_detect: true
+  default_remote: "origin"
+  require_clean_working_dir: true
+
+# Test Mode Configuration
+test_mode:
+  enabled: false
+  prefix: "test/"
+  auto_cleanup: true
+  cleanup_delay: 5
+
+# Integration Settings
+integration:
+  bmad_agent: true
+  master_agent: true
+  cicd_support: true
+
+# User Interface
+ui:
+  preview_width: 80
+  confirmation_timeout: 60
+  color_output: true
+  progress_indicators: true
