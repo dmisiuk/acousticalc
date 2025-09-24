@@ -77,6 +77,9 @@ validate_unix_environment() {
 run_unit_tests() {
     log_info "Running unit tests with Unix optimizations..."
 
+    # Change to project root for consistent paths
+    cd "$PROJECT_ROOT"
+
     local test_cmd="go test -v -timeout=30s"
 
     if [[ "$COVERAGE_ENABLED" == "true" ]]; then
@@ -108,6 +111,9 @@ run_unit_tests() {
 run_integration_tests() {
     log_info "Running integration tests with Unix optimizations..."
 
+    # Change to project root for consistent paths
+    cd "$PROJECT_ROOT"
+
     local test_cmd="go test -v -timeout=60s"
 
     if [[ "$COVERAGE_ENABLED" == "true" ]]; then
@@ -138,6 +144,9 @@ run_integration_tests() {
 
 run_benchmarks() {
     log_info "Running performance benchmarks..."
+
+    # Change to project root for consistent paths
+    cd "$PROJECT_ROOT"
 
     local benchmark_cmd="go test -bench=. -benchmem -timeout=120s"
 
