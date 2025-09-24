@@ -185,6 +185,43 @@ Terminal users are forced to choose between power and usability when it comes to
 - Beep - Simple audio playback
 - System calls - Fallback to system beep commands
 
+**Demo Infrastructure (Epic 0):**
+- Terminal Recording: asciinema for session capture
+- Video Processing: ffmpeg for format conversion (MP4, GIF, WEBM)
+- Visual Testing: Custom Go screenshot and baseline comparison
+- Input Visualization: Overlay system for keyboard/mouse display
+- Artifact Management: Automated storage and organization system
+
+### Demo Infrastructure Requirements (Epic 0)
+
+**Core Demo Capabilities:**
+- **Automated Recording**: All tests and demos generate terminal recordings with visual input overlays
+- **Multi-Format Export**: Support for MP4, GIF, WEBM formats optimized for different platforms
+- **Visual Input Display**: Keyboard keystrokes and mouse clicks displayed as floating overlays
+- **Screenshot Generation**: Automatic screenshots at key interaction points with baseline comparison
+- **Artifact Organization**: Structured storage with metadata and version control
+
+**Technical Requirements:**
+- **Recording Quality**: High-fidelity terminal capture with proper encoding and synchronization
+- **Performance Impact**: <30 seconds additional CI time for demo generation
+- **Cross-Platform Compatibility**: Consistent recording on Windows, macOS, and Linux
+- **Storage Optimization**: Compressed artifacts with efficient organization
+- **Integration**: Seamless integration with existing GitHub Actions workflows
+
+**Demo Content Standards:**
+- **Professional Quality**: Clean visuals with consistent styling and branding
+- **Input Visualization**: Clear keyboard/mouse overlay indicators
+- **Progress Tracking**: Step indicators and completion status
+- **Validation Markers**: Visual proof of acceptance criteria fulfillment
+- **GitHub Optimization**: Formats optimized for PR embedding and display
+
+**Success Metrics for Demo Infrastructure:**
+- 100% of PRs include automated demo content
+- <2 minutes additional CI time for demo generation
+- >95% test coverage with visual evidence
+- Zero manual steps required for demo embedding
+- Cross-platform compatibility verified
+
 ### Cross-Platform Requirements:
 
 **Target Platforms:**

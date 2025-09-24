@@ -36,10 +36,25 @@
 - `github.com/charmbracelet/bubbletea` - TUI framework
 - `github.com/hajimehoshi/oto/v2` - Audio library
 
+### Demo Infrastructure Dependencies (Epic 0)
+- `github.com/asciinema/asciinema` - Terminal recording
+- `github.com/charmbracelet/lipgloss` - Terminal styling for visual testing
+- `github.com/disintegration/imaging` - Image processing for screenshots
+- `github.com/go-vgo/robotgo` - Cross-platform screenshot capture
+- Custom Go packages for visual testing and artifact management
+
 ### Development Dependencies
 - Standard Go testing package
 - GitHub Actions workflows
 - GoReleaser configuration
+
+### External Tools (System Dependencies)
+- **ffmpeg** - Video processing and format conversion
+- **asciinema** - Terminal session recording
+- **ImageMagick** - Image processing and optimization
+- **xdotool/xclip** - Linux input simulation (for demos)
+- **screencapture** - macOS screenshot utilities
+- **PowerShell** - Windows automation utilities
 
 ## Architecture Principles
 

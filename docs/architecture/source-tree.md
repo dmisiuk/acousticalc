@@ -21,15 +21,23 @@ acousticalc/
 │   ├── ui/                      # TUI components and interfaces
 │   ├── audio/                   # Audio system implementation
 │   ├── config/                  # Configuration management
-│   └── history/                 # Calculation history storage
+│   ├── history/                 # Calculation history storage
+│   ├── recording/               # Terminal recording and demo system (Epic 0)
+│   ├── visualtesting/           # Visual testing and screenshot management (Epic 0)
+│   └── artifacts/               # Demo artifact generation and management (Epic 0)
 ├── docs/                        # Documentation
 │   ├── architecture/            # Technical documentation
 │   ├── prd/                     # Product requirements (sharded)
 │   ├── epics/                   # Epic definitions
 │   ├── stories/                 # User stories
-│   └── qa/                      # Quality assurance documentation
+│   ├── qa/                      # Quality assurance documentation
+│   └── demo-infrastructure/      # Demo infrastructure documentation (Epic 0)
 ├── assets/                      # Static assets
-│   └── logo.png                 # Project logo
+│   ├── logo.png                 # Project logo
+│   └── demo-resources/           # Demo assets and resources (Epic 0)
+│       ├── sound-effects/        # Audio files for demo feedback
+│       ├── demo-scripts/         # Pre-defined demo scenarios
+│       └── templates/            # Demo templates and themes
 ├── web-bundles/                 # B-Mad method configurations
 │   ├── agents/                  # Agent definitions
 │   ├── expansion-packs/         # Additional capabilities
@@ -84,6 +92,30 @@ acousticalc/
 - Memory functions (store, recall)
 - Session persistence
 - History search and filtering
+
+### `/internal/recording` (Epic 0)
+**Purpose**: Terminal recording and demo system
+- Terminal session capture using asciinema
+- Input visualization overlay system
+- Video processing and format conversion
+- Recording automation and scenario execution
+- Cross-platform recording compatibility
+
+### `/internal/visualtesting` (Epic 0)
+**Purpose**: Visual testing and screenshot management
+- Screenshot capture and comparison
+- Visual regression detection
+- Baseline image management
+- Test artifact generation
+- Visual validation framework
+
+### `/internal/artifacts` (Epic 0)
+**Purpose**: Demo artifact generation and management
+- Automated artifact organization
+- Metadata generation and storage
+- Demo video optimization
+- Artifact upload and distribution
+- Version control for demo assets
 
 ## File Naming Conventions
 

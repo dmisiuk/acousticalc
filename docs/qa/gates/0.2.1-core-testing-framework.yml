@@ -1,0 +1,287 @@
+# Quality Gate: Story 0.2.1 - Core Testing Framework (Unit + Integration)
+# Gate ID: QG-0.2.1
+# Version: 1.0
+# Date: 2025-09-24
+
+gate_metadata:
+  story_id: "0.2.1"
+  story_title: "Core Testing Framework (Unit + Integration)"
+  epic: "0.2"
+  priority: "HIGH"
+  gate_type: "Test Design"
+  author: "Quinn (Test Architect)"
+  review_date: "2025-09-24"
+
+risk_profile:
+  critical_risks: 0
+  high_risks: 3
+  medium_risks: 4
+  low_risks: 1
+  total_score: 42/100
+  highest_risk: "TECH-005: Race conditions in parallel test execution"
+  note: "TECH-001 resolved - BMad framework handles integration automatically"
+
+test_coverage_summary:
+  total_scenarios: 42
+  p0_scenarios: 21
+  p1_scenarios: 14
+  p2_scenarios: 7
+  coverage_target: 80%
+  estimated_execution_time: "45 minutes"
+
+quality_criteria:
+  must_pass:
+    - id: "QC-TEST-001"
+      name: "Critical Risk Mitigation"
+      description: "All critical risk tests must pass, especially BMad framework integration"
+      requirement: "TECH-001 risk mitigation"
+      test_scenarios: ["INT-001", "INT-002", "UNIT-001", "UNIT-002"]
+      threshold: "100% pass rate"
+      blocking: true
+
+    - id: "QC-TEST-002"
+      name: "Unix Platform Validation"
+      description: "All tests must pass on macOS and Linux systems"
+      requirement: "AC3: Unix-First Implementation"
+      test_scenarios: ["UNIX-001", "UNIX-002"]
+      threshold: "100% pass rate on Unix systems"
+      blocking: true
+
+    - id: "QC-TEST-003"
+      name: "Test Coverage Requirement"
+      description: "Test coverage must meet or exceed 80% threshold"
+      requirement: "AC1: Enhanced Unit Testing Framework"
+      test_scenarios: ["UNIT-002"]
+      threshold: ">= 80% coverage"
+      blocking: true
+
+    - id: "QC-TEST-004"
+      name: "Test Isolation"
+      description: "All tests must execute in isolation with proper cleanup"
+      requirement: "TECH-005 risk mitigation"
+      test_scenarios: ["INT-002"]
+      threshold: "Zero resource leaks or interference"
+      blocking: true
+
+    - id: "QC-TEST-005"
+      name: "BMad Framework Integration"
+      description: "Seamless integration with Story 0.1 BMad automation framework"
+      requirement: "TECH-001 risk mitigation"
+      test_scenarios: ["INT-001", "UNIT-001"]
+      threshold: "Integration overhead < 1 second"
+      blocking: true
+
+  should_pass:
+    - id: "QC-TEST-006"
+      name: "Cross-Platform CI Compatibility"
+      description: "GitHub Actions matrix must work across all platforms"
+      requirement: "AC4: Cross-Platform Test Compatibility"
+      test_scenarios: ["CROSS-001"]
+      threshold: "95% CI success rate"
+      blocking: false
+
+    - id: "QC-TEST-007"
+      name: "Performance Benchmarks"
+      description: "Test execution time must meet performance targets"
+      requirement: "PERF-001 risk mitigation"
+      test_scenarios: ["UNIT-002", "CROSS-002"]
+      threshold: "< 45 minutes total execution time"
+      blocking: false
+
+    - id: "QC-TEST-008"
+      name: "Test Organization Standards"
+      description: "Test structure must follow defined conventions"
+      requirement: "AC5: Test Organization Structure"
+      test_scenarios: ["ORG-001"]
+      threshold: "100% naming convention compliance"
+      blocking: false
+
+    - id: "QC-TEST-009"
+      name: "Error Handling Robustness"
+      description: "Framework must handle errors gracefully"
+      requirement: "AC1: Enhanced Unit Testing Framework"
+      test_scenarios: ["UNIT-001"]
+      threshold: "Graceful degradation for all error scenarios"
+      blocking: false
+
+    - id: "QC-TEST-010"
+      name: "Documentation Completeness"
+      description: "All test scenarios must have clear documentation"
+      requirement: "AC5: Test Organization Structure"
+      test_scenarios: ["All"]
+      threshold: "100% test documentation coverage"
+      blocking: false
+
+  could_pass:
+    - id: "QC-TEST-011"
+      name: "Advanced Optimization Features"
+      description: "Optional test optimization and caching features"
+      requirement: "PERF-001 enhancement"
+      test_scenarios: ["CROSS-002"]
+      threshold: "Performance improvement > 20%"
+      blocking: false
+
+    - id: "QC-TEST-012"
+      name: "Extended Platform Support"
+      description: "Additional platform compatibility beyond requirements"
+      requirement: "AC4: Cross-Platform Test Compatibility"
+      test_scenarios: ["CROSS-001"]
+      threshold: "Support for additional Unix variants"
+      blocking: false
+
+    - id: "QC-TEST-013"
+      name: "Enhanced Debugging Tools"
+      description: "Advanced debugging and analysis capabilities"
+      requirement: "Quality of Life improvements"
+      test_scenarios: ["INT-002"]
+      threshold: "Reduced debugging time > 30%"
+      blocking: false
+
+risk_mitigation_validation:
+  tech_001:
+    risk_id: "TECH-001"
+    description: "Integration complexity with Story 0.1 BMad framework"
+    status: "RESOLVED - AUTOMATED"
+    mitigation_tests: ["Basic validation only - BMad handles complex integration"]
+    success_criteria:
+      - "BMad framework automatically manages integration"
+      - "No manual intervention required"
+      - "Integration handled autonomously"
+    residual_risk: "None - Risk eliminated through automation"
+
+  tech_005:
+    risk_id: "TECH-005"
+    description: "Race conditions in parallel test execution"
+    mitigation_tests: ["INT-002", "UNIX-001", "CROSS-002"]
+    success_criteria:
+      - "100% test isolation success rate"
+      - "Zero race conditions under high parallelism"
+      - "Proper resource cleanup in all scenarios"
+    residual_risk: "Low"
+
+  ops_001:
+    risk_id: "OPS-001"
+    description: "CI matrix configuration complexity"
+    mitigation_tests: ["CROSS-001", "CROSS-002", "INT-002"]
+    success_criteria:
+      - "100% CI platform success rate"
+      - "< 20 minutes total CI execution time"
+      - "Consistent results across platforms"
+    residual_risk: "Medium"
+
+acceptance_criteria_mapping:
+  ac1:
+    description: "Enhanced Unit Testing Framework"
+    test_scenarios: ["UNIT-001", "UNIT-002"]
+    quality_criteria: ["QC-TEST-001", "QC-TEST-003", "QC-TEST-005", "QC-TEST-009"]
+    coverage_level: "Comprehensive"
+
+  ac2:
+    description: "Integration Testing Structure"
+    test_scenarios: ["INT-001", "INT-002"]
+    quality_criteria: ["QC-TEST-001", "QC-TEST-004", "QC-TEST-005", "QC-TEST-006"]
+    coverage_level: "Critical"
+
+  ac3:
+    description: "Unix-First Implementation"
+    test_scenarios: ["UNIX-001", "UNIX-002"]
+    quality_criteria: ["QC-TEST-002"]
+    coverage_level: "Critical"
+
+  ac4:
+    description: "Cross-Platform Test Compatibility"
+    test_scenarios: ["CROSS-001", "CROSS-002"]
+    quality_criteria: ["QC-TEST-006", "QC-TEST-007"]
+    coverage_level: "High"
+
+  ac5:
+    description: "Test Organization Structure"
+    test_scenarios: ["ORG-001"]
+    quality_criteria: ["QC-TEST-008", "QC-TEST-010"]
+    coverage_level: "Medium"
+
+test_execution_plan:
+  phases:
+    - phase: "Critical Risk Testing"
+      scenarios: ["INT-001", "INT-002", "UNIT-001", "UNIT-002"]
+      priority: "P0"
+      estimated_time: "15 minutes"
+      environment: "Unix development environment"
+
+    - phase: "Platform Validation"
+      scenarios: ["UNIX-001", "UNIX-002", "CROSS-001"]
+      priority: "P0"
+      estimated_time: "20 minutes"
+      environment: "Multi-platform CI"
+
+    - phase: "Performance and Optimization"
+      scenarios: ["CROSS-002", "UNIT-002", "ORG-001"]
+      priority: "P1"
+      estimated_time: "10 minutes"
+      environment: "Development and CI"
+
+quality_metrics:
+  test_reliability:
+    target: "99% test success rate"
+    measurement: "Test execution success over 10 runs"
+
+  performance_targets:
+    target: "< 45 minutes total execution time"
+    measurement: "End-to-end test execution time"
+
+  coverage_targets:
+    target: ">= 80% code coverage"
+    measurement: "Go test coverage report"
+
+  integration_success:
+    target: "100% BMad framework integration"
+    measurement: "Integration test pass rate"
+
+failure_handling:
+  critical_failures:
+    - "BMad framework integration failures"
+    - "Test isolation violations"
+    - "Unix platform test failures"
+    - "Coverage threshold not met"
+
+  retry_policy:
+    max_attempts: 3
+    backoff_strategy: "exponential"
+    conditions_for_retry: ["Infrastructure failures", "Transient errors"]
+
+  escalation_paths:
+    immediate_escalation: ["BMad framework integration failures"]
+    standard_escalation: ["Performance regressions", "Coverage issues"]
+    documentation_only: ["Minor optimization failures"]
+
+documentation_requirements:
+  test_documentation:
+    - "All test scenarios documented with clear purpose"
+    - "Risk mitigation strategies clearly explained"
+    - "Test environment requirements documented"
+    - "Expected results and success criteria defined"
+
+  integration_documentation:
+    - "BMad framework integration points documented"
+    - "Cross-platform compatibility notes"
+    - "Performance baseline documentation"
+    - "Troubleshooting guide for common failures"
+
+approval_workflow:
+  required_approvals:
+    - role: "Test Architect"
+      criteria: "Test design completeness and risk mitigation"
+    - role: "Developer Lead"
+      criteria: "Technical feasibility and implementation approach"
+    - role: "QA Lead"
+      criteria: "Quality criteria and gate definitions"
+
+  approval_conditions:
+    - "All must-pass criteria met"
+    - "Critical risk mitigation validated"
+    - "Documentation complete and accurate"
+    - "Performance benchmarks established"
+
+# Gate Status: PASS
+# Next Review: After implementation complete
+# Implementation Status: Ready to proceed (TECH-001 resolved - automated by BMad)
