@@ -4,7 +4,9 @@
 .PHONY: help test test-unit test-integration test-benchmark test-coverage \
         test-watch test-clean test-validate test-all test-parallel \
         coverage-html coverage-summary benchmark-detailed \
-        setup-unix setup-completion unix-report clean-artifacts
+        setup-unix setup-completion unix-report clean-artifacts \
+        lint lint-fix format format-check vet staticcheck security-scan \
+        pre-commit install-hooks
 
 # Default target
 help: ## Show this help message
@@ -146,14 +148,14 @@ unix-optimize: ## Apply Unix-specific optimizations
 	@echo "✅ Unix optimizations applied"
 
 # Development workflow targets
-dev-test: test-unit coverage-html ## Quick development test cycle
+dev-test: lint test-unit coverage-html ## Quick development test cycle with linting
 	@echo "🚀 Development test cycle complete"
 
-dev-full: test-all unix-report ## Full development test cycle with reports
+dev-full: lint test-all unix-report ## Full development test cycle with linting and reports
 	@echo "🚀 Full development test cycle complete"
 
 # CI-specific targets
-ci-test: test-unit test-integration test-coverage ## CI-optimized test run
+ci-test: lint test-unit test-integration test-coverage ## CI-optimized test run with linting
 	@echo "🤖 CI test run complete"
 
 ci-benchmark: test-benchmark benchmark-detailed ## CI-optimized benchmark run
@@ -224,6 +226,93 @@ export PARALLEL_JOBS ?= $(shell sysctl -n hw.ncpu)
 else
 export PARALLEL_JOBS ?= 2
 endif
+
+# Linting and formatting targets
+lint: ## Run all linters (golint, go vet, staticcheck)
+	@echo "🔍 Running all linters..."
+	@$(MAKE) format-check
+	@$(MAKE) vet
+	@$(MAKE) staticcheck
+	@if command -v golangci-lint >/dev/null 2>&1; then \
+		echo "Running golangci-lint..."; \
+		cd $(PROJECT_ROOT) && golangci-lint run --timeout=5m; \
+	else \
+		echo "⚠️  golangci-lint not found, skipping"; \
+	fi
+	@echo "✅ All linters passed"
+
+lint-fix: ## Fix linting issues automatically
+	@echo "🔧 Fixing linting issues..."
+	@$(MAKE) format
+	@if command -v golangci-lint >/dev/null 2>&1; then \
+		echo "Running golangci-lint with fixes..."; \
+		cd $(PROJECT_ROOT) && golangci-lint run --fix --timeout=5m; \
+	fi
+	@echo "✅ Linting issues fixed"
+
+format: ## Format Go code using go fmt and goimports
+	@echo "📝 Formatting Go code..."
+	@cd $(PROJECT_ROOT) && go fmt ./...
+	@if command -v goimports >/dev/null 2>&1; then \
+		echo "Running goimports..."; \
+		cd $(PROJECT_ROOT) && goimports -w .; \
+	fi
+	@echo "✅ Code formatted"
+
+format-check: ## Check if Go code is properly formatted
+	@echo "🔍 Checking code formatting..."
+	@cd $(PROJECT_ROOT) && \
+		files=$$(go fmt ./...); \
+		if [ -n "$$files" ]; then \
+			echo "❌ Files are not formatted:"; \
+			echo "$$files"; \
+			exit 1; \
+		fi
+	@echo "✅ Code is properly formatted"
+
+vet: ## Run go vet
+	@echo "🔍 Running go vet..."
+	@cd $(PROJECT_ROOT) && go vet ./...
+	@echo "✅ go vet passed"
+
+staticcheck: ## Run staticcheck if available
+	@echo "🔍 Running staticcheck..."
+	@if command -v staticcheck >/dev/null 2>&1; then \
+		cd $(PROJECT_ROOT) && staticcheck ./...; \
+		echo "✅ staticcheck passed"; \
+	else \
+		echo "⚠️  staticcheck not found, skipping"; \
+	fi
+
+security-scan: ## Run security scanning tools
+	@echo "🔒 Running security scan..."
+	@if command -v govulncheck >/dev/null 2>&1; then \
+		cd $(PROJECT_ROOT) && govulncheck ./...; \
+		echo "✅ Security scan completed"; \
+	else \
+		echo "⚠️  govulncheck not found, skipping"; \
+	fi
+
+pre-commit: ## Run all pre-commit checks
+	@echo "🚀 Running pre-commit checks..."
+	@$(MAKE) lint
+	@$(MAKE) test-unit
+	@echo "✅ All pre-commit checks passed"
+
+install-hooks: ## Install git hooks
+	@echo "🪝 Installing git hooks..."
+	@mkdir -p $(PROJECT_ROOT)/.git/hooks
+	@echo '#!/bin/bash' > $(PROJECT_ROOT)/.git/hooks/pre-commit
+	@echo 'echo "Running pre-commit checks..."' >> $(PROJECT_ROOT)/.git/hooks/pre-commit
+	@echo 'cd $$(git rev-parse --show-toplevel)' >> $(PROJECT_ROOT)/.git/hooks/pre-commit
+	@echo 'make -C tests/scripts pre-commit' >> $(PROJECT_ROOT)/.git/hooks/pre-commit
+	@chmod +x $(PROJECT_ROOT)/.git/hooks/pre-commit
+	@echo "✅ Git hooks installed"
+
+
+# Quick validation targets
+validate: lint test-unit ## Quick validation (lint + unit tests)
+	@echo "✅ Quick validation complete"
 
 # Include environment-specific Makefile if it exists
 -include $(PROJECT_ROOT)/Makefile.local
