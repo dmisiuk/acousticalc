@@ -41,6 +41,7 @@ func TestPerformanceDashboard(t *testing.T) {
 				StartTime:       time.Now().Add(-1 * time.Hour),
 				EndTime:         time.Now().Add(-1 * time.Hour).Add(15 * time.Second),
 				IsCI:            true,
+				Metrics:         make(map[string]float64),
 				Thresholds: PerformanceThreshold{
 					MaxCIOverhead: 30 * time.Second,
 				},
@@ -53,6 +54,7 @@ func TestPerformanceDashboard(t *testing.T) {
 				StartTime:       time.Now().Add(-2 * time.Hour),
 				EndTime:         time.Now().Add(-2 * time.Hour).Add(25 * time.Second),
 				IsCI:            true,
+				Metrics:         make(map[string]float64),
 				Thresholds: PerformanceThreshold{
 					MaxCIOverhead: 30 * time.Second,
 				},
@@ -65,6 +67,7 @@ func TestPerformanceDashboard(t *testing.T) {
 				StartTime:       time.Now().Add(-3 * time.Hour),
 				EndTime:         time.Now().Add(-3 * time.Hour).Add(35 * time.Second),
 				IsCI:            false,
+				Metrics:         make(map[string]float64),
 				Thresholds: PerformanceThreshold{
 					MaxCIOverhead: 30 * time.Second,
 				},
@@ -73,7 +76,9 @@ func TestPerformanceDashboard(t *testing.T) {
 
 		// Save test reports
 		for i, report := range testReports {
-			filename := filepath.Join(tempDir, fmt.Sprintf("ci_performance_%s_%d.json", report.Platform, i))
+			// Replace slashes in platform name to avoid directory issues
+		safePlatform := strings.ReplaceAll(report.Platform, "/", "_")
+		filename := filepath.Join(tempDir, fmt.Sprintf("ci_performance_%s_%d.json", safePlatform, i))
 			data, _ := json.MarshalIndent(report, "", "  ")
 			os.WriteFile(filename, data, 0644)
 		}

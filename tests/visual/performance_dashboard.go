@@ -112,14 +112,14 @@ const dashboardTemplate = `
                 </thead>
                 <tbody>
                     {{range .Reports}}
-                    <tr {{if eq .getStatus "FAIL"}}class="violation"{{end}}>
+                    <tr {{if eq .GetStatus "FAIL"}}class="violation"{{end}}>
                         <td>{{.EndTime.Format "01-02 15:04"}}</td>
                         <td><span class="platform-tag">{{.Platform}}</span></td>
                         <td>{{formatDuration .TotalDuration}}</td>
                         <td>{{.ScreenshotCount}}</td>
                         <td>{{.ArtifactCount}}</td>
-                        <td class="{{if eq .getStatus "PASS"}}status-pass{{else}}status-fail{{end}}">
-                            {{.getStatus}}
+                        <td class="{{if eq .GetStatus "PASS"}}status-pass{{else}}status-fail{{end}}">
+                            {{.GetStatus}}
                         </td>
                         <td>{{if .IsCI}}Yes{{else}}Local{{end}}</td>
                     </tr>
@@ -202,7 +202,7 @@ func (d *PerformanceDashboard) calculateSummary() {
 		d.Summary.PlatformBreakdown[report.Platform]++
 
 		// Count threshold violations
-		if report.getStatus() == "FAIL" {
+		if report.GetStatus() == "FAIL" {
 			d.Summary.ThresholdViolations++
 		}
 	}

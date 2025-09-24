@@ -142,6 +142,11 @@ func (m *CIPerformanceMonitor) getStatus() string {
 	return "PASS"
 }
 
+// GetStatus returns PASS/FAIL based on threshold validation (exported method for templates)
+func (m *CIPerformanceMonitor) GetStatus() string {
+	return m.getStatus()
+}
+
 // isCI detects if running in CI environment
 func isCI() bool {
 	ciEnvVars := []string{

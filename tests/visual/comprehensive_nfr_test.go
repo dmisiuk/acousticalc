@@ -310,6 +310,11 @@ func testWindowsArtifactCompatibility(t *testing.T, outputDir string) {
 		"screenshot.png",
 	}
 
+	// Ensure output directory exists
+	if err := os.MkdirAll(outputDir, 0755); err != nil {
+		t.Fatalf("Failed to create output directory: %v", err)
+	}
+
 	for _, artifact := range testArtifacts {
 		artifactPath := filepath.Join(outputDir, artifact)
 		testData := []byte("test data")
