@@ -9,7 +9,7 @@ This document provides comprehensive testing standards and guidelines for the Ac
 ### Core Principles
 
 1. **Test-Driven Development (TDD)**: Write tests before or alongside production code
-2. **Unix-First Approach**: Optimize for Unix environments (macOS, Linux) with Windows validation via CI
+2. **Cross-Platform Approach**: Full platform equality for Windows, macOS, and Linux with comprehensive testing coverage
 3. **Comprehensive Coverage**: Maintain >80% test coverage with meaningful tests
 4. **Performance Awareness**: Include performance benchmarks for critical operations
 5. **Integration Focus**: Test component interactions, not just isolated units
@@ -254,14 +254,14 @@ The following may be excluded from coverage calculations:
 - Platform-specific code (with appropriate build tags)
 - Error handling paths that are difficult to test
 
-## Unix-First Testing Approach
+## Cross-Platform Testing Approach
 
-### Unix Optimizations
+### Platform-Specific Optimizations
 
-1. **Parallel Test Execution**: Use all available CPU cores
-2. **File Watching**: Automatic test execution on file changes
-3. **Shell Integration**: Comprehensive shell scripts and Makefile
-4. **Performance Monitoring**: Unix-specific performance tools
+1. **Parallel Test Execution**: Use all available CPU cores across Windows, macOS, and Linux
+2. **File Watching**: Automatic test execution on file changes with platform-aware implementations
+3. **Shell Integration**: PowerShell, Bash, and Zsh scripts with cross-platform Makefile
+4. **Performance Monitoring**: Platform-specific performance tools for comprehensive coverage
 
 ### Unix Test Tools
 
@@ -507,7 +507,7 @@ make coverage-html
 
 ## Conclusion
 
-This testing framework provides a comprehensive, Unix-first approach to testing the AcoustiCalc project. By following these standards and guidelines, developers can ensure high-quality, reliable software with excellent test coverage and performance characteristics.
+This testing framework provides a comprehensive, cross-platform approach to testing the AcoustiCalc project with equal support for Windows, macOS, and Linux. By following these standards and guidelines, developers can ensure high-quality, reliable software with excellent test coverage and performance characteristics across all supported platforms.
 
 The framework is designed to be extensible, maintainable, and aligned with modern testing best practices. It provides both the structure and tools needed for effective testing throughout the development lifecycle.
 
