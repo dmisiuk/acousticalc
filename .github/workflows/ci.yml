@@ -14,7 +14,7 @@ env:
 
 jobs:
   test:
-    name: Test (${{ matrix.os }})
+    name: Build & Test (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
