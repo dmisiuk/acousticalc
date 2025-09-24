@@ -1,8 +1,8 @@
 package unit
 
 import (
-	"testing"
 	"github.com/dmisiuk/acousticalc/pkg/calculator"
+	"testing"
 )
 
 // TestEdgeCases covers additional edge cases that might not be fully tested
@@ -61,9 +61,9 @@ func TestCalculatorEdgeCases(t *testing.T) {
 func TestCalculatorSpecificPaths(t *testing.T) {
 	// Test hasPrecedence with all operator combinations
 	precedenceTests := []struct {
-		name     string
-		expr1    string  // expression that would make op1="+", op2="*"
-		expr2    string  // expression that would exercise different precedence
+		name  string
+		expr1 string // expression that would make op1="+", op2="*"
+		expr2 string // expression that would exercise different precedence
 	}{
 		{"Addition vs multiplication precedence", "1 + 2 * 3", "1 * 2 + 3"},
 		{"Subtraction vs division precedence", "10 - 2 / 2", "10 / 2 - 1"},

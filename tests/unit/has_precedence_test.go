@@ -1,8 +1,8 @@
 package unit
 
 import (
-	"testing"
 	"github.com/dmisiuk/acousticalc/pkg/calculator"
+	"testing"
 )
 
 // TestHasPrecedenceLowerPrecedenceOp1 tests the case where op1 has lower precedence than op2
@@ -16,10 +16,10 @@ func TestHasPrecedenceLowerPrecedenceOp1(t *testing.T) {
 		expression string
 		expected   float64
 	}{
-		{"Addition before multiplication", "2 + 3 * 4", 14},  // + has lower precedence than *
+		{"Addition before multiplication", "2 + 3 * 4", 14},    // + has lower precedence than *
 		{"Subtraction before multiplication", "10 - 3 * 2", 4}, // - has lower precedence than *
-		{"Addition before division", "5 + 6 / 2", 8},          // + has lower precedence than /
-		{"Subtraction before division", "10 - 8 / 4", 8},      // - has lower precedence than /
+		{"Addition before division", "5 + 6 / 2", 8},           // + has lower precedence than /
+		{"Subtraction before division", "10 - 8 / 4", 8},       // - has lower precedence than /
 	}
 
 	for _, tt := range tests {
@@ -46,9 +46,9 @@ func TestHasPrecedenceHigherPrecedenceOp1(t *testing.T) {
 		expected   float64
 	}{
 		{"Multiplication before addition", "2 * 3 + 4", 10},   // * has higher precedence than +
-		{"Division before addition", "10 / 2 + 3", 8},        // / has higher precedence than +
+		{"Division before addition", "10 / 2 + 3", 8},         // / has higher precedence than +
 		{"Multiplication before subtraction", "3 * 4 - 5", 7}, // * has higher precedence than -
-		{"Division before subtraction", "10 / 2 - 3", 2},     // / has higher precedence than -
+		{"Division before subtraction", "10 / 2 - 3", 2},      // / has higher precedence than -
 	}
 
 	for _, tt := range tests {

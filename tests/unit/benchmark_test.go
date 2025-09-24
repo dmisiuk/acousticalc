@@ -1,8 +1,8 @@
 package unit
 
 import (
-	"testing"
 	"github.com/dmisiuk/acousticalc/pkg/calculator"
+	"testing"
 )
 
 // BenchmarkBasicOperations benchmarks basic arithmetic operations
@@ -156,10 +156,10 @@ func BenchmarkCalculatorPerformance(b *testing.B) {
 
 	b.Run("Overall performance", func(b *testing.B) {
 		scenarios := []string{
-			"2 + 3",                                    // Simple
-			"2 * (3 + 4) - 5 / 2",                     // Complex
-			"3.14159 * 2.71828 + 1.41421 - 0.57721",  // Decimals
-			"((2 + 3) * 4) - (6 / 2) + 1",             // Nested
+			"2 + 3",                                 // Simple
+			"2 * (3 + 4) - 5 / 2",                   // Complex
+			"3.14159 * 2.71828 + 1.41421 - 0.57721", // Decimals
+			"((2 + 3) * 4) - (6 / 2) + 1",           // Nested
 		}
 
 		for i := 0; i < b.N; i++ {

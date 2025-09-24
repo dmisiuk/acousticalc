@@ -146,7 +146,7 @@ func testMockStateIsolation(t *testing.T) error {
 	mock1.SetResult("2 + 3", 5.0)
 	mock1.SetError("10 / 0", fmt.Errorf("division by zero"))
 
-	mock2.SetResult("2 + 3", 99.0) // Different result
+	mock2.SetResult("2 + 3", 99.0)                       // Different result
 	mock2.SetError("10 / 0", fmt.Errorf("custom error")) // Different error
 
 	// Test that mocks maintain separate states

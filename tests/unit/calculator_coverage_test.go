@@ -1,8 +1,8 @@
 package unit
 
 import (
-	"testing"
 	"github.com/dmisiuk/acousticalc/pkg/calculator"
+	"testing"
 )
 
 // TestCoverageVerification verifies that test coverage meets the 80% requirement

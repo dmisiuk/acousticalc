@@ -127,7 +127,7 @@ type timeThreshold struct {
 func NewPerformanceBenchmark() *PerformanceBenchmark {
 	return &PerformanceBenchmark{
 		thresholds: map[string]timeThreshold{
-			"simple_operation": {maxDurationMs: 1, warningMs: 0},
+			"simple_operation":  {maxDurationMs: 1, warningMs: 0},
 			"complex_operation": {maxDurationMs: 5, warningMs: 2},
 			"error_handling":    {maxDurationMs: 1, warningMs: 0},
 			"data_access":       {maxDurationMs: 10, warningMs: 5},
@@ -229,11 +229,11 @@ type TestSuite struct {
 
 // TestCase represents a single integration test case
 type TestCase struct {
-	Name        string
-	Description string
-	TestFunc    func(t *testing.T) error
+	Name         string
+	Description  string
+	TestFunc     func(t *testing.T) error
 	Dependencies []string
-	Tags        []string
+	Tags         []string
 }
 
 // NewTestSuite creates a new test suite

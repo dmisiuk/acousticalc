@@ -1,8 +1,8 @@
 package unit
 
 import (
-	"testing"
 	"github.com/dmisiuk/acousticalc/pkg/calculator"
+	"testing"
 )
 
 // Test basic arithmetic operations (AC1)

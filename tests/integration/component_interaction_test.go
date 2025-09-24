@@ -146,16 +146,16 @@ func testPerformanceValidationIntegration(t *testing.T) error {
 
 	// Test performance threshold validation
 	tests := []struct {
-		operation string
-		duration  int64
+		operation  string
+		duration   int64
 		shouldFail bool
 	}{
-		{"simple_operation", 0, false},     // Should pass
-		{"simple_operation", 2, true},      // Should fail (exceeds 1ms)
-		{"complex_operation", 3, false},    // Should pass
-		{"complex_operation", 10, true},    // Should fail (exceeds 5ms)
-		{"error_handling", 0, false},       // Should pass
-		{"error_handling", 2, true},        // Should fail (exceeds 1ms)
+		{"simple_operation", 0, false},  // Should pass
+		{"simple_operation", 2, true},   // Should fail (exceeds 1ms)
+		{"complex_operation", 3, false}, // Should pass
+		{"complex_operation", 10, true}, // Should fail (exceeds 5ms)
+		{"error_handling", 0, false},    // Should pass
+		{"error_handling", 2, true},     // Should fail (exceeds 1ms)
 	}
 
 	for _, test := range tests {
@@ -243,11 +243,11 @@ func testMathUtilitiesIntegration(t *testing.T) error {
 		epsilon  float64
 		expected bool
 	}{
-		{1.0, 1.0, 1e-9, true},           // Exact match
-		{1.0, 1.0 + 5e-10, 1e-9, true},    // Very close (5e-10 < 1e-9)
-		{1.0, 1.0001, 1e-9, false},        // Too far apart
-		{0.0, 0.0, 1e-9, true},            // Zero comparison
-		{-1.0, -1.0, 1e-9, true},          // Negative numbers
+		{1.0, 1.0, 1e-9, true},         // Exact match
+		{1.0, 1.0 + 5e-10, 1e-9, true}, // Very close (5e-10 < 1e-9)
+		{1.0, 1.0001, 1e-9, false},     // Too far apart
+		{0.0, 0.0, 1e-9, true},         // Zero comparison
+		{-1.0, -1.0, 1e-9, true},       // Negative numbers
 	}
 
 	for _, test := range comparisonTests {

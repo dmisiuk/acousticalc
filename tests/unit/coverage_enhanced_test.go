@@ -1,11 +1,11 @@
 package unit
 
 import (
+	"github.com/dmisiuk/acousticalc/pkg/calculator"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
-	"github.com/dmisiuk/acousticalc/pkg/calculator"
 )
 
 // TestEnhancedCoverageReporting provides comprehensive coverage analysis
