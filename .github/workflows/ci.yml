@@ -94,20 +94,14 @@ jobs:
         coverage=$(go tool cover -func=tests/artifacts/coverage/combined_coverage.out | grep "total:" | awk '{print $3}' | sed 's/%//')
         echo "Detected coverage: $coverage%"
 
-        # Check if coverage meets threshold
-        if [ "$RUNNER_OS" == "Windows" ]; then
-          # Use Windows-compatible numeric comparison
-          if [ $(echo "$coverage < ${{ env.COVERAGE_THRESHOLD }}" | awk '{print ($1 < $2)}') -eq 1 ]; then
-            echo "Coverage $coverage% is below threshold ${{ env.COVERAGE_THRESHOLD }}%"
-            exit 1
-          fi
-        else
-          # Unix-compatible coverage check with bc
-          if (( $(echo "$coverage < ${{ env.COVERAGE_THRESHOLD }}" | bc -l) )); then
-            echo "Coverage $coverage% is below threshold ${{ env.COVERAGE_THRESHOLD }}%"
-            exit 1
-          fi
+        # Use awk for cross-platform numeric comparison (works on all platforms)
+        result=$(echo "$coverage ${{ env.COVERAGE_THRESHOLD }}" | awk '{if ($1 < $2) print "FAIL"; else print "PASS"}')
+
+        if [ "$result" == "FAIL" ]; then
+          echo "Coverage $coverage% is below threshold ${{ env.COVERAGE_THRESHOLD }}%"
+          exit 1
         fi
+
         echo "Coverage $coverage% meets threshold ${{ env.COVERAGE_THRESHOLD }}%"
 
     - name: Run benchmarks (Ubuntu only)
