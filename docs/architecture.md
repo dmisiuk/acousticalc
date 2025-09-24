@@ -31,7 +31,7 @@ AcoustiCalc uses a layered architecture with the following components:
 
 | Category | Technology | Version | Purpose | Rationale |
 |---------|------------|---------|---------|-----------|
-| Language | Go | 1.21+ | Primary development language | Performance, cross-platform compilation, single binary |
+| Language | Go | 1.25.1+ | Primary development language | Performance, cross-platform compilation, single binary |
 | TUI Framework | Bubble Tea | Latest | Terminal UI framework | Modern, feature-rich, active community |
 | Audio Library | Oto | Latest | Cross-platform audio | Good cross-platform support |
 | Testing | Go testing package | Bundled with Go | Unit and integration testing | Standard library, comprehensive coverage |

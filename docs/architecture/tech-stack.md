@@ -4,7 +4,7 @@
 
 | Category | Technology | Version | Purpose | Rationale |
 |---------|------------|---------|---------|-----------|
-| Language | Go | 1.21+ | Primary development language | Performance, cross-platform compilation, single binary |
+| Language | Go | 1.25.1+ | Primary development language | Performance, cross-platform compilation, single binary |
 | TUI Framework | Bubble Tea | Latest | Terminal UI framework | Modern, feature-rich, active community |
 | Audio Library | Oto | Latest | Cross-platform audio | Good cross-platform support |
 | Testing | Go testing package | Bundled with Go | Unit and integration testing | Standard library, comprehensive coverage |
@@ -25,7 +25,7 @@
 
 ## Build Requirements
 
-- Go 1.21+ for all builds
+- Go 1.25.1+ for all builds
 - CGO enabled for audio libraries
 - Static linking where possible
 - UPX compression for binary size optimization

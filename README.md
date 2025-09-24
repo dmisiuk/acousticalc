@@ -88,7 +88,7 @@ AcoustiCalc follows a modular architecture with clear separation of concerns:
 - **Cross-Platform Layer**: Platform-agnostic design for seamless operation
 
 ### Technology Stack
-- **Language**: Go 1.21+ for performance and cross-platform compilation
+- **Language**: Go 1.25.1+ for performance and cross-platform compilation
 - **Architecture**: Modular design with comprehensive error handling
 - **Testing**: Built-in Go testing with >90% coverage
 - **Build System**: Single binary with no external dependencies
@@ -96,7 +96,7 @@ AcoustiCalc follows a modular architecture with clear separation of concerns:
 ## 🧪 Development
 
 ### Prerequisites
-- Go 1.21 or higher
+- Go 1.25.1 or higher
 - Git
 
 ### Setup

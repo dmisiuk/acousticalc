@@ -6,7 +6,7 @@ This guide provides a quick introduction to using the AcoustiCalc testing framew
 
 ### System Requirements
 - **Operating System**: Unix-like system (Linux, macOS)
-- **Go**: Version 1.21 or higher
+- **Go**: Version 1.25.1 or higher
 - **Required Tools**: git, make, bc, find, xargs, mktemp, timeout
 
 ### Quick Setup

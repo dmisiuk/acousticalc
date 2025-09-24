@@ -171,7 +171,7 @@ Terminal users are forced to choose between power and usability when it comes to
 ### Core Technical Stack:
 
 **Programming Language:**
-- Go 1.21+ - Performance, cross-platform compilation, single binary
+- Go 1.25.1+ - Performance, cross-platform compilation, single binary
 - Standard Library - Minimize external dependencies
 - Testing Framework - Built-in testing with comprehensive coverage
 
@@ -230,7 +230,7 @@ Terminal users are forced to choose between power and usability when it comes to
 - Linux - amd64, arm64, (i386 if feasible)
 
 **Build Requirements:**
-- Go 1.21+ for all builds
+- Go 1.25.1+ for all builds
 - CGO enabled for audio libraries
 - Static linking where possible
 - UPX compression for binary size optimization

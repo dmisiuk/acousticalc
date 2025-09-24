@@ -14,7 +14,7 @@ NC='\033[0m'
 
 # Configuration
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-MIN_GO_VERSION="1.21"
+MIN_GO_VERSION="1.25.1"
 MIN_PARALLEL_JOBS=2
 OPTIMAL_PARALLEL_JOBS=$(nproc)
 REQUIRED_DISK_SPACE=100 # MB
