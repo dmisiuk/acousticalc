@@ -467,12 +467,12 @@ func (vtl *VisualTestLogger) Complete() {
 
 // PerformanceMonitor provides thread-safe performance tracking for visual tests
 type PerformanceMonitor struct {
-	mu           sync.RWMutex
-	startTime    time.Time
-	metrics      map[string]*OperationMetric
-	thresholds   *PerformanceThresholds
-	ctx          context.Context
-	cancel       context.CancelFunc
+	mu         sync.RWMutex
+	startTime  time.Time
+	metrics    map[string]*OperationMetric
+	thresholds *PerformanceThresholds
+	ctx        context.Context
+	cancel     context.CancelFunc
 }
 
 // OperationMetric tracks performance data for specific operations

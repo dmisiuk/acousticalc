@@ -20,23 +20,23 @@ type ArtifactGeneratorInterface interface {
 
 // ArtifactGenerator handles creation and management of visual test artifacts
 type ArtifactGenerator struct {
-	TestName      string
-	OutputBaseDir string
-	Metadata      ArtifactMetadata
-	Screenshots   []ScreenshotInfo
-	Reports       []ReportInfo
-	mu            sync.RWMutex // Thread safety
-	ctx           context.Context
-	cancel        context.CancelFunc
+	TestName           string
+	OutputBaseDir      string
+	Metadata           ArtifactMetadata
+	Screenshots        []ScreenshotInfo
+	Reports            []ReportInfo
+	mu                 sync.RWMutex // Thread safety
+	ctx                context.Context
+	cancel             context.CancelFunc
 	performanceMonitor *PerformanceMonitor
 }
 
 // ArtifactSummary provides a summary of generated artifacts
 type ArtifactSummary struct {
-	TotalArtifacts    int           `json:"total_artifacts"`
-	TotalSizeBytes    int64         `json:"total_size_bytes"`
-	GenerationTime    time.Duration `json:"generation_time"`
-	ArtifactTypes     []string      `json:"artifact_types"`
+	TotalArtifacts     int                        `json:"total_artifacts"`
+	TotalSizeBytes     int64                      `json:"total_size_bytes"`
+	GenerationTime     time.Duration              `json:"generation_time"`
+	ArtifactTypes      []string                   `json:"artifact_types"`
 	PerformanceMetrics map[string]OperationMetric `json:"performance_metrics"`
 }
 
@@ -85,10 +85,10 @@ func NewArtifactGenerator(testName, outputBaseDir string) *ArtifactGenerator {
 			Timestamp:    time.Now(),
 			Version:      "0.2.2",
 		},
-		Screenshots: make([]ScreenshotInfo, 0),
-		Reports:     make([]ReportInfo, 0),
-		ctx:         ctx,
-		cancel:      cancel,
+		Screenshots:        make([]ScreenshotInfo, 0),
+		Reports:            make([]ReportInfo, 0),
+		ctx:                ctx,
+		cancel:             cancel,
 		performanceMonitor: NewPerformanceMonitor(ctx),
 	}
 }
@@ -106,10 +106,10 @@ func NewArtifactGeneratorWithContext(ctx context.Context, testName, outputBaseDi
 			Timestamp:    time.Now(),
 			Version:      "0.2.2",
 		},
-		Screenshots: make([]ScreenshotInfo, 0),
-		Reports:     make([]ReportInfo, 0),
-		ctx:         childCtx,
-		cancel:      cancel,
+		Screenshots:        make([]ScreenshotInfo, 0),
+		Reports:            make([]ReportInfo, 0),
+		ctx:                childCtx,
+		cancel:             cancel,
 		performanceMonitor: NewPerformanceMonitor(childCtx),
 	}
 }
