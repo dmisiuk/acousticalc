@@ -60,7 +60,7 @@ The `{{ .TagBody }}` template variable extracts the full content of the tag anno
 The `.github/workflows/release.yml` workflow:
 
 - **Triggers on tag push**: Automatically runs when tags matching `v*` are pushed
-- **Sets up Go environment**: Configures Go 1.21 for building
+- **Sets up Go environment**: Configures Go 1.25.1 for building
 - **Runs GoReleaser**: Uses the official GoReleaser action with our configuration
 - **Creates GitHub release**: Automatically publishes release with tag annotation content
 - **Uploads artifacts**: Builds and uploads binaries for all platforms

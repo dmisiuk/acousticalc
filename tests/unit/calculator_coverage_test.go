@@ -1,6 +1,7 @@
-package calculator
+package unit
 
 import (
+	"github.com/dmisiuk/acousticalc/pkg/calculator"
 	"testing"
 )
 
@@ -44,7 +45,7 @@ func TestCoverageVerification(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			result, err := Evaluate(tc.expression)
+			result, err := calculator.Evaluate(tc.expression)
 
 			if tc.expectErr {
 				if err == nil {
