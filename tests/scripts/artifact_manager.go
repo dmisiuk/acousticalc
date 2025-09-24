@@ -12,14 +12,14 @@ import (
 
 // ArtifactInfo contains metadata about a visual testing artifact
 type ArtifactInfo struct {
-	Path        string            `json:"path"`
-	Type        string            `json:"type"` // "screenshot", "report", "storyboard", "chart"
-	TestName    string            `json:"test_name"`
-	EventType   string            `json:"event_type"`
-	Category    string            `json:"category"` // "unit", "integration", "e2e"
-	Timestamp   time.Time         `json:"timestamp"`
-	Size        int64             `json:"size_bytes"`
-	Metadata    map[string]string `json:"metadata"`
+	Path      string            `json:"path"`
+	Type      string            `json:"type"` // "screenshot", "report", "storyboard", "chart"
+	TestName  string            `json:"test_name"`
+	EventType string            `json:"event_type"`
+	Category  string            `json:"category"` // "unit", "integration", "e2e"
+	Timestamp time.Time         `json:"timestamp"`
+	Size      int64             `json:"size_bytes"`
+	Metadata  map[string]string `json:"metadata"`
 }
 
 // ArtifactManager handles visual testing artifact management

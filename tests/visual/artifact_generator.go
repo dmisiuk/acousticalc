@@ -19,25 +19,25 @@ type ArtifactGenerator struct {
 
 // ArtifactMetadata contains metadata about generated artifacts
 type ArtifactMetadata struct {
-	TestName      string    `json:"test_name"`
-	Platform      string    `json:"platform"`
-	Architecture  string    `json:"architecture"`
-	Timestamp     time.Time `json:"timestamp"`
-	Version       string    `json:"version"`
-	CoverageInfo  string    `json:"coverage_info"`
-	Screenshots   int       `json:"screenshot_count"`
-	Reports       int       `json:"report_count"`
-	TotalSize     int64     `json:"total_size_bytes"`
+	TestName     string    `json:"test_name"`
+	Platform     string    `json:"platform"`
+	Architecture string    `json:"architecture"`
+	Timestamp    time.Time `json:"timestamp"`
+	Version      string    `json:"version"`
+	CoverageInfo string    `json:"coverage_info"`
+	Screenshots  int       `json:"screenshot_count"`
+	Reports      int       `json:"report_count"`
+	TotalSize    int64     `json:"total_size_bytes"`
 }
 
 // ScreenshotInfo contains information about individual screenshots
 type ScreenshotInfo struct {
-	Filename    string            `json:"filename"`
-	EventType   string            `json:"event_type"`
-	Timestamp   time.Time         `json:"timestamp"`
-	Size        int64             `json:"size_bytes"`
-	Dimensions  string            `json:"dimensions"`
-	Metadata    map[string]string `json:"metadata"`
+	Filename   string            `json:"filename"`
+	EventType  string            `json:"event_type"`
+	Timestamp  time.Time         `json:"timestamp"`
+	Size       int64             `json:"size_bytes"`
+	Dimensions string            `json:"dimensions"`
+	Metadata   map[string]string `json:"metadata"`
 }
 
 // ReportInfo contains information about generated reports

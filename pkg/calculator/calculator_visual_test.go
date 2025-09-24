@@ -274,8 +274,8 @@ func TestCalculatorIntegrationVisual(t *testing.T) {
 	for _, scenario := range scenarios {
 		t.Run(scenario.name, func(t *testing.T) {
 			logger.LogEvent(visualtest.EventTestProcess, scenario.description, map[string]interface{}{
-				"scenario":           scenario.name,
-				"expression_count":   len(scenario.expressions),
+				"scenario":         scenario.name,
+				"expression_count": len(scenario.expressions),
 			})
 
 			results := make([]interface{}, 0, len(scenario.expressions))

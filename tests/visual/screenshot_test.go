@@ -6,8 +6,6 @@ import (
 	"time"
 )
 
-
-
 // TestScreenshotCapture tests the screenshot capture functionality
 func TestScreenshotCapture(t *testing.T) {
 	outputDir := "../artifacts/screenshots/unit"

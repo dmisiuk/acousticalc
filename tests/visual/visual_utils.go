@@ -12,11 +12,11 @@ import (
 
 // ScreenshotCapture handles cross-platform screenshot capture
 type ScreenshotCapture struct {
-	OutputDir    string
-	TestName     string
-	Timestamp    time.Time
-	Format       string // "png" (default)
-	Quality      int    // 100 (lossless for PNG)
+	OutputDir string
+	TestName  string
+	Timestamp time.Time
+	Format    string // "png" (default)
+	Quality   int    // 100 (lossless for PNG)
 }
 
 // NewScreenshotCapture creates a new screenshot capture instance
