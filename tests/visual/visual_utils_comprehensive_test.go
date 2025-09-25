@@ -212,7 +212,9 @@ func TestVisualUtilsComprehensive(t *testing.T) {
 
 		// Simulate a fast execution that should pass
 		time.Sleep(10 * time.Millisecond)
-		monitor.Finish()
+		if err := monitor.Finish(); err != nil {
+			t.Logf("Warning: failed to finish monitor: %v", err)
+		}
 
 		status := monitor.GetStatus()
 		if status != "PASS" {
@@ -223,7 +225,9 @@ func TestVisualUtilsComprehensive(t *testing.T) {
 		monitor = NewCIPerformanceMonitor()
 		monitor.Start()
 		time.Sleep(10 * time.Millisecond)
-		monitor.Finish()
+		if err := monitor.Finish(); err != nil {
+			t.Logf("Warning: failed to finish monitor: %v", err)
+		}
 
 		// Manually set a duration that exceeds the threshold
 		monitor.TotalDuration = 35 * time.Second
@@ -272,7 +276,9 @@ func TestVisualUtilsComprehensive(t *testing.T) {
 		monitor := NewCIPerformanceMonitor()
 		monitor.Start()
 		time.Sleep(10 * time.Millisecond)
-		monitor.Finish()
+		if err := monitor.Finish(); err != nil {
+			t.Logf("Warning: failed to finish monitor: %v", err)
+		}
 
 		if err := monitor.SaveReport(reportsDir); err != nil {
 			t.Errorf("Failed to save performance report: %v", err)
@@ -327,7 +333,9 @@ func TestVisualUtilsComprehensive(t *testing.T) {
 		monitor := NewCIPerformanceMonitor()
 		monitor.Start()
 		time.Sleep(10 * time.Millisecond)
-		monitor.Finish()
+		if err := monitor.Finish(); err != nil {
+			t.Logf("Warning: failed to finish monitor: %v", err)
+		}
 
 		dashboard.Reports = append(dashboard.Reports, *monitor)
 		dashboard.calculateSummary()

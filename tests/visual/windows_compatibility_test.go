@@ -340,7 +340,9 @@ func BenchmarkWindowsOperations(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			capture := NewScreenshotCapture(fmt.Sprintf("bench_%d", i), outputDir)
 			if runtime.GOOS == "windows" {
-				capture.CaptureScreen("benchmark")
+				if _, err := capture.CaptureScreen("benchmark"); err != nil {
+					b.Logf("Warning: screenshot capture failed: %v", err)
+				}
 			} else {
 				// Simulate for cross-platform benchmarking
 				simulateWindowsVisualOperation()

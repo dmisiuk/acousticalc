@@ -324,7 +324,9 @@ func TestVisualUtilsExtended(t *testing.T) {
 			}
 
 			// Restore permissions for cleanup
-			os.Chmod(outputDir, 0755)
+			if err := os.Chmod(outputDir, 0755); err != nil {
+				t.Logf("Warning: failed to chmod: %v", err)
+			}
 		}
 	})
 
@@ -385,7 +387,9 @@ func TestVisualUtilsErrorPaths(t *testing.T) {
 		}
 
 		// Restore permissions for cleanup
-		os.Chmod(outputDir, 0755)
+		if err := os.Chmod(outputDir, 0755); err != nil {
+			t.Logf("Warning: failed to chmod: %v", err)
+		}
 	})
 
 	// Test: GenerateVisualReport with invalid permissions
@@ -409,7 +413,9 @@ func TestVisualUtilsErrorPaths(t *testing.T) {
 		}
 
 		// Restore permissions for cleanup
-		os.Chmod(outputDir, 0755)
+		if err := os.Chmod(outputDir, 0755); err != nil {
+			t.Logf("Warning: failed to chmod: %v", err)
+		}
 	})
 }
 
