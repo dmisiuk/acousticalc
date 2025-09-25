@@ -214,9 +214,9 @@ jobs:
     - name: Build CLI binary
       run: |
         if [ "$RUNNER_OS" == "Windows" ]; then
-          go build -o cmd/acousticalc/acousticalc.exe cmd/acousticalc/main.go
+          go build -o cmd/acousticalc/acousticalc.exe ./cmd/acousticalc
         else
-          go build -o cmd/acousticalc/acousticalc cmd/acousticalc/main.go
+          go build -o cmd/acousticalc/acousticalc ./cmd/acousticalc
         fi
       shell: bash
 

@@ -2,18 +2,25 @@ package e2e
 
 import (
 	"os"
+	"runtime"
 	"strings"
 	"testing"
 
 	"github.com/dmisiuk/acousticalc/tests/recording"
+	"github.com/dmisiuk/acousticalc/tests/reporting"
 )
 
 func TestSimpleWorkflow(t *testing.T) {
 	outputDir := "../../tests/artifacts/recordings"
 	testName := "simple_workflow"
 
+	executablePath := "../../cmd/acousticalc/acousticalc"
+	if runtime.GOOS == "windows" {
+		executablePath += ".exe"
+	}
+
 	// The command to run in the E2E test.
-	command := []string{"./cmd/acousticalc/acousticalc", "2+2"}
+	command := []string{executablePath, "2+2"}
 
 	recorder := recording.NewRecorder(testName, outputDir, command...)
 
@@ -35,7 +42,14 @@ func TestSimpleWorkflow(t *testing.T) {
 		t.Fatalf("failed to read recording file: %v", err)
 	}
 
-	if !strings.Contains(string(content), "4") {
+	passed := strings.Contains(string(content), "Result: 4")
+	if !passed {
 		t.Errorf("recording file does not contain the expected output")
 	}
+
+	testResults = append(testResults, reporting.E2ETestResult{
+		TestName:  "TestSimpleWorkflow",
+		Passed:    passed,
+		Recording: filePath,
+	})
 }

@@ -74,5 +74,12 @@ func (r *Recorder) Stop() error {
 	}
 
 	// For both command-based and interrupted recordings, we must Wait().
-	return r.cmd.Wait()
+	if err := r.cmd.Wait(); err != nil {
+		// Ignore "exit status 1" for interactive recordings, as this is expected on interrupt.
+		if len(r.command) == 0 && strings.Contains(err.Error(), "exit status 1") {
+			return nil
+		}
+		return fmt.Errorf("failed to wait for asciinema command: %w", err)
+	}
+	return nil
 }
