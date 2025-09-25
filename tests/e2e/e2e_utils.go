@@ -259,9 +259,13 @@ func (r *E2ETestRunner) CaptureScreenshot(eventType string) (string, error) {
 	if bitmap == nil {
 		return "", fmt.Errorf("failed to capture screen")
 	}
+	defer robotgo.FreeBitmap(bitmap)
 
-	// Save screenshot
-	robotgo.SavePng(bitmap, screenshotPath)
+	// Convert CBitmap to image.Image before saving
+	img := robotgo.ToImage(bitmap)
+	if err := robotgo.SavePng(img, screenshotPath); err != nil {
+		return "", fmt.Errorf("failed to save screenshot: %w", err)
+	}
 
 	r.logEvent("screenshot_captured", "Screenshot captured", map[string]interface{}{
 		"path":       screenshotPath,
