@@ -194,11 +194,17 @@ jobs:
         cache: true
         cache-dependency-path: go.sum
 
-    - name: Run E2E tests
+    - name: Run E2E tests (Linux/macOS)
+      if: matrix.os != 'windows-latest'
       run: |
         chmod +x tests/scripts/run_e2e_tests.sh
         ./tests/scripts/run_e2e_tests.sh
       shell: bash
+
+    - name: Run E2E tests (Windows)
+      if: matrix.os == 'windows-latest'
+      run: ./tests/scripts/run_e2e_tests.ps1
+      shell: pwsh
 
     - name: Upload E2E artifacts
       uses: actions/upload-artifact@v4
