@@ -7,7 +7,8 @@ if [[ "$RUNNER_OS" == "Linux" ]]; then
 elif [[ "$RUNNER_OS" == "macOS" ]]; then
     brew install asciinema
 elif [[ "$RUNNER_OS" == "Windows" ]]; then
-    choco install asciinema
+    pwsh -Command "choco install asciinema -y"
+    export PATH="$PATH:/c/Program Files/Asciinema/bin"
 fi
 
 if [[ "$RUNNER_OS" == "Windows" ]]; then
