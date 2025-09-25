@@ -19,34 +19,34 @@ type TestResultAggregator struct {
 
 // PlatformTestResult represents test results for a specific platform
 type PlatformTestResult struct {
-	Platform    string                    `json:"platform"`
-	Architecture string                   `json:"architecture"`
-	TestSuites  map[string]*TestSuite     `json:"test_suites"`
-	Summary     *TestSummary              `json:"summary"`
-	Timestamp   time.Time                 `json:"timestamp"`
-	Metadata    map[string]interface{}    `json:"metadata"`
+	Platform     string                 `json:"platform"`
+	Architecture string                 `json:"architecture"`
+	TestSuites   map[string]*TestSuite  `json:"test_suites"`
+	Summary      *TestSummary           `json:"summary"`
+	Timestamp    time.Time              `json:"timestamp"`
+	Metadata     map[string]interface{} `json:"metadata"`
 }
 
 // TestSuite represents results for a test suite
 type TestSuite struct {
-	Name         string                 `json:"name"`
-	TestCount    int                    `json:"test_count"`
-	PassCount    int                    `json:"pass_count"`
-	FailCount    int                    `json:"fail_count"`
-	SkipCount    int                    `json:"skip_count"`
-	Duration     time.Duration          `json:"duration"`
-	Tests        []*TestCase            `json:"tests"`
-	Metadata     map[string]interface{} `json:"metadata"`
+	Name      string                 `json:"name"`
+	TestCount int                    `json:"test_count"`
+	PassCount int                    `json:"pass_count"`
+	FailCount int                    `json:"fail_count"`
+	SkipCount int                    `json:"skip_count"`
+	Duration  time.Duration          `json:"duration"`
+	Tests     []*TestCase            `json:"tests"`
+	Metadata  map[string]interface{} `json:"metadata"`
 }
 
 // TestCase represents a single test case result
 type TestCase struct {
-	Name      string        `json:"name"`
-	Status    TestStatus    `json:"status"`
-	Duration  time.Duration `json:"duration"`
-	Error     string        `json:"error,omitempty"`
-	Output    string        `json:"output,omitempty"`
-	Metadata  map[string]interface{} `json:"metadata,omitempty"`
+	Name     string                 `json:"name"`
+	Status   TestStatus             `json:"status"`
+	Duration time.Duration          `json:"duration"`
+	Error    string                 `json:"error,omitempty"`
+	Output   string                 `json:"output,omitempty"`
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 }
 
 // TestSummary provides overall test summary
@@ -72,7 +72,7 @@ const (
 // NewTestResultAggregator creates a new test result aggregator
 func NewTestResultAggregator(outputDir string) *TestResultAggregator {
 	os.MkdirAll(outputDir, 0755)
-	
+
 	return &TestResultAggregator{
 		results:         make(map[string]*PlatformTestResult),
 		outputDir:       outputDir,
@@ -84,19 +84,19 @@ func NewTestResultAggregator(outputDir string) *TestResultAggregator {
 func TestAggregationCapabilities(t *testing.T) {
 	outputDir := filepath.Join("tests", "artifacts", "reports")
 	aggregator := NewTestResultAggregator(outputDir)
-	
+
 	t.Run("AggregatorInitialization", func(t *testing.T) {
 		testAggregatorInitialization(t, aggregator)
 	})
-	
+
 	t.Run("PlatformResultCollection", func(t *testing.T) {
 		testPlatformResultCollection(t, aggregator)
 	})
-	
+
 	t.Run("CrossPlatformComparison", func(t *testing.T) {
 		testCrossPlatformComparison(t, aggregator)
 	})
-	
+
 	t.Run("ReportGeneration", func(t *testing.T) {
 		testReportGeneration(t, aggregator)
 	})
@@ -106,15 +106,15 @@ func TestAggregationCapabilities(t *testing.T) {
 func TestAggregationIntegration(t *testing.T) {
 	outputDir := filepath.Join("tests", "artifacts", "reports")
 	aggregator := NewTestResultAggregator(outputDir)
-	
+
 	t.Run("E2EResultAggregation", func(t *testing.T) {
 		testE2EResultAggregation(t, aggregator)
 	})
-	
+
 	t.Run("CrossPlatformConsistencyAnalysis", func(t *testing.T) {
 		testCrossPlatformConsistencyAnalysis(t, aggregator)
 	})
-	
+
 	t.Run("PerformanceComparisonAggregation", func(t *testing.T) {
 		testPerformanceComparisonAggregation(t, aggregator)
 	})
@@ -123,35 +123,35 @@ func TestAggregationIntegration(t *testing.T) {
 // testAggregatorInitialization tests aggregator initialization
 func testAggregatorInitialization(t *testing.T, aggregator *TestResultAggregator) {
 	t.Helper()
-	
+
 	if aggregator == nil {
 		t.Error("Aggregator not initialized")
 		return
 	}
-	
+
 	if aggregator.results == nil {
 		t.Error("Results map not initialized")
 	}
-	
+
 	if aggregator.outputDir == "" {
 		t.Error("Output directory not set")
 	}
-	
+
 	// Verify output directory exists
 	if _, err := os.Stat(aggregator.outputDir); os.IsNotExist(err) {
 		t.Errorf("Output directory does not exist: %s", aggregator.outputDir)
 	}
-	
+
 	t.Logf("Aggregator initialized successfully with output dir: %s", aggregator.outputDir)
 }
 
 // testPlatformResultCollection tests platform result collection
 func testPlatformResultCollection(t *testing.T, aggregator *TestResultAggregator) {
 	t.Helper()
-	
+
 	// Simulate test results for current platform
 	platformKey := fmt.Sprintf("%s_%s", runtime.GOOS, runtime.GOARCH)
-	
+
 	// Create mock test results
 	result := &PlatformTestResult{
 		Platform:     runtime.GOOS,
@@ -163,7 +163,7 @@ func testPlatformResultCollection(t *testing.T, aggregator *TestResultAggregator
 			"test_env":   "aggregation_test",
 		},
 	}
-	
+
 	// Add mock test suite
 	testSuite := &TestSuite{
 		Name:      "aggregation_test_suite",
@@ -191,9 +191,9 @@ func testPlatformResultCollection(t *testing.T, aggregator *TestResultAggregator
 			},
 		},
 	}
-	
+
 	result.TestSuites["aggregation_test"] = testSuite
-	
+
 	// Calculate summary
 	result.Summary = &TestSummary{
 		TotalTests:   testSuite.TestCount,
@@ -204,32 +204,32 @@ func testPlatformResultCollection(t *testing.T, aggregator *TestResultAggregator
 		Coverage:     85.5,
 		PassRate:     float64(testSuite.PassCount) / float64(testSuite.TestCount) * 100,
 	}
-	
+
 	// Add result to aggregator
 	aggregator.results[platformKey] = result
-	
+
 	// Verify result was added
 	if len(aggregator.results) != 1 {
 		t.Errorf("Expected 1 result, got %d", len(aggregator.results))
 	}
-	
+
 	retrievedResult := aggregator.results[platformKey]
 	if retrievedResult == nil {
 		t.Error("Result not found after adding")
 		return
 	}
-	
+
 	if retrievedResult.Platform != runtime.GOOS {
 		t.Errorf("Platform mismatch: expected %s, got %s", runtime.GOOS, retrievedResult.Platform)
 	}
-	
+
 	t.Logf("Platform result collected successfully for %s", platformKey)
 }
 
 // testCrossPlatformComparison tests cross-platform comparison
 func testCrossPlatformComparison(t *testing.T, aggregator *TestResultAggregator) {
 	t.Helper()
-	
+
 	// Add mock results for multiple platforms
 	platforms := []struct {
 		os   string
@@ -239,10 +239,10 @@ func testCrossPlatformComparison(t *testing.T, aggregator *TestResultAggregator)
 		{"darwin", "amd64"},
 		{"windows", "amd64"},
 	}
-	
+
 	for _, platform := range platforms {
 		platformKey := fmt.Sprintf("%s_%s", platform.os, platform.arch)
-		
+
 		result := &PlatformTestResult{
 			Platform:     platform.os,
 			Architecture: platform.arch,
@@ -258,56 +258,56 @@ func testCrossPlatformComparison(t *testing.T, aggregator *TestResultAggregator)
 				PassRate:     80.0,
 			},
 		}
-		
+
 		aggregator.results[platformKey] = result
 	}
-	
+
 	// Perform cross-platform comparison
 	comparison := aggregator.generateCrossPlatformComparison()
-	
+
 	if len(comparison.PlatformResults) != len(platforms) {
 		t.Errorf("Expected %d platforms in comparison, got %d", len(platforms), len(comparison.PlatformResults))
 	}
-	
+
 	// Verify consistency analysis
 	if comparison.ConsistencyScore < 0 || comparison.ConsistencyScore > 100 {
 		t.Errorf("Invalid consistency score: %f", comparison.ConsistencyScore)
 	}
-	
+
 	t.Logf("Cross-platform comparison completed with consistency score: %.2f", comparison.ConsistencyScore)
 }
 
 // testReportGeneration tests report generation
 func testReportGeneration(t *testing.T, aggregator *TestResultAggregator) {
 	t.Helper()
-	
+
 	// Generate comprehensive report
 	report, err := aggregator.GenerateComprehensiveReport()
 	if err != nil {
 		t.Errorf("Failed to generate comprehensive report: %v", err)
 		return
 	}
-	
+
 	// Verify report structure
 	if report.GeneratedAt.IsZero() {
 		t.Error("Report generation time not set")
 	}
-	
+
 	if report.Summary == nil {
 		t.Error("Report summary not generated")
 	}
-	
+
 	if len(report.PlatformResults) == 0 {
 		t.Error("No platform results in report")
 	}
-	
+
 	// Save report to file
 	reportPath := filepath.Join(aggregator.outputDir, "comprehensive_test_report.json")
 	if err := aggregator.SaveReportToFile(report, reportPath); err != nil {
 		t.Errorf("Failed to save report to file: %v", err)
 		return
 	}
-	
+
 	// Verify file was created
 	if _, err := os.Stat(reportPath); os.IsNotExist(err) {
 		t.Errorf("Report file not created: %s", reportPath)
@@ -319,10 +319,10 @@ func testReportGeneration(t *testing.T, aggregator *TestResultAggregator) {
 // testE2EResultAggregation tests E2E result aggregation
 func testE2EResultAggregation(t *testing.T, aggregator *TestResultAggregator) {
 	t.Helper()
-	
+
 	// Simulate E2E test results
 	platformKey := fmt.Sprintf("%s_%s", runtime.GOOS, runtime.GOARCH)
-	
+
 	e2eSuite := &TestSuite{
 		Name:      "e2e_workflow_tests",
 		TestCount: 5,
@@ -359,12 +359,12 @@ func testE2EResultAggregation(t *testing.T, aggregator *TestResultAggregator) {
 			},
 		},
 		Metadata: map[string]interface{}{
-			"test_type":    "e2e",
-			"recording":    true,
-			"platform":     runtime.GOOS,
+			"test_type": "e2e",
+			"recording": true,
+			"platform":  runtime.GOOS,
 		},
 	}
-	
+
 	// Add to existing or create new platform result
 	if existing, exists := aggregator.results[platformKey]; exists {
 		existing.TestSuites["e2e_tests"] = e2eSuite
@@ -375,46 +375,46 @@ func testE2EResultAggregation(t *testing.T, aggregator *TestResultAggregator) {
 			TestSuites:   map[string]*TestSuite{"e2e_tests": e2eSuite},
 			Timestamp:    time.Now(),
 		}
-		
+
 		result.Summary = aggregator.calculateSummary(result)
 		aggregator.results[platformKey] = result
 	}
-	
+
 	t.Logf("E2E result aggregation completed for %s", platformKey)
 }
 
 // testCrossPlatformConsistencyAnalysis tests consistency analysis
 func testCrossPlatformConsistencyAnalysis(t *testing.T, aggregator *TestResultAggregator) {
 	t.Helper()
-	
+
 	// Generate consistency analysis
 	analysis := aggregator.analyzeCrossPlatformConsistency()
-	
+
 	if analysis == nil {
 		t.Error("Consistency analysis not generated")
 		return
 	}
-	
+
 	// Verify analysis components
 	if analysis.OverallConsistency < 0 || analysis.OverallConsistency > 100 {
 		t.Errorf("Invalid overall consistency: %f", analysis.OverallConsistency)
 	}
-	
+
 	t.Logf("Cross-platform consistency analysis completed: %.2f%% consistent", analysis.OverallConsistency)
 }
 
 // testPerformanceComparisonAggregation tests performance comparison
 func testPerformanceComparisonAggregation(t *testing.T, aggregator *TestResultAggregator) {
 	t.Helper()
-	
+
 	// Generate performance comparison
 	comparison := aggregator.generatePerformanceComparison()
-	
+
 	if comparison == nil {
 		t.Error("Performance comparison not generated")
 		return
 	}
-	
+
 	t.Log("Performance comparison aggregation completed")
 }
 
@@ -423,31 +423,31 @@ func testPerformanceComparisonAggregation(t *testing.T, aggregator *TestResultAg
 
 // CrossPlatformComparison represents comparison across platforms
 type CrossPlatformComparison struct {
-	PlatformResults   map[string]*PlatformTestResult `json:"platform_results"`
-	ConsistencyScore  float64                        `json:"consistency_score"`
-	Inconsistencies   []string                       `json:"inconsistencies"`
-	GeneratedAt       time.Time                      `json:"generated_at"`
+	PlatformResults  map[string]*PlatformTestResult `json:"platform_results"`
+	ConsistencyScore float64                        `json:"consistency_score"`
+	Inconsistencies  []string                       `json:"inconsistencies"`
+	GeneratedAt      time.Time                      `json:"generated_at"`
 }
 
 // ComprehensiveReport represents a comprehensive test report
 type ComprehensiveReport struct {
-	GeneratedAt      time.Time                       `json:"generated_at"`
-	Summary          *OverallTestSummary             `json:"summary"`
-	PlatformResults  map[string]*PlatformTestResult  `json:"platform_results"`
-	CrossPlatform    *CrossPlatformComparison        `json:"cross_platform"`
-	Metadata         map[string]interface{}          `json:"metadata"`
+	GeneratedAt     time.Time                      `json:"generated_at"`
+	Summary         *OverallTestSummary            `json:"summary"`
+	PlatformResults map[string]*PlatformTestResult `json:"platform_results"`
+	CrossPlatform   *CrossPlatformComparison       `json:"cross_platform"`
+	Metadata        map[string]interface{}         `json:"metadata"`
 }
 
 // OverallTestSummary provides overall summary across all platforms
 type OverallTestSummary struct {
-	TotalPlatforms   int     `json:"total_platforms"`
-	TotalTests       int     `json:"total_tests"`
-	TotalPassed      int     `json:"total_passed"`
-	TotalFailed      int     `json:"total_failed"`
-	TotalSkipped     int     `json:"total_skipped"`
-	OverallPassRate  float64 `json:"overall_pass_rate"`
-	AverageCoverage  float64 `json:"average_coverage"`
-	ConsistencyRate  float64 `json:"consistency_rate"`
+	TotalPlatforms  int     `json:"total_platforms"`
+	TotalTests      int     `json:"total_tests"`
+	TotalPassed     int     `json:"total_passed"`
+	TotalFailed     int     `json:"total_failed"`
+	TotalSkipped    int     `json:"total_skipped"`
+	OverallPassRate float64 `json:"overall_pass_rate"`
+	AverageCoverage float64 `json:"average_coverage"`
+	ConsistencyRate float64 `json:"consistency_rate"`
 }
 
 // ConsistencyAnalysis represents cross-platform consistency analysis
@@ -461,8 +461,8 @@ type ConsistencyAnalysis struct {
 // PerformanceComparison represents performance comparison across platforms
 type PerformanceComparison struct {
 	PlatformPerformance map[string]*PerformanceMetrics `json:"platform_performance"`
-	RelativePerformance map[string]float64              `json:"relative_performance"`
-	GeneratedAt         time.Time                       `json:"generated_at"`
+	RelativePerformance map[string]float64             `json:"relative_performance"`
+	GeneratedAt         time.Time                      `json:"generated_at"`
 }
 
 // PerformanceMetrics represents performance metrics for a platform
