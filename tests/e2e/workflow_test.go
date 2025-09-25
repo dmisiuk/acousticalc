@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"os"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"testing"
@@ -14,7 +15,11 @@ func TestSimpleWorkflow(t *testing.T) {
 	outputDir := "../../tests/artifacts/recordings"
 	testName := "simple_workflow"
 
-	executablePath := "../../cmd/acousticalc/acousticalc"
+	wd, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("failed to get working directory: %v", err)
+	}
+	executablePath := filepath.Join(wd, "..", "..", "cmd", "acousticalc", "acousticalc")
 	if runtime.GOOS == "windows" {
 		executablePath += ".exe"
 	}

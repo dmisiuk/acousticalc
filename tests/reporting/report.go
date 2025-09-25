@@ -58,10 +58,11 @@ func GenerateE2EReport(testName, outputDir string, results []E2ETestResult) (str
         <div><strong>Status:</strong> %s</div>`, statusClass, result.TestName, statusText)
 
 		if result.Recording != "" {
+			recordingFilename := filepath.Base(result.Recording)
 			html += fmt.Sprintf(`
         <div class="recording-link">
-            <a href="%s" target="_blank">View Recording</a>
-        </div>`, result.Recording)
+            <a href="../recordings/%s" target="_blank">View Recording</a>
+        </div>`, recordingFilename)
 		}
 
 		html += `</div>`

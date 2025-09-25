@@ -177,7 +177,7 @@ func (am *ArtifactManager) parseRecordingMetadata(artifact *ArtifactInfo, fileNa
 		artifact.EventType = "recording"
 
 		// Extract timestamp (last part)
-		timestampStr := parts[len(parts)-1]
+		timestampStr := strings.TrimSuffix(parts[len(parts)-1], ".cast")
 		if timestamp, err := time.Parse("20060102_150405", timestampStr); err == nil {
 			artifact.Timestamp = timestamp
 		}
