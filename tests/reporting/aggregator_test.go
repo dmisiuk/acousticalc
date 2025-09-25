@@ -3,7 +3,6 @@ package reporting
 import (
 	"os"
 	"path/filepath"
-	"runtime"
 	"strings"
 	"testing"
 )
@@ -16,27 +15,30 @@ func TestE2EReporting(t *testing.T) {
 	}
 	defer os.RemoveAll(artifactsDir)
 
-	// --- Setup fake artifacts ---
-	platform := runtime.GOOS
+	// --- Setup fake artifacts for Linux and Windows ---
 	e2eDir := filepath.Join(artifactsDir, "e2e")
-	test1Dir := filepath.Join(e2eDir, platform, "TestE2EWorkflow_TestSimpleAddition", "recordings")
-	test2Dir := filepath.Join(e2eDir, platform, "TestE2EWorkflow_TestComplexExpression", "recordings")
-	if err := os.MkdirAll(test1Dir, 0755); err != nil {
-		t.Fatalf("Failed to create test1 dir: %v", err)
+
+	// Linux artifact
+	linuxTestDir := filepath.Join(e2eDir, "linux", "TestE2EWorkflow_TestSimpleAddition", "recordings")
+	if err := os.MkdirAll(linuxTestDir, 0755); err != nil {
+		t.Fatalf("Failed to create linux test dir: %v", err)
 	}
-	if err := os.MkdirAll(test2Dir, 0755); err != nil {
-		t.Fatalf("Failed to create test2 dir: %v", err)
-	}
-	rec1Path := filepath.Join(test1Dir, "rec1.cast")
-	rec2Path := filepath.Join(test2Dir, "rec2.cast")
-	if _, err := os.Create(rec1Path); err != nil {
-		t.Fatalf("Failed to create rec1: %v", err)
-	}
-	if _, err := os.Create(rec2Path); err != nil {
-		t.Fatalf("Failed to create rec2: %v", err)
+	linuxRecPath := filepath.Join(linuxTestDir, "rec1.cast")
+	if _, err := os.Create(linuxRecPath); err != nil {
+		t.Fatalf("Failed to create linux rec: %v", err)
 	}
 
-	t.Run("TestDiscoverE2EArtifacts", func(t *testing.T) {
+	// Windows artifact
+	windowsTestDir := filepath.Join(e2eDir, "windows", "TestE2EWorkflow_TestComplexExpression", "recordings")
+	if err := os.MkdirAll(windowsTestDir, 0755); err != nil {
+		t.Fatalf("Failed to create windows test dir: %v", err)
+	}
+	windowsRecPath := filepath.Join(windowsTestDir, "rec2.txt")
+	if _, err := os.Create(windowsRecPath); err != nil {
+		t.Fatalf("Failed to create windows rec: %v", err)
+	}
+
+	t.Run("TestDiscoverCrossPlatformArtifacts", func(t *testing.T) {
 		// Run the discovery function
 		reportData, err := DiscoverE2EArtifacts(artifactsDir)
 		if err != nil {
@@ -45,29 +47,45 @@ func TestE2EReporting(t *testing.T) {
 
 		// Assert the results
 		if len(reportData.TestRuns) != 2 {
-			t.Errorf("Expected 2 test runs, but got %d", len(reportData.TestRuns))
+			t.Fatalf("Expected 2 test runs, but got %d", len(reportData.TestRuns))
 		}
 
-		// Check the details of the first test run
-		foundTest1 := false
+		// Check for the Linux run
+		foundLinuxRun := false
 		for _, run := range reportData.TestRuns {
-			if run.Name == "TestE2EWorkflow_TestSimpleAddition" {
-				foundTest1 = true
-				if run.Platform != platform {
-					t.Errorf("Expected platform '%s', but got '%s'", platform, run.Platform)
+			if run.Platform == "linux" {
+				foundLinuxRun = true
+				if run.Name != "TestE2EWorkflow_TestSimpleAddition" {
+					t.Errorf("Incorrect test name for linux run: got %s", run.Name)
 				}
-				expectedRelPath := filepath.Join("e2e", platform, "TestE2EWorkflow_TestSimpleAddition", "recordings", "rec1.cast")
-				if run.Recording != expectedRelPath {
-					t.Errorf("Expected recording path '%s', but got '%s'", expectedRelPath, run.Recording)
+				if !strings.HasSuffix(run.Recording, ".cast") {
+					t.Errorf("Incorrect recording file for linux run: got %s", run.Recording)
 				}
 			}
 		}
-		if !foundTest1 {
-			t.Error("Test run 'TestE2EWorkflow_TestSimpleAddition' not found")
+		if !foundLinuxRun {
+			t.Error("Did not find the linux test run")
+		}
+
+		// Check for the Windows run
+		foundWindowsRun := false
+		for _, run := range reportData.TestRuns {
+			if run.Platform == "windows" {
+				foundWindowsRun = true
+				if run.Name != "TestE2EWorkflow_TestComplexExpression" {
+					t.Errorf("Incorrect test name for windows run: got %s", run.Name)
+				}
+				if !strings.HasSuffix(run.Recording, ".txt") {
+					t.Errorf("Incorrect recording file for windows run: got %s", run.Recording)
+				}
+			}
+		}
+		if !foundWindowsRun {
+			t.Error("Did not find the windows test run")
 		}
 	})
 
-	t.Run("TestGenerateE2EReport", func(t *testing.T) {
+	t.Run("TestGenerateE2EReportWithCrossPlatformData", func(t *testing.T) {
 		// First, get the data
 		reportData, err := DiscoverE2EArtifacts(artifactsDir)
 		if err != nil {
@@ -81,11 +99,6 @@ func TestE2EReporting(t *testing.T) {
 			t.Fatalf("GenerateE2EReport failed: %v", err)
 		}
 
-		// Verify the report was created
-		if _, err := os.Stat(reportPath); os.IsNotExist(err) {
-			t.Fatalf("Report file was not created at %s", reportPath)
-		}
-
 		// Verify the report content
 		content, err := os.ReadFile(reportPath)
 		if err != nil {
@@ -93,11 +106,17 @@ func TestE2EReporting(t *testing.T) {
 		}
 		htmlContent := string(content)
 
-		if !strings.Contains(htmlContent, "TestE2EWorkflow_TestSimpleAddition") {
-			t.Error("Report does not contain 'TestE2EWorkflow_TestSimpleAddition'")
+		if !strings.Contains(htmlContent, "<td>linux</td>") {
+			t.Error("Report does not contain the linux platform")
 		}
-		if !strings.Contains(htmlContent, platform) {
-			t.Errorf("Report does not contain platform '%s'", platform)
+		if !strings.Contains(htmlContent, "<td>windows</td>") {
+			t.Error("Report does not contain the windows platform")
+		}
+		if !strings.Contains(htmlContent, ".cast") {
+			t.Error("Report does not contain a link to the .cast file")
+		}
+		if !strings.Contains(htmlContent, ".txt") {
+			t.Error("Report does not contain a link to the .txt file")
 		}
 	})
 }

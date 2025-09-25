@@ -203,10 +203,6 @@ jobs:
       if: matrix.os == 'macos-latest'
       run: brew install asciinema
 
-    - name: Install asciinema (Windows)
-      if: matrix.os == 'windows-latest'
-      run: choco install asciinema -y --no-progress
-
     - name: Run E2E tests
       shell: bash
       run: |

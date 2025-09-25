@@ -37,8 +37,8 @@ func DiscoverE2EArtifacts(artifactsDir string) (*E2EReportData, error) {
 			return err
 		}
 
-		// Check if the file is a recording
-		if !info.IsDir() && strings.HasSuffix(info.Name(), ".cast") {
+		// Check if the file is a recording (.cast for Unix, .txt for Windows)
+		if !info.IsDir() && (strings.HasSuffix(info.Name(), ".cast") || strings.HasSuffix(info.Name(), ".txt")) {
 			// Make path relative to the e2e artifacts dir to easily extract platform and test name
 			relativePath, err := filepath.Rel(e2eArtifactsDir, path)
 			if err != nil {
