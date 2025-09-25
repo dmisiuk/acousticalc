@@ -11,6 +11,132 @@ import (
 	"time"
 )
 
+// ScreenshotCapturer defines the interface for screenshot capture implementations
+type ScreenshotCapturer interface {
+	CaptureScreen(eventType string) (string, error)
+	SetOutputDir(dir string)
+	SetTestName(name string)
+}
+
+// ScreenshotCapture provides fallback implementation for non-GUI environments
+type ScreenshotCapture struct {
+	OutputDir string
+	TestName  string
+	Timestamp time.Time
+	Format    string
+	Quality   int
+	capturer  ScreenshotEngine
+}
+
+// ScreenshotEngine abstracts the underlying screenshot mechanism
+type ScreenshotEngine interface {
+	Capture() ([]byte, error)
+	GetImageData() (interface{}, error)
+	GetPlatform() string
+	IsAvailable() bool
+}
+
+// MockScreenshotEngine provides fallback for unsupported platforms
+type MockScreenshotEngine struct{}
+
+func (m *MockScreenshotEngine) Capture() ([]byte, error) {
+	return []byte("mock-screenshot-data"), nil
+}
+
+func (m *MockScreenshotEngine) GetImageData() (interface{}, error) {
+	return "mock-image-data", nil
+}
+
+func (m *MockScreenshotEngine) GetPlatform() string {
+	return "mock"
+}
+
+func (m *MockScreenshotEngine) IsAvailable() bool {
+	return true
+}
+
+// RobotGoEngine fallback for non-GUI environments
+type RobotGoEngine struct {
+	platform string
+}
+
+func NewRobotGoEngine() *RobotGoEngine {
+	return &RobotGoEngine{
+		platform: "fallback",
+	}
+}
+
+func (rg *RobotGoEngine) Capture() ([]byte, error) {
+	return []byte("fallback-screenshot-data"), nil
+}
+
+func (rg *RobotGoEngine) GetImageData() (interface{}, error) {
+	return "fallback-image-data", nil
+}
+
+func (rg *RobotGoEngine) GetPlatform() string {
+	return rg.platform
+}
+
+func (rg *RobotGoEngine) IsAvailable() bool {
+	return false // Indicate GUI not available
+}
+
+// NewScreenshotCapture creates a new screenshot capture instance with fallback behavior
+func NewScreenshotCapture(testName, outputDir string) *ScreenshotCapture {
+	return &ScreenshotCapture{
+		OutputDir: outputDir,
+		TestName:  testName,
+		Timestamp: time.Now(),
+		Format:    "png",
+		Quality:   100,
+		capturer:  &MockScreenshotEngine{},
+	}
+}
+
+// SetOutputDir implements ScreenshotCapturer interface
+func (sc *ScreenshotCapture) SetOutputDir(dir string) {
+	sc.OutputDir = dir
+}
+
+// SetTestName implements ScreenshotCapturer interface  
+func (sc *ScreenshotCapture) SetTestName(name string) {
+	sc.TestName = name
+}
+
+// CaptureScreen provides fallback implementation that creates a placeholder file
+func (sc *ScreenshotCapture) CaptureScreen(eventType string) (string, error) {
+	// Ensure output directory exists
+	if err := os.MkdirAll(sc.OutputDir, 0755); err != nil {
+		return "", fmt.Errorf("failed to create output directory: %w", err)
+	}
+
+	// Generate filename with timestamp and event type
+	filename := fmt.Sprintf("%s_%s_%s.txt",
+		sc.TestName,
+		eventType,
+		sc.Timestamp.Format("20060102_150405"))
+
+	filePath := filepath.Join(sc.OutputDir, filename)
+
+	// Create a placeholder file indicating fallback mode
+	content := fmt.Sprintf("Screenshot placeholder for %s event\nTest: %s\nTime: %s\nNote: GUI not available, screenshot capture disabled\n",
+		eventType, sc.TestName, time.Now().Format("2006-01-02 15:04:05"))
+
+	if err := os.WriteFile(filePath, []byte(content), 0644); err != nil {
+		return "", fmt.Errorf("failed to create placeholder file: %w", err)
+	}
+
+	return filePath, nil
+}
+
+// CaptureTestEvent captures screenshot for specific test events (fallback)
+func (sc *ScreenshotCapture) CaptureTestEvent(t interface{}, eventType string) string {
+	// For tests that expect actual screenshot files, return empty string to trigger skip
+	// This allows tests to handle the "no GUI" case gracefully
+	return ""
+}
+
 // VisualTestEvent represents different test events for screenshot capture
 type VisualTestEvent string
 
@@ -298,4 +424,117 @@ func (pm *PerformanceMonitor) Stop() {
 	if pm.cancel != nil {
 		pm.cancel()
 	}
+}
+
+// generateHTMLReport creates an HTML report with visual elements (fallback)
+func (vtl *VisualTestLogger) generateHTMLReport() string {
+	html := fmt.Sprintf(`<!DOCTYPE html>
+<html>
+<head>
+    <title>Visual Test Report (Fallback): %s</title>
+    <style>
+        body { font-family: monospace; margin: 40px; background: #f0f0f0; color: #333; }
+        .header { border-bottom: 2px solid #666; padding: 20px 0; margin-bottom: 30px; }
+        .event { margin: 20px 0; padding: 15px; border-left: 3px solid #666; background: #fff; }
+        .timestamp { color: #666; font-size: 12px; }
+        .event-type { color: #333; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Visual Test Report (Fallback Mode)</h1>
+        <h2>Test: %s</h2>
+        <p>Start Time: %s</p>
+        <p>Total Events: %d</p>
+        <p>Note: Screenshot capture not available in this environment</p>
+    </div>`, vtl.TestName, vtl.TestName, vtl.StartTime.Format("2006-01-02 15:04:05"), len(vtl.Events))
+
+	for _, event := range vtl.Events {
+		html += fmt.Sprintf(`
+    <div class="event">
+        <div class="timestamp">%s</div>
+        <div class="event-type">%s</div>
+        <div>%s</div>
+    </div>`, event.Timestamp.Format("15:04:05.000"), event.Type, event.Description)
+	}
+
+	html += `
+</body>
+</html>`
+
+	return html
+}
+
+// generateDemoStoryboard creates a demo-focused visual storyboard (fallback)
+func (vtl *VisualTestLogger) generateDemoStoryboard() string {
+	html := fmt.Sprintf(`<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo Storyboard (Fallback): %s</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; background: #e0e0e0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .header { text-align: center; color: #333; margin-bottom: 50px; }
+        .storyboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .scene { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .scene-header { background: #666; color: white; padding: 15px; font-weight: bold; }
+        .scene-description { padding: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>AcoustiCalc Demo Storyboard (Fallback)</h1>
+            <h2>%s</h2>
+            <p>Visual content not available without GUI support</p>
+        </div>
+        <div class="storyboard">`, vtl.TestName, vtl.TestName)
+
+	for i, event := range vtl.Events {
+		html += fmt.Sprintf(`
+            <div class="scene">
+                <div class="scene-header">Scene %d: %s</div>
+                <div class="scene-description">
+                    <strong>Action:</strong> %s<br>
+                    <strong>Time:</strong> %s<br>
+                    <strong>Note:</strong> Screenshot not available
+                </div>
+            </div>`, i+1, event.Type, event.Description, event.Timestamp.Format("15:04:05"))
+	}
+
+	html += `
+        </div>
+    </div>
+</body>
+</html>`
+
+	return html
+}
+
+// OptimizeScreenshots provides fallback for screenshot optimization
+func OptimizeScreenshots(inputDir, outputDir string) error {
+	if err := os.MkdirAll(outputDir, 0755); err != nil {
+		return fmt.Errorf("failed to create optimization output directory: %w", err)
+	}
+
+	// In fallback mode, just copy text placeholders
+	return filepath.Walk(inputDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if filepath.Ext(path) == ".txt" {
+			// Copy placeholder files
+			outputPath := filepath.Join(outputDir, info.Name())
+			content, err := os.ReadFile(path)
+			if err != nil {
+				return err
+			}
+			
+			optimizedContent := fmt.Sprintf("Optimized: %s\n", string(content))
+			return os.WriteFile(outputPath, []byte(optimizedContent), 0644)
+		}
+
+		return nil
+	})
 }
