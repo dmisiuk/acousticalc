@@ -80,7 +80,7 @@ coverage-summary: ## Generate coverage summary
 	@echo "📈 Generating coverage summary..."
 	@if [ -f $(ARTIFACTS_DIR)/coverage/unit_coverage.out ]; then \
 		$(GO) tool cover -func=$(ARTIFACTS_DIR)/coverage/unit_coverage.out \
-			> $(ARTIFACTS_DIR/coverage/coverage_summary.txt; \
+			> $(ARTIFACTS_DIR)/coverage/coverage_summary.txt; \
 		echo "✅ Coverage summary: $(ARTIFACTS_DIR)/coverage/coverage_summary.txt"; \
 		grep "total:" $(ARTIFACTS_DIR)/coverage/coverage_summary.txt; \
 	else \

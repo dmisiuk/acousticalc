@@ -230,9 +230,7 @@ func (r *E2ETestRunner) SimulateInput(input string) error {
 			key = "tab"
 		}
 
-		if err := robotgo.KeyTap(key); err != nil {
-			return fmt.Errorf("failed to simulate key press: %w", err)
-		}
+		robotgo.KeyTap(key)
 		time.Sleep(50 * time.Millisecond) // Small delay between keystrokes
 	}
 
@@ -243,9 +241,7 @@ func (r *E2ETestRunner) SimulateInput(input string) error {
 func (r *E2ETestRunner) SimulateMouseClick(x, y int) error {
 	r.logEvent("mouse_click", "Simulating mouse click", map[string]interface{}{"x": x, "y": y})
 
-	if err := robotgo.MoveMouse(x, y); err != nil {
-		return fmt.Errorf("failed to move mouse: %w", err)
-	}
+	robotgo.MoveMouse(x, y)
 
 	time.Sleep(100 * time.Millisecond)
 
