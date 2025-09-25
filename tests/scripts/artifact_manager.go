@@ -96,6 +96,9 @@ func (am *ArtifactManager) classifyArtifact(path string, info os.FileInfo) *Arti
 	case ".json":
 		artifact.Type = "metadata"
 		am.parseJSONMetadata(artifact, fileName)
+	case ".cast":
+		artifact.Type = "recording"
+		am.parseRecordingMetadata(artifact, fileName)
 	default:
 		return nil // Skip unsupported file types
 	}
@@ -158,6 +161,29 @@ func (am *ArtifactManager) parseJSONMetadata(artifact *ArtifactInfo, fileName st
 		artifact.TestName = strings.Replace(fileName, "_metadata", "", 1)
 	}
 	artifact.Metadata["format"] = "JSON"
+}
+
+// parseRecordingMetadata extracts metadata from recording filenames
+func (am *ArtifactManager) parseRecordingMetadata(artifact *ArtifactInfo, fileName string) {
+	// Format: testname_recording_timestamp.cast
+	parts := strings.Split(fileName, "_")
+
+	if len(parts) >= 3 {
+		// Extract test name (everything before the last two parts)
+		testNameParts := parts[:len(parts)-2]
+		artifact.TestName = strings.Join(testNameParts, "_")
+
+		// The event type is always "recording"
+		artifact.EventType = "recording"
+
+		// Extract timestamp (last part)
+		timestampStr := parts[len(parts)-1]
+		if timestamp, err := time.Parse("20060102_150405", timestampStr); err == nil {
+			artifact.Timestamp = timestamp
+		}
+	}
+
+	artifact.Metadata["format"] = "asciinema v2"
 }
 
 // ListArtifacts lists all artifacts with optional filtering
