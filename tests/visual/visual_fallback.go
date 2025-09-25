@@ -249,6 +249,7 @@ func (vtl *VisualTestLogger) GenerateVisualReport() error {
 		return fmt.Errorf("failed to create output directory: %w", err)
 	}
 
+	// Generate text report
 	reportPath := filepath.Join(vtl.OutputDir, fmt.Sprintf("%s_visual_report.txt", vtl.TestName))
 	
 	content := fmt.Sprintf("Visual Test Report (Fallback Mode)\n")
@@ -268,6 +269,13 @@ func (vtl *VisualTestLogger) GenerateVisualReport() error {
 		return fmt.Errorf("failed to write visual report: %w", err)
 	}
 
+	// Also generate HTML report for test compatibility
+	htmlReportPath := filepath.Join(vtl.OutputDir, fmt.Sprintf("%s_visual_report.html", vtl.TestName))
+	htmlContent := vtl.generateHTMLReport()
+	if err := os.WriteFile(htmlReportPath, []byte(htmlContent), 0644); err != nil {
+		return fmt.Errorf("failed to write HTML visual report: %w", err)
+	}
+
 	return nil
 }
 
@@ -278,8 +286,11 @@ func (vtl *VisualTestLogger) CreateDemoStoryboard() error {
 		return fmt.Errorf("failed to create storyboard directory: %w", err)
 	}
 
-	storyboardPath := filepath.Join(storyboardDir, fmt.Sprintf("%s_storyboard.txt", vtl.TestName))
+	// Create both text and HTML versions for compatibility
+	storyboardTxtPath := filepath.Join(storyboardDir, fmt.Sprintf("%s_storyboard.txt", vtl.TestName))
+	storyboardHtmlPath := filepath.Join(storyboardDir, fmt.Sprintf("%s_storyboard.html", vtl.TestName))
 	
+	// Text version
 	content := fmt.Sprintf("Demo Storyboard (Fallback Mode)\n")
 	content += fmt.Sprintf("Test: %s\n", vtl.TestName)
 	content += fmt.Sprintf("Note: Visual storyboard not available without GUI support\n\n")
@@ -288,8 +299,14 @@ func (vtl *VisualTestLogger) CreateDemoStoryboard() error {
 		content += fmt.Sprintf("Scene %d: %s - %s\n", i+1, event.Type, event.Description)
 	}
 
-	if err := os.WriteFile(storyboardPath, []byte(content), 0644); err != nil {
+	if err := os.WriteFile(storyboardTxtPath, []byte(content), 0644); err != nil {
 		return fmt.Errorf("failed to write demo storyboard: %w", err)
+	}
+
+	// HTML version for test compatibility
+	htmlContent := vtl.generateDemoStoryboard()
+	if err := os.WriteFile(storyboardHtmlPath, []byte(htmlContent), 0644); err != nil {
+		return fmt.Errorf("failed to write HTML demo storyboard: %w", err)
 	}
 
 	return nil
@@ -446,8 +463,9 @@ func (vtl *VisualTestLogger) generateHTMLReport() string {
         <h2>Test: %s</h2>
         <p>Start Time: %s</p>
         <p>Total Events: %d</p>
+        <p>Screenshots Captured: %d</p>
         <p>Note: Screenshot capture not available in this environment</p>
-    </div>`, vtl.TestName, vtl.TestName, vtl.StartTime.Format("2006-01-02 15:04:05"), len(vtl.Events))
+    </div>`, vtl.TestName, vtl.TestName, vtl.StartTime.Format("2006-01-02 15:04:05"), len(vtl.Events), len(vtl.Screenshots))
 
 	for _, event := range vtl.Events {
 		html += fmt.Sprintf(`
@@ -484,8 +502,9 @@ func (vtl *VisualTestLogger) generateDemoStoryboard() string {
 <body>
     <div class="container">
         <div class="header">
-            <h1>AcoustiCalc Demo Storyboard (Fallback)</h1>
+            <h1>AcoustiCalc Demo Storyboard</h1>
             <h2>%s</h2>
+            <p>Professional Demo Content Generation</p>
             <p>Visual content not available without GUI support</p>
         </div>
         <div class="storyboard">`, vtl.TestName, vtl.TestName)
