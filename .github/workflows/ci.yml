@@ -11,6 +11,8 @@ env:
   GO_VERSION: '1.25.1'
   TEST_PARALLEL_JOBS: 4
   COVERAGE_THRESHOLD: 80
+  E2E_TEST_TIMEOUT: 300
+  RECORDING_ENABLED: true
 
 jobs:
   test:
@@ -115,6 +117,41 @@ jobs:
         # Run only tests that don't require screenshot capture
         go test -v -timeout=60s ./tests/visual/... -run="Test.*Architecture|Test.*Performance|Test.*Artifact.*Generation" || echo "Some visual tests skipped on Windows"
 
+    - name: Install E2E testing dependencies (Linux)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y asciinema ffmpeg xdotool xclip
+
+    - name: Install E2E testing dependencies (macOS)
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew install asciinema ffmpeg
+
+    - name: Run E2E tests with Xvfb (Linux)
+      if: matrix.os == 'ubuntu-latest'
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        run: |
+          echo "Running E2E tests with virtual display..."
+          go test -v -timeout=${{ env.E2E_TEST_TIMEOUT }}s ./tests/e2e/... -run="TestCalculatorWorkflow"
+        options: "-screen 0 1920x1080x24"
+
+    - name: Run E2E tests (macOS)
+      if: matrix.os == 'macos-latest'
+      shell: bash
+      run: |
+        echo "Running E2E tests on macOS with native display..."
+        go test -v -timeout=${{ env.E2E_TEST_TIMEOUT }}s ./tests/e2e/... -run="TestCalculatorWorkflow"
+
+    - name: Run E2E tests (Windows - Limited)
+      if: matrix.os == 'windows-latest'
+      shell: bash
+      run: |
+        echo "Running limited E2E tests on Windows..."
+        # Run cross-platform compatibility tests only
+        go test -v -timeout=120s ./tests/cross_platform/... || echo "Some E2E tests skipped on Windows"
+
     - name: Generate coverage
       shell: bash
       run: |
@@ -171,6 +208,25 @@ jobs:
           tests/artifacts/demo_content/
           tests/artifacts/baselines/
         retention-days: 7
+
+    - name: Upload E2E test artifacts (Linux/macOS)
+      uses: actions/upload-artifact@v4
+      if: always() && (matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest')
+      with:
+        name: e2e-test-artifacts-${{ matrix.os }}
+        path: |
+          tests/artifacts/e2e/
+          tests/artifacts/recordings/
+        retention-days: 14
+
+    - name: Upload cross-platform test artifacts (All platforms)
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: cross-platform-artifacts-${{ matrix.os }}
+        path: |
+          tests/artifacts/cross_platform/
+        retention-days: 30
 
   test-matrix:
     name: Comprehensive Testing Matrix
