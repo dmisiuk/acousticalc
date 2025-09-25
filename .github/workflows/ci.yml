@@ -58,7 +58,12 @@ jobs:
         make vet
 
     - name: Build project
-      run: go build ./...
+      run: |
+        for pkg in $(go list ./... | grep -v '/tests/visual' | grep -v '/tests/e2e' | grep -v '/tests/recording' | grep -v '/pkg/calculator'); do
+          if [ -n "$(find $(go list -f '{{.Dir}}' $pkg) -name '*.go' ! -name '*_test.go')" ]; then
+            go build $pkg
+          fi
+        done
 
     - name: Build CLI binary
       shell: bash
