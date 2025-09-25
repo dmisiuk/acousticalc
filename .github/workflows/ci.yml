@@ -194,19 +194,39 @@ jobs:
         cache: true
         cache-dependency-path: go.sum
 
+    - name: Install asciinema (Linux)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y asciinema
+      shell: bash
+
     - name: Install asciinema (macOS)
       if: matrix.os == 'macos-latest'
       run: brew install asciinema
+      shell: bash
 
     - name: Install asciinema (Windows)
       if: matrix.os == 'windows-latest'
       run: choco install asciinema
+      shell: bash
+
+    - name: Build CLI binary
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          go build -o cmd/acousticalc/acousticalc.exe cmd/acousticalc/main.go
+        else
+          go build -o cmd/acousticalc/acousticalc cmd/acousticalc/main.go
+        fi
+      shell: bash
 
     - name: Run E2E tests
-      run: go test -v -timeout=120s -outputdir=./tests/artifacts/recordings ./tests/e2e/...
+      run: go test -v -timeout=120s ./tests/e2e/...
+      shell: bash
 
     - name: Generate E2E Report
       run: go test -v -timeout=30s ./tests/e2e/report_generation_test.go
+      shell: bash
 
     - name: Upload E2E artifacts
       uses: actions/upload-artifact@v4

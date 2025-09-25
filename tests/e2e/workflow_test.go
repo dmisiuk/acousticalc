@@ -9,12 +9,11 @@ import (
 )
 
 func TestSimpleWorkflow(t *testing.T) {
-	outputDir := t.TempDir()
+	outputDir := "../../tests/artifacts/recordings"
 	testName := "simple_workflow"
 
 	// The command to run in the E2E test.
-	// In a real scenario, this would be the command to run the application.
-	command := []string{"echo", "starting application..."}
+	command := []string{"./cmd/acousticalc/acousticalc", "2+2"}
 
 	recorder := recording.NewRecorder(testName, outputDir, command...)
 
@@ -36,7 +35,7 @@ func TestSimpleWorkflow(t *testing.T) {
 		t.Fatalf("failed to read recording file: %v", err)
 	}
 
-	if !strings.Contains(string(content), "starting application...") {
+	if !strings.Contains(string(content), "4") {
 		t.Errorf("recording file does not contain the expected output")
 	}
 }
