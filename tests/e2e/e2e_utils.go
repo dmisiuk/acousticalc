@@ -244,11 +244,7 @@ func (r *E2ETestRunner) SimulateMouseClick(x, y int) error {
 	robotgo.MoveMouse(x, y)
 
 	time.Sleep(100 * time.Millisecond)
-
-	if err := robotgo.MouseClick("left"); err != nil {
-		return fmt.Errorf("failed to click mouse: %w", err)
-	}
-
+	robotgo.MouseClick("left")
 	return nil
 }
 
