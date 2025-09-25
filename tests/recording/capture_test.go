@@ -26,7 +26,9 @@ func NewRecordingTestSuite(t *testing.T) *RecordingTestSuite {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 
 	outputDir := filepath.Join("tests", "artifacts", "recordings")
-	os.MkdirAll(outputDir, 0755)
+	if err := os.MkdirAll(outputDir, 0755); err != nil {
+		t.Fatalf("Failed to create output directory: %v", err)
+	}
 
 	suite := &RecordingTestSuite{
 		outputDir:       outputDir,

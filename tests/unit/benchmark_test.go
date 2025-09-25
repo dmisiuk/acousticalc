@@ -1,8 +1,9 @@
 package unit
 
 import (
-	"github.com/dmisiuk/acousticalc/pkg/calculator"
 	"testing"
+
+	"github.com/dmisiuk/acousticalc/pkg/calculator"
 )
 
 // BenchmarkBasicOperations benchmarks basic arithmetic operations

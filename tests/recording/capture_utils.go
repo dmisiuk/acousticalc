@@ -61,9 +61,15 @@ func NewRecordingManager(config RecordingConfig) *RecordingManager {
 	ctx, cancel := context.WithCancel(context.Background())
 
 	// Ensure output directory exists
-	os.MkdirAll(filepath.Join(config.OutputDir, "sessions"), 0755)
-	os.MkdirAll(filepath.Join(config.OutputDir, "metadata"), 0755)
-	os.MkdirAll(filepath.Join(config.OutputDir, "demos"), 0755)
+	if err := os.MkdirAll(filepath.Join(config.OutputDir, "sessions"), 0755); err != nil {
+		panic(fmt.Sprintf("Failed to create sessions directory: %v", err))
+	}
+	if err := os.MkdirAll(filepath.Join(config.OutputDir, "metadata"), 0755); err != nil {
+		panic(fmt.Sprintf("Failed to create metadata directory: %v", err))
+	}
+	if err := os.MkdirAll(filepath.Join(config.OutputDir, "demos"), 0755); err != nil {
+		panic(fmt.Sprintf("Failed to create demos directory: %v", err))
+	}
 
 	return &RecordingManager{
 		outputDir:   config.OutputDir,
@@ -188,7 +194,10 @@ func (rm *RecordingManager) Close() error {
 	for _, session := range rm.sessions {
 		if session.Status == StatusRecording {
 			session.setStatus(StatusCancelled)
-			rm.stopRecordingProcess(session)
+			if err := rm.stopRecordingProcess(session); err != nil {
+				// Log error but continue cleanup
+				fmt.Printf("Warning: failed to stop recording process: %v\n", err)
+			}
 		}
 	}
 
@@ -260,8 +269,12 @@ func (rm *RecordingManager) startLinuxRecording(session *RecordingSession) error
 	}
 
 	headerBytes, _ := json.Marshal(header)
-	file.Write(headerBytes)
-	file.Write([]byte("\n"))
+	if _, err := file.Write(headerBytes); err != nil {
+		return fmt.Errorf("failed to write header: %w", err)
+	}
+	if _, err := file.Write([]byte("\n")); err != nil {
+		return fmt.Errorf("failed to write newline: %w", err)
+	}
 
 	return nil
 }

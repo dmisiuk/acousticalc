@@ -252,11 +252,11 @@ func (vtl *VisualTestLogger) GenerateVisualReport() error {
 	// Generate text report
 	reportPath := filepath.Join(vtl.OutputDir, fmt.Sprintf("%s_visual_report.txt", vtl.TestName))
 
-	content := fmt.Sprintf("Visual Test Report (Fallback Mode)\n")
+	content := "Visual Test Report (Fallback Mode)\n"
 	content += fmt.Sprintf("Test: %s\n", vtl.TestName)
 	content += fmt.Sprintf("Start Time: %s\n", vtl.StartTime.Format("2006-01-02 15:04:05"))
 	content += fmt.Sprintf("Total Events: %d\n", len(vtl.Events))
-	content += fmt.Sprintf("Note: Screenshot capture not available in this environment\n\n")
+	content += "Note: Screenshot capture not available in this environment\n\n"
 
 	for _, event := range vtl.Events {
 		content += fmt.Sprintf("%s - %s: %s\n",
@@ -291,9 +291,9 @@ func (vtl *VisualTestLogger) CreateDemoStoryboard() error {
 	storyboardHtmlPath := filepath.Join(storyboardDir, fmt.Sprintf("%s_storyboard.html", vtl.TestName))
 
 	// Text version
-	content := fmt.Sprintf("Demo Storyboard (Fallback Mode)\n")
+	content := "Demo Storyboard (Fallback Mode)\n"
 	content += fmt.Sprintf("Test: %s\n", vtl.TestName)
-	content += fmt.Sprintf("Note: Visual storyboard not available without GUI support\n\n")
+	content += "Note: Visual storyboard not available without GUI support\n\n"
 
 	for i, event := range vtl.Events {
 		content += fmt.Sprintf("Scene %d: %s - %s\n", i+1, event.Type, event.Description)
