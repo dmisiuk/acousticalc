@@ -21,7 +21,13 @@ UNIX_SCRIPT := $(TESTS_DIR)/scripts/unix_test_tools.sh
 
 # Unix-specific detection
 UNAME_S := $(shell uname -s)
-NPROC := $(shell nproc)
+ifeq ($(UNAME_S),Linux)
+    NPROC := $(shell nproc)
+else ifeq ($(UNAME_S),Darwin)
+    NPROC := $(shell sysctl -n hw.ncpu)
+else
+    NPROC := 1
+endif
 
 # Environment variables
 export PARALLEL_JOBS ?= $(NPROC)

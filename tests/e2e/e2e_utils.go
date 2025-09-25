@@ -81,7 +81,6 @@ func (r *E2ETestRun) RunCommand(args ...string) string {
 	return strings.TrimSpace(string(output))
 }
 
-
 // setupE2ETests builds the binary for the E2E tests and returns a teardown function.
 func setupE2ETests() (func(), error) {
 	tempDir, err := os.MkdirTemp("", "acousticalc-e2e-")

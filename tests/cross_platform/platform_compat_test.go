@@ -3,7 +3,10 @@ package cross_platform
 import (
 	"os"
 	"runtime"
+	"strings"
 	"testing"
+
+	"github.com/dmisiuk/acousticalc/tests/recording"
 )
 
 func TestPlatformIdentification(t *testing.T) {
@@ -33,6 +36,44 @@ func TestPlatformIdentification(t *testing.T) {
 			t.Errorf("Expected path separator to be '%s' on %s, but got '%s'", expectedSeparator, runtime.GOOS, actualSeparator)
 		} else {
 			t.Logf("Correct path separator ('%s') found for %s", actualSeparator, runtime.GOOS)
+		}
+	})
+
+	t.Run("TestRecordingMechanism", func(t *testing.T) {
+		tempDir := t.TempDir()
+		recorder := recording.NewRecorder(tempDir, "TestRecording")
+
+		var expectedExtension string
+		if runtime.GOOS == "windows" {
+			expectedExtension = ".txt"
+		} else {
+			expectedExtension = ".cast"
+		}
+
+		// Use 'go version' as a simple, cross-platform command that produces output.
+		err := recorder.RecordCommand("go", "version")
+		if err != nil {
+			t.Fatalf("RecordCommand failed: %v", err)
+		}
+
+		files, err := os.ReadDir(tempDir)
+		if err != nil {
+			t.Fatalf("Failed to read temp dir: %v", err)
+		}
+
+		if len(files) != 1 {
+			var createdFiles []string
+			for _, f := range files {
+				createdFiles = append(createdFiles, f.Name())
+			}
+			t.Fatalf("Expected 1 file in temp dir, but got %d. Files: %v", len(files), createdFiles)
+		}
+
+		createdFile := files[0].Name()
+		if !strings.HasSuffix(createdFile, expectedExtension) {
+			t.Errorf("Expected file with extension '%s', but got '%s'", expectedExtension, createdFile)
+		} else {
+			t.Logf("Correct recording artifact found: %s", createdFile)
 		}
 	})
 }

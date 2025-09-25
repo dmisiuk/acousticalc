@@ -203,6 +203,11 @@ jobs:
       if: matrix.os == 'macos-latest'
       run: brew install asciinema
 
+    - name: Configure PowerShell for E2E tests (Windows)
+      if: matrix.os == 'windows-latest'
+      shell: powershell
+      run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+
     - name: Run E2E tests
       shell: bash
       run: |
