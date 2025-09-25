@@ -71,7 +71,9 @@ const (
 
 // NewTestResultAggregator creates a new test result aggregator
 func NewTestResultAggregator(outputDir string) *TestResultAggregator {
-	os.MkdirAll(outputDir, 0755)
+	if err := os.MkdirAll(outputDir, 0755); err != nil {
+		panic(fmt.Sprintf("Failed to create output directory: %v", err))
+	}
 
 	return &TestResultAggregator{
 		results:         make(map[string]*PlatformTestResult),
