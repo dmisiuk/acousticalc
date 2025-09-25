@@ -358,12 +358,15 @@ func compareVisualBaselines(baseline1, baseline2 string) bool {
 
 func measureDirectorySize(dir string) int64 {
 	var size int64
-	filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+	if err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if err == nil && !info.IsDir() {
 			size += info.Size()
 		}
 		return nil
-	})
+	}); err != nil {
+		// Log error but return what we have
+		fmt.Printf("Warning: error walking directory %s: %v\n", dir, err)
+	}
 	return size
 }
 

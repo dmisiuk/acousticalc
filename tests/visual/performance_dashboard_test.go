@@ -29,7 +29,9 @@ func TestPerformanceDashboard(t *testing.T) {
 		// Create temporary directory with test reports
 		tempDir := filepath.Join(os.TempDir(), "test_dashboard_reports")
 		defer os.RemoveAll(tempDir)
-		os.MkdirAll(tempDir, 0755)
+		if err := os.MkdirAll(tempDir, 0755); err != nil {
+			t.Fatalf("Failed to create directory: %v", err)
+		}
 
 		// Create test reports
 		testReports := []CIPerformanceMonitor{
@@ -80,7 +82,9 @@ func TestPerformanceDashboard(t *testing.T) {
 			safePlatform := strings.ReplaceAll(report.Platform, "/", "_")
 			filename := filepath.Join(tempDir, fmt.Sprintf("ci_performance_%s_%d.json", safePlatform, i))
 			data, _ := json.MarshalIndent(report, "", "  ")
-			os.WriteFile(filename, data, 0644)
+			if err := os.WriteFile(filename, data, 0644); err != nil {
+				t.Logf("Warning: failed to write file: %v", err)
+			}
 		}
 
 		// Load reports into dashboard
@@ -245,7 +249,9 @@ func TestPerformanceDashboard(t *testing.T) {
 			os.RemoveAll(outputDir)
 		}()
 
-		os.MkdirAll(reportsDir, 0755)
+		if err := os.MkdirAll(reportsDir, 0755); err != nil {
+			t.Fatalf("Failed to create directory: %v", err)
+		}
 
 		// Create test report
 		report := CIPerformanceMonitor{
@@ -259,7 +265,9 @@ func TestPerformanceDashboard(t *testing.T) {
 
 		reportData, _ := json.MarshalIndent(report, "", "  ")
 		reportFile := filepath.Join(reportsDir, "ci_performance_integration_test_123.json")
-		os.WriteFile(reportFile, reportData, 0644)
+		if err := os.WriteFile(reportFile, reportData, 0644); err != nil {
+			t.Logf("Warning: failed to write file: %v", err)
+		}
 
 		// Generate dashboard
 		err := GenerateDashboard(reportsDir, outputDir)
@@ -382,7 +390,9 @@ func BenchmarkDashboard(b *testing.B) {
 
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			dashboard.GenerateHTML(tempFile)
+			if err := dashboard.GenerateHTML(tempFile); err != nil {
+				b.Fatalf("Failed to generate HTML: %v", err)
+			}
 		}
 	})
 }

@@ -106,7 +106,9 @@ func TestCIPerformanceMonitor(t *testing.T) {
 		monitor.Start()
 		monitor.RecordScreenshot(500 * time.Millisecond)
 		monitor.RecordArtifact("demo", 200*time.Millisecond)
-		monitor.Finish()
+		if err := monitor.Finish(); err != nil {
+			t.Logf("Warning: failed to finish monitor: %v", err)
+		}
 
 		err := monitor.SaveReport(tempDir)
 		if err != nil {
@@ -241,8 +243,12 @@ func BenchmarkCIPerformanceMonitor(b *testing.B) {
 			monitor.Start()
 			monitor.RecordScreenshot(100 * time.Millisecond)
 			monitor.RecordArtifact("test", 50*time.Millisecond)
-			monitor.Finish()
-			monitor.SaveReport(tempDir)
+			if err := monitor.Finish(); err != nil {
+				b.Logf("Warning: failed to finish monitor: %v", err)
+			}
+			if err := monitor.SaveReport(tempDir); err != nil {
+				b.Logf("Warning: failed to save report: %v", err)
+			}
 		}
 	})
 }
