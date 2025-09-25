@@ -36,7 +36,7 @@ ifeq ($(SCRIPTS_EXISTS),1)
 	@$(MAKE) -C $(SCRIPTS_DIR) test-all
 else
 	@echo "⚠️  Scripts directory not found, running go test directly..."
-	@go test -v ./tests/unit/... ./tests/integration/...
+	@go test -v ./tests/unit/... ./tests/integration/... ./tests/e2e/... ./tests/recording/... ./tests/cross_platform/... ./tests/reporting/...
 endif
 
 # Linting and formatting targets
@@ -135,6 +135,25 @@ clean-cache: ## Clean Go cache
 	@$(GO) clean -cache
 	@$(GO) clean -modcache
 	@$(GO) clean -testcache
+
+# E2E testing targets
+test-e2e: ## Run E2E tests
+	@echo "🔗 Running E2E tests..."
+	@go test -v -timeout=120s ./tests/e2e/...
+
+test-recording: ## Run recording tests
+	@echo "🎥 Running recording tests..."
+	@go test -v -timeout=60s ./tests/recording/...
+
+test-cross-platform: ## Run cross-platform tests
+	@echo "🌐 Running cross-platform tests..."
+	@go test -v -timeout=60s ./tests/cross_platform/...
+
+test-reporting: ## Run reporting tests
+	@echo "📊 Running reporting tests..."
+	@go test -v -timeout=60s ./tests/reporting/...
+
+test-e2e-all: test-e2e test-recording test-cross-platform test-reporting ## Run all E2E-related tests
 
 # Quick commands
 quick: dev-check ## Quick development check

@@ -115,6 +115,64 @@ jobs:
         # Run only tests that don't require screenshot capture
         go test -v -timeout=60s ./tests/visual/... -run="Test.*Architecture|Test.*Performance|Test.*Artifact.*Generation" || echo "Some visual tests skipped on Windows"
 
+    - name: Run E2E tests (Linux)
+      if: matrix.os == 'ubuntu-latest'
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        run: |
+          echo "Running E2E tests with virtual display..."
+          go test -v -timeout=120s ./tests/e2e/...
+        options: "-screen 0 1920x1080x24"
+
+    - name: Run E2E tests (macOS)
+      if: matrix.os == 'macos-latest'
+      shell: bash
+      run: |
+        echo "Running E2E tests on macOS with native display..."
+        go test -v -timeout=120s ./tests/e2e/...
+
+    - name: Run E2E tests (Windows - Limited)
+      if: matrix.os == 'windows-latest'
+      shell: bash
+      run: |
+        echo "Running E2E tests on Windows..."
+        go test -v -timeout=120s ./tests/e2e/... || echo "Some E2E tests may be limited on Windows"
+
+    - name: Run recording tests (Linux)
+      if: matrix.os == 'ubuntu-latest'
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        run: |
+          echo "Running recording tests with virtual display..."
+          go test -v -timeout=60s ./tests/recording/...
+        options: "-screen 0 1920x1080x24"
+
+    - name: Run recording tests (macOS)
+      if: matrix.os == 'macos-latest'
+      shell: bash
+      run: |
+        echo "Running recording tests on macOS..."
+        go test -v -timeout=60s ./tests/recording/...
+
+    - name: Run recording tests (Windows - Limited)
+      if: matrix.os == 'windows-latest'
+      shell: bash
+      run: |
+        echo "Running recording tests on Windows..."
+        go test -v -timeout=60s ./tests/recording/... || echo "Some recording tests may be limited on Windows"
+
+    - name: Run cross-platform tests
+      shell: bash
+      run: |
+        echo "Running cross-platform tests..."
+        go test -v -timeout=60s ./tests/cross_platform/...
+
+    - name: Run reporting tests
+      shell: bash
+      run: |
+        echo "Running reporting tests..."
+        go test -v -timeout=60s ./tests/reporting/...
+
     - name: Generate coverage
       shell: bash
       run: |
@@ -160,6 +218,27 @@ jobs:
         path: |
           tests/artifacts/
         retention-days: 30
+
+    - name: Upload E2E test artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: e2e-test-artifacts-${{ matrix.os }}
+        path: |
+          tests/artifacts/e2e/
+          tests/artifacts/recordings/
+          tests/artifacts/performance/
+        retention-days: 7
+
+    - name: Upload cross-platform test artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: cross-platform-test-artifacts-${{ matrix.os }}
+        path: |
+          tests/artifacts/ci_matrix/
+          tests/artifacts/reports/
+        retention-days: 7
 
     - name: Upload visual test artifacts (Linux)
       uses: actions/upload-artifact@v4

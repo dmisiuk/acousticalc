@@ -14,6 +14,21 @@ type Calculation struct {
 	Result     float64
 }
 
+// Calculator represents a calculator instance
+type Calculator struct {
+	// Future: could store state, history, etc.
+}
+
+// NewCalculator creates a new calculator instance
+func NewCalculator() *Calculator {
+	return &Calculator{}
+}
+
+// Evaluate evaluates a mathematical expression
+func (c *Calculator) Evaluate(expression string) (float64, error) {
+	return Evaluate(expression)
+}
+
 // Evaluate takes a mathematical expression string and returns the result
 func Evaluate(expression string) (float64, error) {
 	if strings.TrimSpace(expression) == "" {
