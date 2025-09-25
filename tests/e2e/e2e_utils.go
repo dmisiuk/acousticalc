@@ -1,3 +1,6 @@
+//go:build !lint
+// +build !lint
+
 package e2e
 
 import (

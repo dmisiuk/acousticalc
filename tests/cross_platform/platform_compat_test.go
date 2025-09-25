@@ -1,7 +1,6 @@
 package cross_platform
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"os/exec"
@@ -431,6 +430,7 @@ func TestPlatformPerformance(t *testing.T) {
 
 	validator, err := NewPlatformValidator()
 	require.NoError(t, err, "Should create platform validator")
+	_ = validator // Use the validator variable to avoid "declared and not used" error
 
 	t.Run("FileOperationPerformance", func(t *testing.T) {
 		// Test file operation performance
@@ -473,7 +473,7 @@ func TestPlatformPerformance(t *testing.T) {
 
 // BenchmarkPlatformOperations benchmarks platform-specific operations
 func BenchmarkPlatformOperations(b *testing.B) {
-	validator, err := NewPlatformValidator()
+	_, err := NewPlatformValidator()
 	if err != nil {
 		b.Fatalf("Failed to create platform validator: %v", err)
 	}

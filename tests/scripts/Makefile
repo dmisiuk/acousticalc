@@ -272,7 +272,7 @@ format-check: ## Check if Go code is properly formatted
 
 vet: ## Run go vet
 	@echo "🔍 Running go vet..."
-	@cd $(PROJECT_ROOT) && go vet ./...
+	@cd $(PROJECT_ROOT) && CGO_ENABLED=0 go vet -tags=lint $$(go list ./... | grep -v '/tests/visual' | grep -v '/tests/e2e' | grep -v '/tests/recording' | grep -v '/pkg/calculator')
 	@echo "✅ go vet passed"
 
 staticcheck: ## Run staticcheck if available

@@ -1,16 +1,12 @@
 package reporting
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
 	"sort"
 	"time"
-
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 )
 
 // TestResult represents a test result from any test type
@@ -142,6 +138,7 @@ func (tra *TestResultAggregator) AggregateFromArtifacts() error {
 
 	// Generate summaries for each platform
 	for platform, platformResults := range tra.platforms {
+		_ = platform // Use the platform variable to avoid "declared and not used" error
 		platformResults.Summary = tra.generateSummary(platformResults.Results)
 		platformResults.EndTime = time.Now()
 		platformResults.Duration = platformResults.EndTime.Sub(platformResults.StartTime)
@@ -201,8 +198,7 @@ func (tra *TestResultAggregator) inferPlatformFromPath(filePath string) string {
 // generateSummary generates a summary from test results
 func (tra *TestResultAggregator) generateSummary(results []TestResult) TestSummary {
 	summary := TestSummary{
-		Total:   len(results),
-		Started: time.Now(),
+		Total: len(results),
 	}
 
 	var totalCoverage float64

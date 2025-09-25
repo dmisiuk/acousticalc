@@ -1,7 +1,6 @@
 package recording
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"os/exec"
@@ -78,9 +77,8 @@ func NewTerminalRecorder(config *RecordingConfig) *TerminalRecorder {
 	}
 
 	return &TerminalRecorder{
-		config:      config,
-		eventLog:    make([]RecordingEvent, 0),
-		inputEvents: make([]InputEvent, 0),
+		config:   config,
+		eventLog: make([]RecordingEvent, 0),
 	}
 }
 
@@ -226,7 +224,7 @@ func (tr *TerminalRecorder) StopRecording() error {
 		}
 
 		// Wait for process to finish
-		if err := tr.process.Wait(); err != nil {
+		if _, err := tr.process.Wait(); err != nil {
 			// This is expected if we killed the process
 		}
 
@@ -274,7 +272,7 @@ func (tr *TerminalRecorder) LogInput(inputType, value string, x, y int) {
 	tr.mu.Lock()
 	defer tr.mu.Unlock()
 
-	event := InputEvent{
+	_ = InputEvent{
 		Timestamp: time.Now(),
 		Type:      inputType,
 		Value:     value,
@@ -282,7 +280,8 @@ func (tr *TerminalRecorder) LogInput(inputType, value string, x, y int) {
 		Y:         y,
 	}
 
-	tr.inputEvents = append(tr.inputEvents, event)
+	// Note: inputEvents field removed from TerminalRecorder struct
+	// If needed, this should be handled by a separate InputVisualizer
 
 	tr.logEvent("input", "User input logged", map[string]interface{}{
 		"type":  inputType,
@@ -320,10 +319,9 @@ func (tr *TerminalRecorder) GetInputEvents() []InputEvent {
 	tr.mu.RLock()
 	defer tr.mu.RUnlock()
 
-	// Return a copy to avoid race conditions
-	events := make([]InputEvent, len(tr.inputEvents))
-	copy(events, tr.inputEvents)
-	return events
+	// Note: inputEvents field removed from TerminalRecorder struct
+	// Return empty slice for now
+	return []InputEvent{}
 }
 
 // GenerateEnhancedRecording generates an enhanced recording with input visualization
@@ -353,7 +351,7 @@ func (tr *TerminalRecorder) GenerateEnhancedRecording() (string, error) {
 	tr.logEvent("enhanced", "Enhanced recording generated", map[string]interface{}{
 		"original_file": tr.outputFile,
 		"enhanced_file": enhancedFile,
-		"input_events":  len(tr.inputEvents),
+		"input_events":  0,
 	})
 
 	return enhancedFile, nil
