@@ -99,7 +99,7 @@ func (sc *ScreenshotCapture) SetOutputDir(dir string) {
 	sc.OutputDir = dir
 }
 
-// SetTestName implements ScreenshotCapturer interface  
+// SetTestName implements ScreenshotCapturer interface
 func (sc *ScreenshotCapture) SetTestName(name string) {
 	sc.TestName = name
 }
@@ -218,7 +218,7 @@ func (vtl *VisualTestLogger) LogEvent(eventType VisualTestEvent, description str
 
 	vtl.Events = append(vtl.Events, event)
 	vtl.notifyObservers(event)
-	
+
 	// Log to console instead of capturing screenshot
 	fmt.Printf("[VISUAL-FALLBACK] %s: %s\n", eventType, description)
 }
@@ -251,7 +251,7 @@ func (vtl *VisualTestLogger) GenerateVisualReport() error {
 
 	// Generate text report
 	reportPath := filepath.Join(vtl.OutputDir, fmt.Sprintf("%s_visual_report.txt", vtl.TestName))
-	
+
 	content := fmt.Sprintf("Visual Test Report (Fallback Mode)\n")
 	content += fmt.Sprintf("Test: %s\n", vtl.TestName)
 	content += fmt.Sprintf("Start Time: %s\n", vtl.StartTime.Format("2006-01-02 15:04:05"))
@@ -259,9 +259,9 @@ func (vtl *VisualTestLogger) GenerateVisualReport() error {
 	content += fmt.Sprintf("Note: Screenshot capture not available in this environment\n\n")
 
 	for _, event := range vtl.Events {
-		content += fmt.Sprintf("%s - %s: %s\n", 
-			event.Timestamp.Format("15:04:05.000"), 
-			event.Type, 
+		content += fmt.Sprintf("%s - %s: %s\n",
+			event.Timestamp.Format("15:04:05.000"),
+			event.Type,
 			event.Description)
 	}
 
@@ -289,7 +289,7 @@ func (vtl *VisualTestLogger) CreateDemoStoryboard() error {
 	// Create both text and HTML versions for compatibility
 	storyboardTxtPath := filepath.Join(storyboardDir, fmt.Sprintf("%s_storyboard.txt", vtl.TestName))
 	storyboardHtmlPath := filepath.Join(storyboardDir, fmt.Sprintf("%s_storyboard.html", vtl.TestName))
-	
+
 	// Text version
 	content := fmt.Sprintf("Demo Storyboard (Fallback Mode)\n")
 	content += fmt.Sprintf("Test: %s\n", vtl.TestName)
@@ -549,7 +549,7 @@ func OptimizeScreenshots(inputDir, outputDir string) error {
 			if err != nil {
 				return err
 			}
-			
+
 			optimizedContent := fmt.Sprintf("Optimized: %s\n", string(content))
 			return os.WriteFile(outputPath, []byte(optimizedContent), 0644)
 		}
