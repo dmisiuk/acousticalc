@@ -2,7 +2,6 @@ package e2e
 
 import (
 	"fmt"
-	"os"
 	"path/filepath"
 	"testing"
 	"time"
