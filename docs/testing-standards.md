@@ -27,7 +27,7 @@ Unit Tests (70%)
 
 - **Unit Tests (70%)**: Fast, isolated tests of individual functions and methods
 - **Integration Tests (25%)**: Tests of component interactions and integration points
-- **E2E Tests (5%)**: Full workflow tests (framework established for future use)
+- **E2E Tests (5%)**: Full workflow tests that simulate real user scenarios from start to finish across all supported platforms.
 
 ## Test Organization Structure
 
@@ -43,17 +43,22 @@ tests/
 │   ├── component_interaction_test.go # Component interaction scenarios
 │   ├── integration_fixtures.go   # Test fixtures and mock objects
 │   └── isolation_test.go         # Test isolation and cleanup procedures
-├── e2e/                          # End-to-end tests (framework for 0.2.3)
-│   └── workflow_test.go          # Complete workflow testing
+├── e2e/                          # End-to-end tests simulating user workflows
+│   ├── workflow_test.go          # Core user journey tests
+│   ├── platform_test.go          # Platform-specific E2E tests
+│   └── e2e_utils.go              # E2E test utilities and orchestration
+├── recording/                    # Terminal recording utilities and tests
+│   ├── capture_utils.go          # Core recording functionality
+│   └── capture_test.go           # Tests for recording utilities
+├── cross_platform/               # Cross-platform compatibility tests
+│   └── platform_compat_test.go   # Tests for platform-specific behavior
+├── reporting/                    # Test reporting generation and utilities
+│   ├── reporting_utils.go        # Report generation logic
+│   └── aggregator_test.go        # Tests for report data aggregation
 ├── artifacts/                     # Generated test evidence and reports
 │   ├── coverage/                  # Coverage reports and historical data
-│   │   ├── coverage.html          # HTML coverage report
-│   │   ├── coverage_summary.txt   # Text coverage summary
-│   │   └── combined_coverage.out  # Combined coverage profile
-│   ├── reports/                   # Test execution reports
-│   │   ├── benchmark_results.txt  # Benchmark results
-│   │   ├── performance_metrics.txt # Performance metrics
-│   │   └── unix_test_report.txt   # Unix-specific test report
+│   ├── e2e/                       # E2E test recordings and reports
+│   ├── reports/                   # Other test execution reports
 │   └── platform_results/          # Platform-specific test results
 └── scripts/                       # Test execution utilities
     ├── unix_test_tools.sh         # Unix-specific testing tools
@@ -97,6 +102,38 @@ func TestCalculatorAddition(t *testing.T) {
             }
         })
     }
+}
+```
+
+### End-to-End (E2E) Tests
+
+**Purpose**: Validate complete user workflows from start to finish across all supported platforms.
+
+**Characteristics**:
+- Slower execution time, as they involve building and running the actual application binary.
+- Test the application as a whole, including its interaction with the operating system.
+- Provide terminal recordings as artifacts for visual validation and debugging.
+
+**Best Practices**:
+```go
+// Good E2E test
+func TestE2EWorkflow(t *testing.T) {
+	t.Run("TestSimpleAddition", func(t *testing.T) {
+		run := NewE2ETestRun(t)
+
+		expression := "2 + 2"
+		expected := "4"
+
+		// Record the command
+		run.RecordCommand(expression)
+
+		// Run the command for assertion
+		output := run.RunCommand(expression)
+
+		if !strings.Contains(output, expected) {
+			t.Errorf("Expected output to contain '%s', but got '%s'", expected, output)
+		}
+	})
 }
 ```
 
@@ -313,7 +350,7 @@ The Unix environment validation script checks:
 |----------|---------------|-----------------|------------|-------|
 | Linux (Ubuntu) | ✅ Full | ✅ HTML + Text | ✅ Detailed | Primary platform |
 | macOS | ✅ Full | ✅ HTML + Text | ✅ Basic | Development platform |
-| Windows | ✅ Core | ❌ Limited | ❌ Limited | CI validation only |
+| Windows | ✅ Full | ❌ Limited | ❌ Limited | Full CI validation including E2E |
 
 ### CI Pipeline
 
@@ -492,8 +529,8 @@ make coverage-html
 
 ### Planned Features
 
-1. **Visual Testing**: Screenshot capture and comparison (Story 0.2.2)
-2. **E2E Testing**: Complete workflow testing (Story 0.2.3)
+1. **Visual Testing**: Screenshot capture and comparison (✅ **Completed** in Story 0.2.2)
+2. **E2E Testing**: Complete workflow testing (✅ **Completed** in Story 0.2.3)
 3. **Performance Regression**: Historical performance tracking
 4. **Test Analytics**: Test execution analytics and insights
 5. **Advanced CI/CD**: Enhanced CI/CD features and integrations
