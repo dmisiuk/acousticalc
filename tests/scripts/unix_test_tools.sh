@@ -293,18 +293,30 @@ run_all_tests() {
 monitor_performance() {
     log_info "Monitoring test performance..."
 
-    # Monitor CPU usage during tests
-    local cpu_usage=$(top -l 1 -n 0 | grep "CPU usage" | awk '{print $3}' | sed 's/%//')
-    local memory_usage=$(vm_stat | grep "Pages free" | awk '{print $3}' | sed 's/\.$//')
+    local cpu_usage="N/A"
+    local memory_usage="N/A"
+    local memory_usage_label="Memory Free"
+
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS-specific commands
+        cpu_usage=$(top -l 1 -n 0 | grep "CPU usage" | awk '{print $3}' | sed 's/%//')
+        memory_usage=$(vm_stat | grep "Pages free" | awk '{print $3}' | sed 's/\.$//')
+        memory_usage_label="Memory Free Pages"
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        # Linux-specific commands
+        cpu_usage=$(top -bn1 | grep '%Cpu(s)' | awk '{print $2+$4}')
+        memory_usage=$(free -m | awk '/^Mem:/{print $4}')
+        memory_usage_label="Memory Free (MB)"
+    fi
 
     log_info "CPU Usage: ${cpu_usage}%"
-    log_info "Memory Free Pages: ${memory_usage}"
+    log_info "${memory_usage_label}: ${memory_usage}"
 
     # Save performance metrics
     {
         echo "Performance Metrics - $(date)"
         echo "CPU Usage: ${cpu_usage}%"
-        echo "Memory Free Pages: ${memory_usage}"
+        echo "${memory_usage_label}: ${memory_usage}"
         echo "Parallel Jobs: $PARALLEL_JOBS"
         echo "Coverage Enabled: $COVERAGE_ENABLED"
     } >> "$ARTIFACTS_DIR/reports/performance_metrics.txt"

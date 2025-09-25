@@ -45,6 +45,9 @@ make test-unit
 # Integration tests only
 make test-integration
 
+# E2E tests only
+go test -v ./tests/e2e/...
+
 # Benchmarks only
 make test-benchmark
 
@@ -91,7 +94,10 @@ make quick-bench
 tests/
 ├── unit/           # Fast, isolated unit tests
 ├── integration/    # Component interaction tests
-├── e2e/           # End-to-end tests (future)
+├── e2e/            # End-to-end tests simulating user workflows
+├── recording/      # Terminal recording utilities
+├── cross_platform/ # Cross-platform compatibility tests
+├── reporting/      # Test reporting generation
 └── artifacts/      # Test reports and coverage
 ```
 
@@ -102,6 +108,9 @@ cd tests/unit && go test -v -cover
 
 # Run integration tests
 cd tests/integration && go test -v
+
+# Run E2E tests
+cd tests/e2e && go test -v
 
 # Run tests in parallel
 cd tests/unit && go test -parallel=4
@@ -129,6 +138,23 @@ open tests/artifacts/coverage/coverage.html
 
 # View coverage summary
 cat tests/artifacts/coverage/coverage_summary.txt
+```
+
+## E2E Testing
+
+### Running E2E Tests
+To run the end-to-end tests, you can execute the following command:
+```bash
+# Run all E2E tests
+go test -v ./tests/e2e/...
+```
+
+### E2E Artifacts
+After running the E2E tests, you can find the terminal recordings in the `tests/artifacts/e2e/` directory. Each test run will have its own subdirectory containing the `.cast` file for the recording.
+
+An HTML report summarizing all E2E test runs is also generated. You can find it at:
+```
+tests/artifacts/reports/e2e_report.html
 ```
 
 ## Performance Testing
@@ -231,10 +257,10 @@ make monitor-performance
 
 ### GitHub Actions
 The testing framework is integrated with GitHub Actions and automatically:
-- Runs tests on Linux, macOS, and Windows
+- Runs unit, integration, and E2E tests on Linux, macOS, and Windows
 - Generates coverage reports (Unix only)
 - Runs benchmarks (Linux only)
-- Uploads test artifacts
+- Uploads test and E2E artifacts, including terminal recordings
 - Checks coverage thresholds
 
 ### Quality Gates
