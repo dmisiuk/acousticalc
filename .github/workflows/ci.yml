@@ -19,6 +19,14 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        test_type: [unit, integration, e2e]
+        include:
+          - os: windows-latest
+            test_type: platform_specific
+          - os: macos-latest
+            test_type: platform_specific
+          - os: ubuntu-latest
+            test_type: platform_specific
       fail-fast: false
 
     steps:
@@ -115,6 +123,52 @@ jobs:
         # Run only tests that don't require screenshot capture
         go test -v -timeout=60s ./tests/visual/... -run="Test.*Architecture|Test.*Performance|Test.*Artifact.*Generation" || echo "Some visual tests skipped on Windows"
 
+    - name: Run E2E tests
+      shell: bash
+      run: |
+        echo "Running E2E tests on ${{ matrix.os }}..."
+        if [ "${{ matrix.test_type }}" == "e2e" ] || [ "${{ matrix.test_type }}" == "platform_specific" ]; then
+          # Set recording environment for E2E tests
+          export E2E_RECORDING=false
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            go test -v -timeout=180s ./tests/e2e/...
+          else
+            go test -v -timeout=180s -parallel=2 ./tests/e2e/...
+          fi
+        else
+          echo "Skipping E2E tests for test_type: ${{ matrix.test_type }}"
+        fi
+
+    - name: Run cross-platform tests
+      shell: bash
+      run: |
+        echo "Running cross-platform tests on ${{ matrix.os }}..."
+        if [ "${{ matrix.test_type }}" == "platform_specific" ]; then
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            go test -v -timeout=120s ./tests/cross_platform/...
+          else
+            go test -v -timeout=120s -parallel=2 ./tests/cross_platform/...
+          fi
+        else
+          echo "Skipping cross-platform tests for test_type: ${{ matrix.test_type }}"
+        fi
+
+    - name: Run recording tests
+      shell: bash
+      run: |
+        echo "Running recording tests on ${{ matrix.os }}..."
+        if [ "${{ matrix.test_type }}" == "e2e" ]; then
+          # Enable recording for these tests
+          export E2E_RECORDING=true
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            go test -v -timeout=90s ./tests/recording/...
+          else
+            go test -v -timeout=90s -parallel=2 ./tests/recording/...
+          fi
+        else
+          echo "Skipping recording tests for test_type: ${{ matrix.test_type }}"
+        fi
+
     - name: Generate coverage
       shell: bash
       run: |
@@ -156,10 +210,20 @@ jobs:
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: test-results-${{ matrix.os }}
+        name: test-results-${{ matrix.os }}-${{ matrix.test_type }}
         path: |
           tests/artifacts/
         retention-days: 30
+
+    - name: Upload E2E test artifacts
+      uses: actions/upload-artifact@v4
+      if: always() && (matrix.test_type == 'e2e' || matrix.test_type == 'platform_specific')
+      with:
+        name: e2e-test-artifacts-${{ matrix.os }}-${{ matrix.test_type }}
+        path: |
+          tests/artifacts/recordings/
+          tests/artifacts/e2e_reports/
+        retention-days: 7
 
     - name: Upload visual test artifacts (Linux)
       uses: actions/upload-artifact@v4
