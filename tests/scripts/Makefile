@@ -21,7 +21,14 @@ UNIX_SCRIPT := $(TESTS_DIR)/scripts/unix_test_tools.sh
 
 # Unix-specific detection
 UNAME_S := $(shell uname -s)
-NPROC := $(shell nproc)
+
+# Determine available CPU cores with a cross-platform fallback.
+# macOS does not provide `nproc`, so we fall back to `sysctl` when needed.
+ifeq (,$(shell command -v nproc 2>/dev/null))
+    NPROC := $(shell sysctl -n hw.ncpu 2>/dev/null || echo 1)
+else
+    NPROC := $(shell nproc 2>/dev/null || echo 1)
+endif
 
 # Environment variables
 export PARALLEL_JOBS ?= $(NPROC)
