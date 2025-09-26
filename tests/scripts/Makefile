@@ -44,7 +44,7 @@ test-integration: ## Run integration tests with Unix optimizations
 test-benchmark: ## Run performance benchmarks
 	@echo "⚡ Running performance benchmarks..."
 	@cd $(TESTS_DIR)/unit && $(GO) test -bench=. -benchmem -timeout=120s \
-		-parallel=$(PARALLEL_JOBS) ./... > $(ARTIFACTS_DIR)/reports/benchmark_results.txt 2>&1
+		-parallel=$(PARALLEL_JOBS) ./... > $(ARTIFACTS_DIR/reports/benchmark_results.txt 2>&1
 
 test-coverage: coverage-html coverage-summary ## Generate coverage reports
 
@@ -110,12 +110,12 @@ setup-completion: ## Setup shell completion
 unix-report: ## Generate Unix-specific test report
 	@echo "📋 Generating Unix test report..."
 	@$(UNIX_SCRIPT) validate && echo "✅ Unix environment validated"
-	@echo "System Information:" > $(ARTIFACTS_DIR)/reports/unix_system_info.txt
-	@uname -a >> $(ARTIFACTS_DIR)/reports/unix_system_info.txt
-	@echo "Go Version:" >> $(ARTIFACTS_DIR)/reports/unix_system_info.txt
-	@$(GO) version >> $(ARTIFACTS_DIR)/reports/unix_system_info.txt
-	@echo "Parallel Jobs: $(PARALLEL_JOBS)" >> $(ARTIFACTS_DIR)/reports/unix_system_info.txt
-	@echo "✅ Unix system report: $(ARTIFACTS_DIR)/reports/unix_system_info.txt"
+	@echo "System Information:" > $(ARTIFACTS_DIR/reports/unix_system_info.txt
+	@uname -a >> $(ARTIFACTS_DIR/reports/unix_system_info.txt
+	@echo "Go Version:" >> $(ARTIFACTS_DIR/reports/unix_system_info.txt
+	@$(GO) version >> $(ARTIFACTS_DIR/reports/unix_system_info.txt
+	@echo "Parallel Jobs: $(PARALLEL_JOBS)" >> $(ARTIFACTS_DIR/reports/unix_system_info.txt
+	@echo "✅ Unix system report: $(ARTIFACTS_DIR/reports/unix_system_info.txt"
 
 # Performance monitoring
 monitor-performance: ## Monitor system performance during tests
