@@ -1,8 +1,9 @@
 package unit
 
 import (
-	"github.com/dmisiuk/acousticalc/pkg/calculator"
 	"testing"
+
+	"github.com/dmisiuk/acousticalc/pkg/calculator"
 )
 
 // TestHasPrecedenceLowerPrecedenceOp1 tests the case where op1 has lower precedence than op2

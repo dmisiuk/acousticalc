@@ -1,8 +1,9 @@
 package unit
 
 import (
-	"github.com/dmisiuk/acousticalc/pkg/calculator"
 	"testing"
+
+	"github.com/dmisiuk/acousticalc/pkg/calculator"
 )
 
 // TestEdgeCases covers additional edge cases that might not be fully tested

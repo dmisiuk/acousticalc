@@ -354,7 +354,10 @@ func main() {
 			switch os.Args[i] {
 			case "--days":
 				if i+1 < len(os.Args) {
-					fmt.Sscanf(os.Args[i+1], "%d", &days)
+					if _, err := fmt.Sscanf(os.Args[i+1], "%d", &days); err != nil {
+						fmt.Printf("Invalid days value: %s\n", os.Args[i+1])
+						days = 7 // default value
+					}
 					i++
 				}
 			case "--execute":

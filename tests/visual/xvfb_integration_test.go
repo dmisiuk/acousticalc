@@ -1,3 +1,5 @@
+//go:build gui && linux
+
 package visual
 
 import (
