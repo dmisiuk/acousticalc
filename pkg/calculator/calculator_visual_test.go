@@ -1,9 +1,11 @@
+//go:build visualtests
+
 package calculator
 
 import (
-	"testing"
+        "testing"
 
-	visualtest "github.com/dmisiuk/acousticalc/tests/visual"
+        visualtest "github.com/dmisiuk/acousticalc/tests/visual"
 )
 
 // TestCalculatorWithVisualEvidence tests calculator functions with visual evidence
