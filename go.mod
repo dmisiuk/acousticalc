@@ -5,6 +5,7 @@ go 1.25.1
 require (
 	github.com/disintegration/imaging v1.6.2
 	github.com/go-vgo/robotgo v0.110.8
+	github.com/vcaesar/imgo v0.41.0
 )
 
 require (
@@ -25,7 +26,6 @@ require (
 	github.com/tklauser/go-sysconf v0.3.15 // indirect
 	github.com/tklauser/numcpus v0.10.0 // indirect
 	github.com/vcaesar/gops v0.41.0 // indirect
-	github.com/vcaesar/imgo v0.41.0 // indirect
 	github.com/vcaesar/keycode v0.10.1 // indirect
 	github.com/vcaesar/screenshot v0.11.1 // indirect
 	github.com/vcaesar/tt v0.20.1 // indirect

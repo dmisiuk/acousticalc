@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/go-vgo/robotgo"
-	"github.com/vCaesar/imgo"
+	"github.com/vcaesar/imgo"
 )
 
 // TakeScreenshot takes a screenshot and saves it to the specified path.
