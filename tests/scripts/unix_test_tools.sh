@@ -292,22 +292,19 @@ run_all_tests() {
 # Unix-specific performance monitoring
 monitor_performance() {
     log_info "Monitoring test performance..."
-
-    # Monitor CPU usage during tests
-    local cpu_usage=$(top -l 1 -n 0 | grep "CPU usage" | awk '{print $3}' | sed 's/%//')
-    local memory_usage=$(vm_stat | grep "Pages free" | awk '{print $3}' | sed 's/\.$//')
-
-    log_info "CPU Usage: ${cpu_usage}%"
-    log_info "Memory Free Pages: ${memory_usage}"
-
-    # Save performance metrics
-    {
-        echo "Performance Metrics - $(date)"
-        echo "CPU Usage: ${cpu_usage}%"
-        echo "Memory Free Pages: ${memory_usage}"
-        echo "Parallel Jobs: $PARALLEL_JOBS"
-        echo "Coverage Enabled: $COVERAGE_ENABLED"
-    } >> "$ARTIFACTS_DIR/reports/performance_metrics.txt"
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        log_info "CPU Usage:"
+        top -b -n 1 | grep "Cpu(s)" || true
+        log_info "Memory Info:"
+        free -h || true
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        log_info "CPU Usage:"
+        top -l 1 -n 0 | grep "CPU usage" || true
+        log_info "Memory Info:"
+        vm_stat | head -5 || true
+    else
+        log_warning "Performance monitoring not supported on this OS."
+    fi
 }
 
 # Generate Unix-specific test report

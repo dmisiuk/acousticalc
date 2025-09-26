@@ -44,7 +44,7 @@ test-integration: ## Run integration tests with Unix optimizations
 test-benchmark: ## Run performance benchmarks
 	@echo "⚡ Running performance benchmarks..."
 	@cd $(TESTS_DIR)/unit && $(GO) test -bench=. -benchmem -timeout=120s \
-		-parallel=$(PARALLEL_JOBS) ./... > $(ARTIFACTS_DIR/reports/benchmark_results.txt 2>&1
+		-parallel=$(PARALLEL_JOBS) ./... > $(ARTIFACTS_DIR)/reports/benchmark_results.txt 2>&1
 
 test-coverage: coverage-html coverage-summary ## Generate coverage reports
 
@@ -70,7 +70,7 @@ coverage-html: ## Generate HTML coverage report
 	@mkdir -p $(ARTIFACTS_DIR)/coverage
 	@if [ -f $(ARTIFACTS_DIR)/coverage/unit_coverage.out ]; then \
 		$(GO) tool cover -html=$(ARTIFACTS_DIR)/coverage/unit_coverage.out \
-			-o $(ARTIFACTS_DIR/coverage/coverage.html; \
+			-o $(ARTIFACTS_DIR)/coverage/coverage.html; \
 		echo "✅ HTML coverage report: $(ARTIFACTS_DIR)/coverage/coverage.html"; \
 	else \
 		echo "⚠️  No coverage file found, run tests first"; \
@@ -80,7 +80,7 @@ coverage-summary: ## Generate coverage summary
 	@echo "📈 Generating coverage summary..."
 	@if [ -f $(ARTIFACTS_DIR)/coverage/unit_coverage.out ]; then \
 		$(GO) tool cover -func=$(ARTIFACTS_DIR)/coverage/unit_coverage.out \
-			> $(ARTIFACTS_DIR/coverage/coverage_summary.txt; \
+			> $(ARTIFACTS_DIR)/coverage/coverage_summary.txt; \
 		echo "✅ Coverage summary: $(ARTIFACTS_DIR)/coverage/coverage_summary.txt"; \
 		grep "total:" $(ARTIFACTS_DIR)/coverage/coverage_summary.txt; \
 	else \
@@ -91,8 +91,8 @@ coverage-summary: ## Generate coverage summary
 benchmark-detailed: ## Run detailed benchmarks with analysis
 	@echo "🔬 Running detailed benchmarks..."
 	@cd $(TESTS_DIR)/unit && $(GO) test -bench=. -benchmem -benchtime=5s \
-		-count=3 -timeout=300s ./... > $(ARTIFACTS_DIR/reports/detailed_benchmarks.txt 2>&1
-	@echo "✅ Detailed benchmarks: $(ARTIFACTS_DIR/reports/detailed_benchmarks.txt"
+		-count=3 -timeout=300s ./... > $(ARTIFACTS_DIR)/reports/detailed_benchmarks.txt 2>&1
+	@echo "✅ Detailed benchmarks: $(ARTIFACTS_DIR)/reports/detailed_benchmarks.txt"
 
 # Setup targets
 setup-unix: ## Setup Unix-specific testing environment
@@ -110,20 +110,21 @@ setup-completion: ## Setup shell completion
 unix-report: ## Generate Unix-specific test report
 	@echo "📋 Generating Unix test report..."
 	@$(UNIX_SCRIPT) validate && echo "✅ Unix environment validated"
-	@echo "System Information:" > $(ARTIFACTS_DIR/reports/unix_system_info.txt
-	@uname -a >> $(ARTIFACTS_DIR/reports/unix_system_info.txt
-	@echo "Go Version:" >> $(ARTIFACTS_DIR/reports/unix_system_info.txt
-	@$(GO) version >> $(ARTIFACTS_DIR/reports/unix_system_info.txt
-	@echo "Parallel Jobs: $(PARALLEL_JOBS)" >> $(ARTIFACTS_DIR/reports/unix_system_info.txt
-	@echo "✅ Unix system report: $(ARTIFACTS_DIR/reports/unix_system_info.txt"
+	@echo "System Information:" > $(ARTIFACTS_DIR)/reports/unix_system_info.txt
+	@uname -a >> $(ARTIFACTS_DIR)/reports/unix_system_info.txt
+	@echo "Go Version:" >> $(ARTIFACTS_DIR)/reports/unix_system_info.txt
+	@$(GO) version >> $(ARTIFACTS_DIR)/reports/unix_system_info.txt
+	@echo "Parallel Jobs: $(PARALLEL_JOBS)" >> $(ARTIFACTS_DIR)/reports/unix_system_info.txt
+	@echo "✅ Unix system report: $(ARTIFACTS_DIR)/reports/unix_system_info.txt"
 
 # Performance monitoring
 monitor-performance: ## Monitor system performance during tests
 	@echo "📊 Monitoring performance..."
-	@if command -v top >/dev/null 2>&1; then \
+	@if [ "$(UNAME_S)" = "Linux" ]; then \
+		echo "CPU Usage:" && top -b -n 1 | grep "Cpu(s)" || true; \
+		echo "Memory Info:" && free -h || true; \
+	elif [ "$(UNAME_S)" = "Darwin" ]; then \
 		echo "CPU Usage:" && top -l 1 -n 0 | grep "CPU usage" || true; \
-	fi
-	@if command -v vm_stat >/dev/null 2>&1; then \
 		echo "Memory Info:" && vm_stat | head -5 || true; \
 	fi
 
