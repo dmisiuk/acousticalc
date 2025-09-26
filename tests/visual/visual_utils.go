@@ -3,6 +3,8 @@ package visual
 import (
 	"context"
 	"fmt"
+	"image"
+	"image/color"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -10,7 +12,6 @@ import (
 	"time"
 
 	"github.com/disintegration/imaging"
-	"github.com/go-vgo/robotgo"
 )
 
 // ScreenshotCapturer defines the interface for screenshot capture implementations
@@ -32,47 +33,9 @@ type ScreenshotCapture struct {
 
 // ScreenshotEngine abstracts the underlying screenshot mechanism
 type ScreenshotEngine interface {
-	Capture() ([]byte, error)
-	GetImageData() (interface{}, error)
+	Capture() (image.Image, error)
 	GetPlatform() string
 	IsAvailable() bool
-}
-
-// RobotGoEngine implements ScreenshotEngine using robotgo
-type RobotGoEngine struct {
-	platform string
-}
-
-func NewRobotGoEngine() *RobotGoEngine {
-	return &RobotGoEngine{
-		platform: runtime.GOOS,
-	}
-}
-
-func (rg *RobotGoEngine) Capture() ([]byte, error) {
-	bitmap := robotgo.CaptureScreen()
-	if bitmap == nil {
-		return nil, fmt.Errorf("failed to capture screen with robotgo")
-	}
-	// Return bitmap data - simplified for interface
-	return []byte{}, nil
-}
-
-func (rg *RobotGoEngine) GetImageData() (interface{}, error) {
-	bitmap := robotgo.CaptureScreen()
-	if bitmap == nil {
-		return nil, fmt.Errorf("failed to capture screen")
-	}
-	return robotgo.ToImage(bitmap), nil
-}
-
-func (rg *RobotGoEngine) GetPlatform() string {
-	return rg.platform
-}
-
-func (rg *RobotGoEngine) IsAvailable() bool {
-	// Check if robotgo is available on this platform
-	return rg.platform == "darwin" || rg.platform == "linux"
 }
 
 // ScreenshotEngineFactory implements Strategy pattern for engine selection
@@ -80,27 +43,41 @@ type ScreenshotEngineFactory struct{}
 
 func (sef *ScreenshotEngineFactory) CreateEngine() ScreenshotEngine {
 	engine := NewRobotGoEngine()
-	if engine.IsAvailable() {
+	if engine != nil && engine.IsAvailable() {
 		return engine
 	}
 
-	// Fallback to a mock engine for unsupported platforms
-	return &MockScreenshotEngine{}
+	// Fallback to a mock engine for unsupported platforms or when visual
+	// dependencies are unavailable. The mock still produces a deterministic
+	// image so downstream consumers can exercise report-generation paths
+	// without requiring CGO/X11 capabilities.
+	return &MockScreenshotEngine{platform: runtime.GOOS}
 }
 
 // MockScreenshotEngine provides fallback for unsupported platforms
-type MockScreenshotEngine struct{}
-
-func (m *MockScreenshotEngine) Capture() ([]byte, error) {
-	return []byte("mock-screenshot-data"), nil
+type MockScreenshotEngine struct {
+	platform string
 }
 
-func (m *MockScreenshotEngine) GetImageData() (interface{}, error) {
-	return "mock-image-data", nil
+func (m *MockScreenshotEngine) Capture() (image.Image, error) {
+	img := image.NewNRGBA(image.Rect(0, 0, 640, 360))
+	for y := 0; y < img.Bounds().Dy(); y++ {
+		for x := 0; x < img.Bounds().Dx(); x++ {
+			// Create a simple gradient so the PNG has non-trivial size and
+			// deterministically unique pixels.
+			img.Set(x, y, color.NRGBA{
+				R: uint8((x * 3) % 255),
+				G: uint8((y * 5) % 255),
+				B: uint8((x + y) % 255),
+				A: 255,
+			})
+		}
+	}
+	return img, nil
 }
 
 func (m *MockScreenshotEngine) GetPlatform() string {
-	return "mock"
+	return m.platform
 }
 
 func (m *MockScreenshotEngine) IsAvailable() bool {
@@ -137,6 +114,11 @@ func (sc *ScreenshotCapture) CaptureScreen(eventType string) (string, error) {
 		return "", fmt.Errorf("failed to create output directory: %w", err)
 	}
 
+	if sc.capturer == nil {
+		factory := &ScreenshotEngineFactory{}
+		sc.capturer = factory.CreateEngine()
+	}
+
 	// Generate filename with timestamp and event type
 	filename := fmt.Sprintf("%s_%s_%s.png",
 		sc.TestName,
@@ -145,17 +127,9 @@ func (sc *ScreenshotCapture) CaptureScreen(eventType string) (string, error) {
 
 	filePath := filepath.Join(sc.OutputDir, filename)
 
-	// Capture screenshot using robotgo (maintaining proven functionality)
-	// Future: This can be abstracted through the capturer interface when needed
-	bitmap := robotgo.CaptureScreen()
-	if bitmap == nil {
-		return "", fmt.Errorf("failed to capture screen")
-	}
-
-	// Convert robotgo bitmap to standard image
-	img := robotgo.ToImage(bitmap)
-	if img == nil {
-		return "", fmt.Errorf("failed to convert bitmap to image")
+	img, err := sc.capturer.Capture()
+	if err != nil {
+		return "", fmt.Errorf("failed to capture screen: %w", err)
 	}
 
 	// Save with PNG format for lossless compression

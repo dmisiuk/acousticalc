@@ -117,14 +117,29 @@ go build -o acousticalc ./cmd/acousticalc
 
 ### Running Tests
 ```bash
-# Run all tests
-go test ./...
+# Run fast unit and integration tests
+go test ./tests/unit ./tests/integration
 
-# Run tests with coverage
-go test -cover ./...
+# Run cross-platform end-to-end CLI tests with terminal recordings
+go test ./tests/e2e
 
-# Run tests with coverage report
-go test -coverprofile=coverage.out && go tool cover -html=coverage.out
+# View generated recordings and aggregated reports
+ls tests/recording/artifacts
+cat tests/reporting/artifacts/e2e_report.json
+
+The Story 0.2.3 infrastructure stores per-run asciinema recordings under
+`tests/recording/artifacts/` and persists consolidated cross-platform test
+reports to `tests/reporting/artifacts/e2e_report.json` so GitHub Actions can
+publish demo-ready evidence alongside the test matrix results.
+
+# Enable visual evidence tests (requires CGO + desktop dependencies)
+go test -tags visualtests ./pkg/...
+
+# Generate coverage for unit tests
+go test -cover ./tests/unit
+
+# Generate coverage report for unit tests
+go test -coverprofile=coverage.out ./tests/unit && go tool cover -html=coverage.out
 ```
 
 ## 📋 Roadmap
