@@ -673,12 +673,12 @@ func isHeadlessEnvironment() bool {
 func (sc *ScreenshotCapture) generateMockScreenshot(filePath string) (string, error) {
 	// Create a realistic sized test image (640x480) in PNG format for faster generation
 	img := imaging.New(640, 480, color.RGBA{R: 30, G: 30, B: 30, A: 255})
-	
+
 	// Add some basic content areas to simulate a real screenshot
 	// Header area
 	header := imaging.New(640, 50, color.RGBA{R: 100, G: 100, B: 100, A: 255})
 	img = imaging.Overlay(img, header, image.Pt(0, 0), 1.0)
-	
+
 	// Content area with different color
 	content := imaging.New(500, 350, color.RGBA{R: 60, G: 80, B: 100, A: 255})
 	img = imaging.Overlay(img, content, image.Pt(70, 80), 1.0)
