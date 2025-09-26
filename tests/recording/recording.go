@@ -11,11 +11,7 @@ import (
 
 // TakeScreenshot takes a screenshot and saves it to the specified path.
 func TakeScreenshot(path string) error {
-	img, err := robotgo.CaptureScreen()
-	if err != nil {
-		return fmt.Errorf("failed to capture screen: %w", err)
-	}
-
+	img := robotgo.CaptureScreen()
 	return imgo.Save(path, img, png.DefaultCompression)
 }
 
