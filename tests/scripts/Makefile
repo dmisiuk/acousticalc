@@ -21,7 +21,7 @@ UNIX_SCRIPT := $(TESTS_DIR)/scripts/unix_test_tools.sh
 
 # Unix-specific detection
 UNAME_S := $(shell uname -s)
-NPROC := $(shell nproc)
+NPROC := $(shell (command -v nproc >/dev/null && nproc) || echo 2)
 
 # Environment variables
 export PARALLEL_JOBS ?= $(NPROC)
