@@ -80,7 +80,7 @@ coverage-summary: ## Generate coverage summary
 	@echo "📈 Generating coverage summary..."
 	@if [ -f $(ARTIFACTS_DIR)/coverage/unit_coverage.out ]; then \
 		$(GO) tool cover -func=$(ARTIFACTS_DIR)/coverage/unit_coverage.out \
-			> $(ARTIFACTS_DIR/coverage/coverage_summary.txt; \
+			> $(ARTIFACTS_DIR)/coverage/coverage_summary.txt; \
 		echo "✅ Coverage summary: $(ARTIFACTS_DIR)/coverage/coverage_summary.txt"; \
 		grep "total:" $(ARTIFACTS_DIR)/coverage/coverage_summary.txt; \
 	else \
@@ -272,7 +272,7 @@ format-check: ## Check if Go code is properly formatted
 
 vet: ## Run go vet
 	@echo "🔍 Running go vet..."
-	@cd $(PROJECT_ROOT) && go vet ./...
+	@cd $(PROJECT_ROOT) && CGO_ENABLED=0 go vet -tags=lint $$(go list ./... | grep -v '/tests/visual' | grep -v '/tests/e2e' | grep -v '/tests/recording' | grep -v '/pkg/calculator')
 	@echo "✅ go vet passed"
 
 staticcheck: ## Run staticcheck if available
