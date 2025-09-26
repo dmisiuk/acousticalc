@@ -3,8 +3,6 @@ package visual
 import (
 	"context"
 	"fmt"
-	"image"
-	"image/color"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -146,12 +144,6 @@ func (sc *ScreenshotCapture) CaptureScreen(eventType string) (string, error) {
 		sc.Timestamp.Format("20060102_150405"))
 
 	filePath := filepath.Join(sc.OutputDir, filename)
-
-	// Check if running in headless environment (CI or no display)
-	if isHeadlessEnvironment() {
-		// Generate a mock screenshot for headless environments
-		return sc.generateMockScreenshot(filePath)
-	}
 
 	// Capture screenshot using robotgo (maintaining proven functionality)
 	// Future: This can be abstracted through the capturer interface when needed
@@ -640,53 +632,4 @@ func OptimizeScreenshots(inputDir, outputDir string) error {
 
 		return nil
 	})
-}
-
-// isHeadlessEnvironment checks if running in a headless environment (CI or no display)
-func isHeadlessEnvironment() bool {
-	// Check for CI environment variables
-	ciEnvVars := []string{
-		"CI",
-		"CONTINUOUS_INTEGRATION",
-		"GITHUB_ACTIONS",
-		"TRAVIS",
-		"CIRCLECI",
-		"JENKINS_URL",
-		"GITLAB_CI",
-	}
-
-	for _, envVar := range ciEnvVars {
-		if os.Getenv(envVar) != "" {
-			return true
-		}
-	}
-
-	// Check if no display is available
-	if runtime.GOOS == "linux" && os.Getenv("DISPLAY") == "" {
-		return true
-	}
-
-	return false
-}
-
-// generateMockScreenshot creates a mock PNG screenshot for headless environments
-func (sc *ScreenshotCapture) generateMockScreenshot(filePath string) (string, error) {
-	// Create a realistic sized test image (640x480) in PNG format for faster generation
-	img := imaging.New(640, 480, color.RGBA{R: 30, G: 30, B: 30, A: 255})
-	
-	// Add some basic content areas to simulate a real screenshot
-	// Header area
-	header := imaging.New(640, 50, color.RGBA{R: 100, G: 100, B: 100, A: 255})
-	img = imaging.Overlay(img, header, image.Pt(0, 0), 1.0)
-	
-	// Content area with different color
-	content := imaging.New(500, 350, color.RGBA{R: 60, G: 80, B: 100, A: 255})
-	img = imaging.Overlay(img, content, image.Pt(70, 80), 1.0)
-
-	// Save as PNG
-	if err := imaging.Save(img, filePath); err != nil {
-		return "", fmt.Errorf("failed to save mock screenshot: %w", err)
-	}
-
-	return filePath, nil
 }
